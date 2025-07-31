@@ -183,12 +183,18 @@
                 </button>
               </li>
               <li>
-                <button class="button button--select-plan" id="operation-mini-dollar">
+                <button
+                  class="button button--select-plan"
+                  id="operation-mini-dollar"
+                >
                   Mini Dólar
                 </button>
               </li>
               <li>
-                <button class="button button--select-plan" id="operation-mini-index">
+                <button
+                  class="button button--select-plan"
+                  id="operation-mini-index"
+                >
                   Mini Índice
                 </button>
               </li>
@@ -199,17 +205,26 @@
             <div>Vencimento</div>
             <ul class="flex gap-2">
               <li>
-                <button class="button button--select-plan" id="expiration-30-days">
+                <button
+                  class="button button--select-plan"
+                  id="expiration-30-days"
+                >
                   30 dias
                 </button>
               </li>
               <li>
-                <button class="button button--select-plan" id="expiration-60-days">
+                <button
+                  class="button button--select-plan"
+                  id="expiration-60-days"
+                >
                   60 dias
                 </button>
               </li>
               <li>
-                <button class="button button--select-plan" id="expiration-no-limit">
+                <button
+                  class="button button--select-plan"
+                  id="expiration-no-limit"
+                >
                   Sem prazo
                 </button>
               </li>
@@ -220,12 +235,18 @@
             <div>Selecione sua plataforma:</div>
             <ul class="flex gap-2">
               <li>
-                <button class="button button--select-plan" id="platform-proft-one">
+                <button
+                  class="button button--select-plan"
+                  id="platform-proft-one"
+                >
                   Proft One
                 </button>
               </li>
               <li>
-                <button class="button button--select-plan" id="platform-proft-pro">
+                <button
+                  class="button button--select-plan"
+                  id="platform-proft-pro"
+                >
                   Proft Pro
                 </button>
               </li>
@@ -251,94 +272,231 @@
                 </button>
               </li>
               <li>
-                <button class="button button--select-plan" id="contracts-custom">
+                <button
+                  class="button button--select-plan"
+                  id="contracts-custom"
+                >
                   N...
                 </button>
               </li>
             </ul>
           </div>
-      
 
-        <div class="space-y-2">
-          <div>Dias para aprovação:</div>
-          <ul class="flex gap-2">
-            <li>
-              <button class="button button--select-plan" id="approval-5-days">
-                5
-              </button>
-            </li>
-            <li>
-              <button class="button button--select-plan" id="approval-10-days">
-                10
-              </button>
-            </li>
-            <li>
-              <button class="button button--select-plan" id="approval-20-days">
-                20
-              </button>
-            </li>
-            <li>
-              <button class="button button--select-plan" id="approval-custom">
-                N...
-              </button>
-            </li>
-          </ul>
+          <div class="space-y-2">
+            <div>Dias para aprovação:</div>
+            <ul class="flex gap-2">
+              <li>
+                <button class="button button--select-plan" id="approval-5-days">
+                  5
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button button--select-plan"
+                  id="approval-10-days"
+                >
+                  10
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button button--select-plan"
+                  id="approval-20-days"
+                >
+                  20
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="approval-custom">
+                  N...
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <div>Porcentagem de repasse</div>
+            <ul class="flex gap-2">
+              <li>
+                <button class="button button--select-plan" id="profit-share-70">
+                  70%
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="profit-share-80">
+                  80%
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="profit-share-90">
+                  90%
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button button--select-plan"
+                  id="profit-share-custom"
+                >
+                  N...
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div class="space-y-2">
-          <div>Porcentagem de repasse</div>
-          <ul class="flex gap-2">
-            <li>
-              <button class="button button--select-plan" id="profit-share-70">
-                70%
-              </button>
-            </li>
-            <li>
-              <button class="button button--select-plan" id="profit-share-80">
-                80%
-              </button>
-            </li>
-            <li>
-              <button class="button button--select-plan" id="profit-share-90">
-                90%
-              </button>
-            </li>
-            <li>
-              <button class="button button--select-plan" id="profit-share-custom">
-                N...
-              </button>
-            </li>
-          </ul>
+        <div class="summary-section">
+          <h3>Resumo da Seleção</h3>
+          <div class="summary-content">
+            <div class="summary-item">
+              <span class="summary-label">Tipo de operação:</span>
+              <span class="summary-value" id="summary-operation"
+                >Não selecionado</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Vencimento:</span>
+              <span class="summary-value" id="summary-expiration"
+                >Não selecionado</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Plataforma:</span>
+              <span class="summary-value" id="summary-platform"
+                >Não selecionado</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Contratos:</span>
+              <span class="summary-value" id="summary-contracts"
+                >Não selecionado</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Dias para aprovação:</span>
+              <span class="summary-value" id="summary-approval"
+                >Não selecionado</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Porcentagem de repasse:</span>
+              <span class="summary-value" id="summary-profit-share"
+                >Não selecionado</span
+              >
+            </div>
+          </div>
         </div>
       </div>
-      
-      <!-- Summary Section -->
-      <div class="summary-section">
-        <h3>Resumo da Seleção</h3>
-        <div class="summary-content">
-          <div class="summary-item">
-            <span class="summary-label">Tipo de operação:</span>
-            <span class="summary-value" id="summary-operation">Não selecionado</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Vencimento:</span>
-            <span class="summary-value" id="summary-expiration">Não selecionado</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Plataforma:</span>
-            <span class="summary-value" id="summary-platform">Não selecionado</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Contratos:</span>
-            <span class="summary-value" id="summary-contracts">Não selecionado</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Dias para aprovação:</span>
-            <span class="summary-value" id="summary-approval">Não selecionado</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Porcentagem de repasse:</span>
-            <span class="summary-value" id="summary-profit-share">Não selecionado</span>
+    </div>
+
+    <div class="advisors py-32 bg-black">
+      <div class="custom-container">
+        <div class="swiper-advisors">
+          <div class="swiper-wrapper advisors-list">
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                1
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                2
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                3
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                4
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                5
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                6
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                7
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                8
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                9
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                10
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                11
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                8
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                8
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                12
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                13
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -28,6 +28,18 @@ const swiperConfigs = {
 			},
 		},
 	},
+	advisors: {
+		selector: ".swiper-advisors",
+		config: {
+			slidesPerView: 4,
+			spaceBetween: 24,
+			autoplay: {
+				delay: 2000,
+				disableOnInteraction: false,
+			},
+			grabCursor: true,
+		},
+	},
 };
 
 // Initialize Swipers
