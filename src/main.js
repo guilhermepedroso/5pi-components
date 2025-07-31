@@ -1,5 +1,3 @@
-import "./style.css";
-
 new Swiper(".swiper-day-trade", {
 	slidesPerView: 1,
 	spaceBetween: 24,

@@ -1,0 +1,11 @@
+.button--select-plan {
+  border: 1px solid #000;
+  border-radius: 12px;
+  padding: 4px 12px;
+}
+
+.button--select-plan:hover {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}

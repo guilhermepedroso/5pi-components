@@ -1,0 +1,38 @@
+.shorts-cases {
+  padding: 120px 0;
+  background: black;
+}
+
+.shorts-cases-title {
+  font-size: 54px;
+  font-weight: 800;
+}
+
+.shorts-cases .swiper-slide {
+  width: 250px; /* or any custom width */
+}
+
+.shorts-cases-list {
+  display: flex;
+}
+
+.shorts-cases-item {
+  background: #fff;
+  border-radius: 20px;
+  height: 300px;
+  color: #fff;
+  padding: 24px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.short-icon {
+  width: 54px;
+  height: 54px;
+  background-image: url("https://e8markets.com/_ipx/q_70&s_100x100/images/icons/youtube_shorts_icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

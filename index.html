@@ -9,9 +9,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
+    <link href="/src/style.css" rel="stylesheet" />
   </head>
-  <body>
-    <div class="day-trade">
+  <body class="">
+    <div class="day-trade hidden">
       <div class="custom-container">
         <div>
           <div class="swiper-day-trade">
@@ -82,7 +83,7 @@
       </div>
     </div>
 
-    <div class="shorts-cases">
+    <div class="shorts-cases hidden">
       <div class="custom-container">
         <div>
           <div class="swiper-shorts-cases">
@@ -168,6 +169,149 @@
         <div class="swiper-shorts-cases-button-prev swiper-button-prev"></div>
         <div class="swiper-shorts-cases-button-next swiper-button-next"></div>
       </div>
+    </div>
+
+    <div class="select-plan">
+      <div class="custom-container flex">
+        <div class="space-y-2">
+          <div>
+            <div>Tipo de operação</div>
+            <ul class="flex gap-2">
+              <li>
+                <button class="button button--select-plan" id="forex">
+                  Duo
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="futures">
+                  Mini Dólar
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="futures">
+                  Mini Índice
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <div>Vencimento</div>
+            <ul class="flex gap-2">
+              <li>
+                <button class="button button--select-plan" id="1-step">
+                  30 dias
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="2-step">
+                  60 dias
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="3-step">
+                  Sem prazo
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <div>Selecione sua plataforma:</div>
+            <ul class="flex gap-2">
+              <li>
+                <button class="button button--select-plan" id="proft-one">
+                  Proft One
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="proft-pro">
+                  Proft Pro
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <div>Contratos:</div>
+            <ul class="flex gap-2">
+              <li>
+                <button class="button button--select-plan" id="proft-one">
+                  15
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="proft-pro">
+                  30
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="proft-pro">
+                  45
+                </button>
+              </li>
+              <li>
+                <button class="button button--select-plan" id="proft-pro">
+                  N...
+                </button>
+              </li>
+            </ul>
+          </div>
+      
+
+        <div class="space-y-2">
+          <div>Dias para aprovação:</div>
+          <ul class="flex gap-2">
+            <li>
+              <button class="button button--select-plan" id="proft-one">
+                5
+              </button>
+            </li>
+            <li>
+              <button class="button button--select-plan" id="proft-pro">
+                10
+              </button>
+            </li>
+            <li>
+              <button class="button button--select-plan" id="proft-pro">
+                20
+              </button>
+            </li>
+            <li>
+              <button class="button button--select-plan" id="proft-pro">
+                N...
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <div>Porcentagem de repasse</div>
+          <ul class="flex gap-2">
+            <li>
+              <button class="button button--select-plan" id="proft-one">
+                70%
+              </button>
+            </li>
+            <li>
+              <button class="button button--select-plan" id="proft-pro">
+                80%
+              </button>
+            </li>
+            <li>
+              <button class="button button--select-plan" id="proft-pro">
+                90%
+              </button>
+            </li>
+            <li>
+              <button class="button button--select-plan" id="proft-pro">
+                N...
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>oi</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

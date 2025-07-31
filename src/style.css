@@ -1,3 +1,9 @@
+@import "tailwindcss";
+@import "./styles/select-plan.css";
+@import "./styles/swiper.css";
+@import "./styles/short-cases.css";
+@import "./styles/benefits.css";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
@@ -17,149 +23,10 @@ body {
 
 .custom-container {
   position: relative;
-  max-width: 1200px;
+  max-width: 1600px;
   padding: 0 24px;
   margin: 0 auto;
 }
 
-/* <div class="swiper">
-  <div class="swiper-wrapper day-trade-list">
-    <div class="swiper-slide day-trade-item">
-      <div class="day-trade-title">Opere 5 vezes mais contratos</div>
-      <div class="day-trade-description">
-        Seu capital não precisa ser o limite da sua operação.
-      </div>
-    </div> */
-
-/* Day trade section */
-.day-trade {
-  padding: 120px 0;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 1) 12%,
-    rgba(201, 223, 253, 1) 100%
-  );
-  /* background-origin: border-box; */
-}
-
-.day-trade-header.day-trade-title {
-  font-size: 54px;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.day-trade-description {
-  font-size: 16px;
-}
-
-.day-trade .swiper {
-  overflow: visible;
-}
-
-.day-trade-item {
-  background-color: #131110;
-  border-radius: 20px;
-  height: 300px;
-  color: #fff;
-  padding: 24px;
-}
-
-.day-trade-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.day-trade-description {
-  font-size: 16px;
-  font-weight: 400;
-}
-
-@media (min-width: 600px) {
-  .day-trade-item {
-    height: 400px;
-  }
-}
-
-/* Shorts cases section */
-.shorts-cases {
-  padding: 120px 0;
-  background: black;
-}
-
-.shorts-cases-title {
-  font-size: 54px;
-  font-weight: 800;
-}
-
-.shorts-cases .swiper-slide {
-  width: 250px; /* or any custom width */
-}
-
-.shorts-cases-list {
-  display: flex;
-  /* gap: 24px; */
-}
-
-.shorts-cases-item {
-  background: #fff;
-  border-radius: 20px;
-  height: 300px;
-  color: #fff;
-  padding: 24px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.short-icon {
-  width: 54px;
-  height: 54px;
-  background-image: url("https://e8markets.com/_ipx/q_70&s_100x100/images/icons/youtube_shorts_icon.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Swiper */
-
-.swiper-button-next,
-.swiper-button-prev {
-  background: red;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  font-size: 18px;
-}
-
-.shorts-cases .swiper-button-next,
-.shorts-cases .swiper-button-prev {
-  background: #000;
-}
-
-.shorts-cases .swiper-button-next::after,
-.shorts-cases .swiper-button-prev::after {
-  color: #fff;
-}
-
-.day-trade .swiper-button-next,
-.day-trade .swiper-button-prev {
-  background: #fff;
-}
-
-.day-trade .swiper-button-next::after,
-.day-trade .swiper-button-prev::after {
-  color: #000;
-}
-
-.swiper-button-disabled {
-  display: none !important;
+.button {
 }
