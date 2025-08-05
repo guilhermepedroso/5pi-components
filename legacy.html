@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link href="/src/style.css" rel="stylesheet" />
+  </head>
+  <body class="">
+    <div id="advisors-container"></div>
+
+    <script type="text/x-handlebars-template" id="advisors-template">
+      <div class="advisors py-32 bg-black">
+        <div class="custom-container">
+          <div class="swiper-advisors">
+            <div class="swiper-wrapper advisors-list">
+              {{#each advisors}}
+                <div class="swiper-slide">
+                  <div
+                    class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+                  >
+                    {{number}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/scripts/advisors.js"></script>
+  </body>
+</html>

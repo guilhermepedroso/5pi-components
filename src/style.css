@@ -1,8 +1,9 @@
 @import "tailwindcss";
-@import "./styles/select-plan.css";
-@import "./styles/swiper.css";
-@import "./styles/short-cases.css";
-@import "./styles/benefits.css";
+/* @import "./styles/select-plan.css"; */
+/* @import "./styles/swiper.css"; */
+/* @import "./styles/short-cases.css"; */
+/* @import "./styles/benefits.css"; */
+@import "./styles/offers.css";
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -23,10 +24,15 @@ body {
 
 .custom-container {
   position: relative;
-  max-width: 1200px;
+  max-width: 1300px;
   padding: 0 24px;
   margin: 0 auto;
 }
 
-.button {
+.button-primary {
+  @apply h-14 bg-gradient-to-r from-[#ED903F] text-white rounded-full to-[#FF5500] flex items-center justify-center font-bold transition-all duration-200;
+
+  &:hover {
+    @apply scale-105;
+  }
 }
