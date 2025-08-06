@@ -1,8 +1,5 @@
 @import "tailwindcss";
-/* @import "./styles/select-plan.css"; */
-/* @import "./styles/swiper.css"; */
-/* @import "./styles/short-cases.css"; */
-/* @import "./styles/benefits.css"; */
+@import "./styles/swiper.css";
 @import "./styles/offers.css";
 
 :root {
