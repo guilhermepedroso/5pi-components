@@ -13,7 +13,7 @@
     <link href="/src/style.css" rel="stylesheet" />
   </head>
   <body class="">
-    <div id="offers-container"></div>
+    <div id="offers-container" class=""></div>
     <script type="text/x-handlebars-template" id="offers-template">
       <div class="offers py-32 bg-[#191919] text-white">
         <div class="custom-container">
@@ -39,13 +39,13 @@
 
           <div class="flex gap-6">
             {{#each offers}}
-              <div class="w-1/3 bg-[#101010] rounded-[12px] p-8">
+              <div class="!w-1/3 bg-[#101010] rounded-[12px] p-8">
                 <div class="font-bold text-2xl mb-3">
                   {{name}}
                 </div>
                 <div class="space-y-2 mb-4">
                   <div class="relative">
-                    <select class="offers-plan-select plan-combobox">
+                    <select class="offers-plan-select !pl-10 plan-combobox">
                       <option value="duo">Duo (WDO e WIN)</option>
                       <option value="mini-dolar">Mini Dolar</option>
                       <option value="mini-indice">Mini Indice</option>
@@ -103,7 +103,7 @@
                     <span>{{attributes.repasse}}</span>
                   </li>
                   <li class="offers-list--divider"></li>
-                  <li class="offers-list--item">
+                  <!-- <li class="offers-list--item">
                     Plataforma gratuita na real
                     <span>{{attributes.plataformaGratuitaReal}}</span>
                   </li>
@@ -144,7 +144,7 @@
                   <li class="offers-list--item">
                     Cartão Black
                     <span>{{attributes.cartaoBlack}}</span>
-                  </li>
+                  </li> -->
                   <li>
                     <button>Mostrar menos</button>
                   </li>

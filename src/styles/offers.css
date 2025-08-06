@@ -22,7 +22,7 @@
 }
 
 .offers-plan-select {
-  @apply w-full bg-transparent border border-[#404040] rounded-md p-2 pr-8 appearance-none;
+  @apply w-full bg-transparent border border-[#404040] rounded-md p-2 appearance-none;
 }
 
 .offers-button-cta {
