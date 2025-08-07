@@ -6,13 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+    /> -->
+    <style>
+      :root {
+        font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+    </style>
     <link href="/src/style.css" rel="stylesheet" />
+
   </head>
   <body class="">
+    <!-- Day Trade component -->
+    <div id="day-trade-container" class=""></div>
+    <script type="text/x-handlebars-template" id="day-trade-template">
+      <div class="day-trade">
+        <div class="custom-container">
+          <div class="swiper-day-trade overflow-hidden lg:!overflow-visible">
+            <ul class="swiper-wrapper day-trade-list flex">
+              {{#each benefits}}
+                <li class="bg-[#131110] swiper-slide rounded-3xl mr-4 overflow-hidden text-white shrink-0 pt-6 lg:pt-12 w-[300px] md:w-[384px] lg:h-[600px] flex flex-col justify-between">
+                  <div class="px-7">
+                    <div class="font-semibold text-balance text-2xl lg:text-3xl mb-2">
+                      {{title}}
+                    </div>
+                    <div class="text-base lg:text-lg text-[#A8A8A8]">
+                      {{description}}
+                    </div>
+                  </div>
+                  {{#if imageUrl}}
+                    <img src="{{imageUrl}}" alt="{{title}}" class="w-full select-none" />
+                  {{/if}}
+                </li>
+              {{/each}}
+            </ul>
+            
+          </div>
+          <div class="justify-end gap-4 mt-4 flex">
+            <div class="swiper-day-trade-button-prev swiper-button-prev bg-[#131110]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+            </div>
+            <div class="swiper-day-trade-button-next swiper-button-next bg-[#131110]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <!-- Offers component -->
     <div id="offers-container" class=""></div>
     <script type="text/x-handlebars-template" id="offers-template">
       <div class="offers py-32 bg-[#191919] text-white">
@@ -190,5 +247,6 @@
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/scripts/advisors.js"></script>
     <script type="module" src="/src/scripts/offers.js"></script>
+    <script type="module" src="/src/scripts/main-benefits.js"></script>
   </body>
 </html>

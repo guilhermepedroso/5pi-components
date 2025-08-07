@@ -1,22 +1,5 @@
 // Swiper configurations
 const swiperConfigs = {
-	dayTrade: {
-		selector: ".swiper-day-trade",
-		config: {
-			slidesPerView: 1,
-			spaceBetween: 24,
-			breakpoints: {
-				320: { slidesPerView: 1, enabled: false },
-				640: { slidesPerView: 2 },
-				1024: { slidesPerView: 4 },
-			},
-			grabCursor: true,
-			navigation: {
-				nextEl: ".swiper-day-trade-button-next",
-				prevEl: ".swiper-day-trade-button-prev",
-			},
-		},
-	},
 	shortsCases: {
 		selector: ".swiper-shorts-cases",
 		config: {
@@ -30,6 +13,9 @@ const swiperConfigs = {
 		},
 	},
 };
+
+Handlebars.registerHelper("lt", (a, b) => a < b);
+Handlebars.registerHelper("gt", (a, b) => a > b);
 
 const renderTemplate = ({ templateId, data, containerId, callback }) => {
 	const template = Handlebars.compile(
