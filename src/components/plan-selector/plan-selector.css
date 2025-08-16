@@ -1,0 +1,36 @@
+.offers {
+}
+
+.offers-header {
+  @apply flex gap-4 mb-10;
+}
+
+.offers-header--button {
+  border: 1px solid #cac8bc;
+  @apply py-2 px-4 rounded-xl text-white text-left text-lg w-[160px] font-medium cursor-pointer;
+
+  .sup {
+    @apply text-sm -mb-1 font-normal;
+  }
+
+  &:hover,
+  &.active {
+    background: linear-gradient(0deg, #545247 0%, #403c37 122.22%);
+  }
+}
+
+.offers-list--item {
+  @apply flex gap-2 justify-between font-medium text-base text-[#363636];
+
+  span {
+    @apply font-semibold text-black;
+  }
+}
+
+.offers-plan-select {
+  @apply w-full bg-transparent font-medium border border-[#C0C0C0] rounded-md p-2 pl-4 appearance-none;
+}
+
+.offers-list--divider {
+  @apply bg-[#CDCDCD] h-[1px] my-4;
+}
