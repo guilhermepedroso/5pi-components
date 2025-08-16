@@ -1,4 +1,3 @@
-/* Swiper */
 .swiper-button-next,
 .swiper-button-prev {
   width: 40px;
@@ -17,7 +16,7 @@
 
   &.theme-dark {
     &:hover {
-      @apply bg-gray-200 cursor-pointer;
+      @apply bg-white text-white cursor-pointer;
     }
   }
 }
@@ -30,28 +29,3 @@
 .swiper-button-prev::after {
   font-size: 18px;
 }
-
-/* 
-.shorts-cases .swiper-button-next,
-.shorts-cases .swiper-button-prev {
-  background: #000;
-}
-
-.shorts-cases .swiper-button-next::after,
-.shorts-cases .swiper-button-prev::after {
-  color: #fff;
-}
-
-.day-trade .swiper-button-next,
-.day-trade .swiper-button-prev {
-  background: #fff;
-}
-
-.day-trade .swiper-button-next::after,
-.day-trade .swiper-button-prev::after {
-  color: #000;
-} */
-
-/* .swiper-button-disabled {
-  display: none !important;
-} */

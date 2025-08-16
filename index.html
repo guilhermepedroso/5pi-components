@@ -39,7 +39,7 @@
     <script type="text/x-handlebars-template" id="offers-template">
       <div class="offers">
         <div class="custom-container">
-          <div class="offers-header">
+          <div class="offers-header overflow-x-scroll">
             {{#each offers.tabs}}
               <button class="offers-header--button {{#if isActive}}active{{/if}}" data-plan="{{key}}">
                 <div class="sup">{{title.sup}}</div>
@@ -60,145 +60,144 @@
                   />
                 </svg>
               </button> -->
-            </div>
-
-          <div class="flex gap-6">
-            {{#each offers.cards}}
-              <div class="!w-1/3 bg-white rounded-[12px] p-8" data-card-index="{{@index}}">
-                <div class="font-bold text-2xl mb-3">
-                  {{name}}
-                </div>
-                <div class="space-y-2 mb-4">
-                  <div class="relative">
-                    <div class="absolute top-1/2 left-3 -translate-y-1/2">
-                      <!-- Duo image -->
-                      <img {{#unless (eq selectedPlanType "Duo")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg"/>
-                      <!-- Indice -->
-                      <img {{#unless (eq selectedPlanType "Mini Indice")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+1.svg"/>
-                      <!-- Dolar -->
-                      <img {{#unless (eq selectedPlanType "Mini Dolar")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+2.svg"/>
-                    </div>
-                    <select class="offers-plan-select !pl-10 plan-combobox">
-                      {{#each planOptions}}
-                        <option value="{{type}}" {{#if isSelected}}selected{{/if}}>{{details}}</option>
-                      {{/each}}
-                    </select>
-                    <svg
-                      width="16"
-                      height="13"
-                      viewBox="0 0 16 13"
-                      fill="none"
-                      class="absolute size-3 top-1/2 right-4 -translate-y-1/2"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15.0711 6.34315C15.4616 5.95262 15.4616 5.31946 15.0711 4.92893C14.6805 4.53841 14.0474 4.53841 13.6569 4.92893L8 10.5858L2.34315 4.92893C1.95262 4.53841 1.31946 4.53841 0.928932 4.92893C0.538408 5.31946 0.538408 5.95262 0.928932 6.34315L7.29289 12.7071ZM8 0L7 -4.10533e-08L7 12L8 12L9 12L9 4.10533e-08L8 0Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </div>
-                  <div class="relative">
-
-                    <select class="offers-plan-select approval-combobox">
-                      {{#each configurations}}
-                        <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>Mínimo de {{minDaysApproval}} dias para aprovação</option>
-                      {{/each}}
-                    </select>
-                    <svg
-                      width="16"
-                      height="13"
-                      viewBox="0 0 16 13"
-                      class="absolute size-3 top-1/2 right-4 -translate-y-1/2"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15.0711 6.34315C15.4616 5.95262 15.4616 5.31946 15.0711 4.92893C14.6805 4.53841 14.0474 4.53841 13.6569 4.92893L8 10.5858L2.34315 4.92893C1.95262 4.53841 1.31946 4.53841 0.928932 4.92893C0.538408 5.31946 0.538408 5.95262 0.928932 6.34315L7.29289 12.7071ZM8 0L7 -4.10533e-08L7 12L8 12L9 12L9 4.10533e-08L8 0Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <ul class="offer-list space-y-2">
-                  <li class="offers-list--divider"></li>
-                  <li class="offers-list--item">
-                    Margem na real de até:
-                    <span>R$ {{attributes.margemReal}}</span>
-                  </li>
-                  <li class="offers-list--item">
-                    Margem de perda:
-                    <span>R$ {{attributes.margemDePerda}}</span>
-                  </li>
-                  <li class="offers-list--item">
-                    Mínimo de dias para aprovação:
-                    <span>{{attributes.diasParaAprovacao}} dias</span>
-                  </li>
-                  <li class="offers-list--item">
-                    Repasse:
-                    <span>{{attributes.repasse}}</span>
-                  </li>
-                  <li class="offers-list--divider"></li>
-                  <li class="offers-list--item">
-                    Plataforma gratuita na real:
-                    <span>{{attributes.plataformaGratuitaReal}}</span>
-                  </li>
-                  <li class="offers-list--item">
-                    Profit one gratís no 1° mês:
-
-                    <span>{{attributes.proftOneGratis}}</span>
-                  </li>
-                  {{#if @root.offers.isExpanded}}
-                    <li class="offers-list--divider"></li>
-                    <li class="offers-list--item">
-                      Educacional com especialistas:
-                      <span>{{attributes.educaionalEspecialistas}}</span>
-                    </li>
-                    <li class="offers-list--item">
-                      Sala ao vivo com mentores:
-                      <span>{{attributes.salasAoVivoComMentores}}</span>
-                    </li>
-                    <li class="offers-list--item">
-                      Gerenciamento de Risco:
-                      <span>{{attributes.gerenciamentoDeRisco}}</span>
-                    </li>
-                    <li class="offers-list--item">
-                      Assessoria especializada:
-                      <span>{{attributes.acessoriaEspecializada}}</span>
-                    </li>
-                    <li class="offers-list--item">
-                      Suporte psicológico:
-                      <span>{{attributes.suportePsicologico}}</span>
-                    </li>
-                    <li class="offers-list--divider"></li>
-                    <li class="offers-list--item">
-                      Cashback de R$ 250,00:
-                      <span>{{attributes.cashback}}</span>
-                    </li>
-                    <li class="offers-list--item">
-                      Saque quinzenal ou mensal:
-                      <span>{{attributes.saqueQuinzenalOuMensal}}</span>
-                    </li>
-                    <li class="offers-list--item">
-                      Cartão Black:
-                      <span>{{attributes.cartaoBlack}}</span>
-                    </li>
-                  {{/if}}
-                  <li>
-                    <button class="offers-toggle-details font-medium underline-offset-2 underline cursor-pointer mt-1">{{#if @root.offers.isExpanded}}Mostrar menos{{else}}Ver todos os benefícios{{/if}}</button>
-                  </li>
-                  <li class="offers-list--divider"></li>
-                </ul>
-
-                <div class="offers-price mb-6">
-                  <div class="offers-price--value font-bold text-3xl">R$ {{pricing.price}}</div>
-                  <div class="text-base">Em até {{pricing.installments}}x com taxas reduzidas</div>
-                </div>
-
-                <a href="{{ctaUrl}}" class="button-primary offers-button-cta">Comprar agora</a>
-              </div>
-            {{/each}}
           </div>
-        </div>
+
+          <div class="offers-cards-container" id="offers-swiper">
+            <div class="swiper-wrapper lg:flex gap-4 w-full">
+              {{#each offers.cards}}
+                <div class="swiper-slide lg:!w-1/3 offers-card bg-white rounded-[12px] p-8" data-card-index="{{@index}}">
+                  <div class="font-bold text-2xl mb-3">
+                    {{name}}
+                  </div>
+                  <div class="space-y-2 mb-4">
+                    <div class="relative">
+                      <div class="absolute top-1/2 left-3 -translate-y-1/2">
+                        <!-- Duo image -->
+                        <img {{#unless (eq selectedPlanType "Duo")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg"/>
+                        <!-- Indice -->
+                        <img {{#unless (eq selectedPlanType "Mini Indice")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+1.svg"/>
+                        <!-- Dolar -->
+                        <img {{#unless (eq selectedPlanType "Mini Dolar")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+2.svg"/>
+                      </div>
+                      <select class="offers-plan-select !pl-10 plan-combobox">
+                        {{#each planOptions}}
+                          <option value="{{type}}" {{#if isSelected}}selected{{/if}}>{{details}}</option>
+                        {{/each}}
+                      </select>
+                      <svg
+                        width="16"
+                        height="13"
+                        viewBox="0 0 16 13"
+                        fill="none"
+                        class="absolute size-3 top-1/2 right-4 -translate-y-1/2"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15.0711 6.34315C15.4616 5.95262 15.4616 5.31946 15.0711 4.92893C14.6805 4.53841 14.0474 4.53841 13.6569 4.92893L8 10.5858L2.34315 4.92893C1.95262 4.53841 1.31946 4.53841 0.928932 4.92893C0.538408 5.31946 0.538408 5.95262 0.928932 6.34315L7.29289 12.7071ZM8 0L7 -4.10533e-08L7 12L8 12L9 12L9 4.10533e-08L8 0Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <div class="relative">
+                      <select class="offers-plan-select approval-combobox">
+                        {{#each configurations}}
+                          <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>Mínimo de {{minDaysApproval}} dias para aprovação</option>
+                        {{/each}}
+                      </select>
+                      <svg
+                        width="16"
+                        height="13"
+                        viewBox="0 0 16 13"
+                        class="absolute size-3 top-1/2 right-4 -translate-y-1/2"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15.0711 6.34315C15.4616 5.95262 15.4616 5.31946 15.0711 4.92893C14.6805 4.53841 14.0474 4.53841 13.6569 4.92893L8 10.5858L2.34315 4.92893C1.95262 4.53841 1.31946 4.53841 0.928932 4.92893C0.538408 5.31946 0.538408 5.95262 0.928932 6.34315L7.29289 12.7071ZM8 0L7 -4.10533e-08L7 12L8 12L9 12L9 4.10533e-08L8 0Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <ul class="offer-list space-y-2">
+                    <li class="offers-list--divider"></li>
+                    <li class="offers-list--item">
+                      Margem na real de até:
+                      <span>R$ {{attributes.margemReal}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Margem de perda:
+                      <span>R$ {{attributes.margemDePerda}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Mínimo de dias para aprovação:
+                      <span>{{attributes.diasParaAprovacao}} dias</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Repasse:
+                      <span>{{attributes.repasse}}</span>
+                    </li>
+                    <li class="offers-list--divider"></li>
+                    <li class="offers-list--item">
+                      Plataforma gratuita na real:
+                      <span>{{attributes.plataformaGratuitaReal}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Profit one gratís no 1° mês:
+                      <span>{{attributes.proftOneGratis}}</span>
+                    </li>
+                    {{#if @root.offers.isExpanded}}
+                      <li class="offers-list--divider"></li>
+                      <li class="offers-list--item">
+                        Educacional com especialistas:
+                        <span>{{attributes.educaionalEspecialistas}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Sala ao vivo com mentores:
+                        <span>{{attributes.salasAoVivoComMentores}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Gerenciamento de Risco:
+                        <span>{{attributes.gerenciamentoDeRisco}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Assessoria especializada:
+                        <span>{{attributes.acessoriaEspecializada}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Suporte psicológico:
+                        <span>{{attributes.suportePsicologico}}</span>
+                      </li>
+                      <li class="offers-list--divider"></li>
+                      <li class="offers-list--item">
+                        Cashback de R$ 250,00:
+                        <span>{{attributes.cashback}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Saque quinzenal ou mensal:
+                        <span>{{attributes.saqueQuinzenalOuMensal}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Cartão Black:
+                        <span>{{attributes.cartaoBlack}}</span>
+                      </li>
+                    {{/if}}
+                    <li>
+                      <button class="offers-toggle-details font-medium underline-offset-2 underline cursor-pointer mt-1">{{#if @root.offers.isExpanded}}Mostrar menos{{else}}Ver todos os benefícios{{/if}}</button>
+                    </li>
+                    <li class="offers-list--divider"></li>
+                  </ul>
+                  <div class="offers-price mb-6">
+                    <div class="offers-price--value font-bold text-3xl">R$ {{pricing.price}}</div>
+                    <div class="text-base">Em até {{pricing.installments}}x com taxas reduzidas</div>
+                  </div>
+                  <a href="{{ctaUrl}}" class="button-primary offers-button-cta">Comprar agora</a>
+                </div>
+              {{/each}}
+            </div>
+            <!-- Move pagination inside the swiper container -->
+            <div class="offers-swiper-pagination swiper-pagination"></div>
+          </div>
         </div>
       </div>
     </script>

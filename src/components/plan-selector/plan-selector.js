@@ -610,6 +610,51 @@ const buildOffersViewModel = () => {
 
 let offers = buildOffersViewModel();
 
+// Swiper instance for mobile
+let offersSwiper = null;
+
+const isMobile = () => window.innerWidth < 1024;
+
+const initializeSwiper = () => {
+	if (isMobile() && !offersSwiper) {
+		const swiperContainer = document.getElementById("offers-swiper");
+		if (swiperContainer) {
+			swiperContainer.classList.add("swiper");
+			offersSwiper = new Swiper("#offers-swiper", {
+				slidesPerView: 1,
+				spaceBetween: 20,
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
+				},
+				pagination: {
+					el: ".offers-swiper-pagination",
+					clickable: true,
+					type: "bullets",
+				},
+				breakpoints: {
+					1024: {
+						enabled: false,
+					},
+				},
+			});
+		}
+	} else if (!isMobile() && offersSwiper) {
+		destroySwiper();
+	}
+};
+
+const destroySwiper = () => {
+	if (offersSwiper) {
+		const swiperContainer = document.getElementById("offers-swiper");
+		if (swiperContainer) {
+			swiperContainer.classList.remove("swiper");
+		}
+		offersSwiper.destroy(true, true);
+		offersSwiper = null;
+	}
+};
+
 const updateIcons = () => {
 	// Update icons based on selected plan type
 	const cards = document.querySelectorAll("[data-card-index]");
@@ -644,6 +689,9 @@ const updateIcons = () => {
 };
 
 const reRenderOffers = () => {
+	// Destroy existing swiper before re-rendering
+	destroySwiper();
+
 	offers = buildOffersViewModel();
 	window.orion.renderTemplate({
 		templateId: "offers-template",
@@ -664,6 +712,11 @@ const reRenderOffers = () => {
 				});
 			}
 			updateIcons(); // Update icons on initial render
+
+			// Wait for DOM to be fully rendered before initializing swiper
+			setTimeout(() => {
+				initializeSwiper();
+			}, 10);
 		},
 	});
 };
@@ -690,8 +743,14 @@ window.addEventListener("DOMContentLoaded", () => {
 				});
 			}
 			updateIcons(); // Update icons on initial render
+			initializeSwiper(); // Initialize swiper for mobile
 		},
 	});
+});
+
+// Handle window resize for responsive swiper behavior
+window.addEventListener("resize", () => {
+	initializeSwiper();
 });
 
 // Delegated interactions to mirror component.html behavior without changing the block above

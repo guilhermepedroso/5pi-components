@@ -34,3 +34,39 @@
 .offers-list--divider {
   @apply bg-[#CDCDCD] h-[1px] my-4;
 }
+
+.offers-swiper-pagination {
+  @apply flex gap-2 mt-4 justify-center items-center lg:hidden;
+
+  .swiper-pagination-bullet {
+    @apply bg-white size-2 flex rounded-full;
+
+    &.swiper-pagination-bullet-active {
+      @apply bg-[#FD5A03] size-3;
+    }
+  }
+}
+
+/* Mobile: Swiper layout */
+@media (max-width: 1024px) {
+  .offers-cards-container {
+    @apply block;
+  }
+
+  .offers-cards-container.swiper {
+    /* @apply overflow-hidden; */
+  }
+
+  .offers-cards-container .swiper-wrapper {
+    @apply flex;
+  }
+
+  .offers-cards-container .swiper-slide {
+    @apply w-full flex-shrink-0;
+  }
+
+  /* Override desktop width for mobile - since the slide itself has the card classes */
+  .offers-cards-container .swiper-slide.offers-card {
+    /* @apply !w-full; */
+  }
+}
