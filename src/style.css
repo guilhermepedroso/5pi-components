@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./styles/swiper.css";
 @import "./styles/offers.css";
+@import "./styles/video-modal.css";
 @import "./components/clients/clients.css";
 
 /* @import "./components/advisors/advisors.css"; */

@@ -75,21 +75,27 @@ orion.renderTemplate({
 	callback: () => {
 		const clientsSwiperConfig = {
 			slidesPerView: "auto",
-			// spaceBetween: 16,
-			// loop: true,
-			// loopedSlides: clientsData.clients.length,
-			// loopedSlidesLimit: false,
-			// loopAdditionalSlides: 5,
-			// watchSlidesProgress: true,
-			// observer: true,
-			// observeParents: true,
 			autoplay: {
 				delay: 2000,
 				disableOnInteraction: false,
-				pauseOnMouseEnter: false,
+				pauseOnMouseEnter: true,
 			},
 			grabCursor: true,
 		};
 		new Swiper(".swiper-clients", clientsSwiperConfig);
+
+		// missing: on play, pause the autoplay, on close, resume the autoplay
+
+		document.addEventListener("click", (e) => {
+			if (e.target.closest(".play-button")) {
+				e.preventDefault();
+				const button = e.target.closest(".play-button");
+				const videoId = button.getAttribute("video-id");
+
+				if (videoId) {
+					window.orion.videoModal.open(videoId);
+				}
+			}
+		});
 	},
 });

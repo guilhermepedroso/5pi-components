@@ -36,6 +36,56 @@ const renderTemplate = ({ templateId, data, containerId, callback }) => {
 	promise.then(callback);
 };
 
+// Video Modal functionality
+const videoModal = {
+	open: (videoId) => {
+		orion.renderTemplate({
+			templateId: "video-modal-template",
+			containerId: "video-modal-container",
+			data: { videoId },
+			callback: () => {
+				// Add event listeners after modal is rendered
+				const modal = document.querySelector(".video-modal-overlay");
+				const closeButton = document.querySelector(".video-modal-close");
+
+				// Close modal when clicking the close button
+				closeButton.addEventListener("click", videoModal.close);
+
+				// Close modal when clicking outside the content
+				modal.addEventListener("click", (e) => {
+					if (e.target === modal) {
+						videoModal.close();
+					}
+				});
+
+				// Close modal on Escape key
+				document.addEventListener("keydown", videoModal.handleEscape);
+
+				// Prevent body scroll when modal is open
+				document.body.style.overflow = "hidden";
+			},
+		});
+	},
+
+	close: () => {
+		const modalContainer = document.getElementById("video-modal-container");
+		modalContainer.innerHTML = "";
+
+		// Remove escape key listener
+		document.removeEventListener("keydown", videoModal.handleEscape);
+
+		// Restore body scroll
+		document.body.style.overflow = "";
+	},
+
+	handleEscape: (e) => {
+		if (e.key === "Escape") {
+			videoModal.close();
+		}
+	},
+};
+
 window.orion = {
 	renderTemplate,
+	videoModal,
 };
