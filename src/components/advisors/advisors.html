@@ -1,0 +1,20 @@
+<div id="advisors-container"></div>
+<script type="text/x-handlebars-template" id="advisors-template">
+  <div class="advisors py-32 bg-black">
+    <div class="custom-container">
+      <div class="swiper-advisors">
+        <div class="swiper-wrapper advisors-list">
+          {{#each advisors}}
+            <div class="swiper-slide">
+              <div
+                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
+              >
+                {{number}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
