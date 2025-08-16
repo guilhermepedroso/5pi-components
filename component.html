@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planos de Preços</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+      }
+      .container {
+        max-width: 1200px;
+      }
+      .tab-button.active {
+        background-color: #2e2e2e;
+        border-color: #4a4a4a;
+        color: #ffffff;
+      }
+      .select-wrapper {
+        position: relative;
+      }
+      .select-wrapper::after {
+        content: "▼";
+        font-size: 0.75rem;
+        color: #9ca3af;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+      .hidden-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
+      .expanded-details {
+        max-height: 1000px; /* Um valor alto para acomodar o conteúdo */
+      }
+    </style>
+  </head>
+  <body class="p-6">
+    <div id="app" class="container mx-auto">
+      <!-- Componente de Planos de Preços -->
+      <div class="bg-[#1f1f1f] rounded-xl p-8">
+        <!-- Tabs de Planos -->
+        <div class="flex justify-center mb-8">
+          <div
+            id="plan-tabs"
+            class="flex p-1 bg-[#2e2e2e] rounded-xl space-x-2"
+          >
+            <!-- Os botões das abas serão gerados dinamicamente pelo JavaScript -->
+          </div>
+        </div>
+
+        <!-- Cards de Planos -->
+        <div id="pricing-cards" class="grid gap-6 md:grid-cols-3">
+          <!-- Os cards de preços serão gerados dinamicamente pelo JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Objeto para armazenar as opções de planos e seus dados
+      const plansData = {
+        standard: {
+          title: "Planos Standard",
+          cards: [
+            {
+              name: "Book 15 contratos",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 1500",
+                  minLoss: "R$ 1400",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 550,40",
+                      url: "#standard-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 500,40",
+                      url: "#standard-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 1200",
+                  minLoss: "R$ 1100",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 400,00",
+                      url: "#standard-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 350,00",
+                      url: "#standard-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 1300",
+                  minLoss: "R$ 1200",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 450,00",
+                      url: "#standard-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 400,00",
+                      url: "#standard-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Book 30 contratos",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 2500",
+                  minLoss: "R$ 2400",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 1550,40",
+                      url: "#standard-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 1500,40",
+                      url: "#standard-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 2200",
+                  minLoss: "R$ 2100",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 1400,00",
+                      url: "#standard-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 1350,00",
+                      url: "#standard-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 2300",
+                  minLoss: "R$ 2200",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 1450,00",
+                      url: "#standard-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 1400,00",
+                      url: "#standard-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Book 40 contratos",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 4000",
+                  minLoss: "R$ 3800",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2550,40",
+                      url: "#standard-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2500,40",
+                      url: "#standard-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 3800",
+                  minLoss: "R$ 3600",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2400,00",
+                      url: "#standard-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2350,00",
+                      url: "#standard-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 3900",
+                  minLoss: "R$ 3700",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2450,00",
+                      url: "#standard-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2400,00",
+                      url: "#standard-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        pro: {
+          title: "Planos Pro",
+          cards: [
+            {
+              name: "Book 20 contratos Pro",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 2000",
+                  minLoss: "R$ 1800",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 800,00",
+                      url: "#pro-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 750,00",
+                      url: "#pro-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 1800",
+                  minLoss: "R$ 1600",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 650,00",
+                      url: "#pro-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 600,00",
+                      url: "#pro-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 1900",
+                  minLoss: "R$ 1700",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 700,00",
+                      url: "#pro-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 650,00",
+                      url: "#pro-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Book 50 contratos Pro",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 5000",
+                  minLoss: "R$ 4800",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2500,00",
+                      url: "#pro-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2450,00",
+                      url: "#pro-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 4800",
+                  minLoss: "R$ 4600",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2300,00",
+                      url: "#pro-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2250,00",
+                      url: "#pro-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 4900",
+                  minLoss: "R$ 4700",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2400,00",
+                      url: "#pro-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2350,00",
+                      url: "#pro-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Book 70 contratos Pro",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 6500",
+                  minLoss: "R$ 6200",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 3500,00",
+                      url: "#pro-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 3450,00",
+                      url: "#pro-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 6200",
+                  minLoss: "R$ 5900",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 3300,00",
+                      url: "#pro-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 3250,00",
+                      url: "#pro-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 6300",
+                  minLoss: "R$ 6000",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 3400,00",
+                      url: "#pro-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 3350,00",
+                      url: "#pro-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        premium: {
+          title: "Planos Premium",
+          cards: [
+            {
+              name: "Book 30 contratos Premium",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 3000",
+                  minLoss: "R$ 2800",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 1800,00",
+                      url: "#premium-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 1750,00",
+                      url: "#premium-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 2800",
+                  minLoss: "R$ 2600",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 1600,00",
+                      url: "#premium-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 1550,00",
+                      url: "#premium-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 2900",
+                  minLoss: "R$ 2700",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 1700,00",
+                      url: "#premium-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 1650,00",
+                      url: "#premium-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Book 60 contratos Premium",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 6000",
+                  minLoss: "R$ 5800",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 3000,00",
+                      url: "#premium-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2950,00",
+                      url: "#premium-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 5800",
+                  minLoss: "R$ 5600",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2800,00",
+                      url: "#premium-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2750,00",
+                      url: "#premium-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 5900",
+                  minLoss: "R$ 5700",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 2900,00",
+                      url: "#premium-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 2850,00",
+                      url: "#premium-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Book 100 contratos Premium",
+              planOptions: [
+                {
+                  type: "Duo",
+                  details: "Duo (WDO e WIN)",
+                  profit: "R$ 10000",
+                  minLoss: "R$ 9500",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 5000,00",
+                      url: "#premium-duo-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 4900,00",
+                      url: "#premium-duo-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Dolar",
+                  details: "Mini Dólar (WDO)",
+                  profit: "R$ 9800",
+                  minLoss: "R$ 9300",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 4800,00",
+                      url: "#premium-mini-dolar-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 4700,00",
+                      url: "#premium-mini-dolar-15",
+                    },
+                  ],
+                },
+                {
+                  type: "Mini Indice",
+                  details: "Mini Índice (WIN)",
+                  profit: "R$ 9900",
+                  minLoss: "R$ 9400",
+                  configurations: [
+                    {
+                      minDaysApproval: 10,
+                      price: "R$ 4900,00",
+                      url: "#premium-mini-indice-10",
+                    },
+                    {
+                      minDaysApproval: 15,
+                      price: "R$ 4800,00",
+                      url: "#premium-mini-indice-15",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      };
+
+      // Estado do aplicativo para persistir as seleções
+      let appState = {
+        currentPlan: "standard",
+        selectedPlanType: "Duo",
+        selectedMinDays: 10,
+        isExpanded: false, // Novo estado para controlar a expansão
+      };
+
+      const planTabsContainer = document.getElementById("plan-tabs");
+      const pricingCardsContainer = document.getElementById("pricing-cards");
+
+      // Funções de renderização
+      function renderTabs() {
+        planTabsContainer.innerHTML = "";
+        Object.keys(plansData).forEach((planKey) => {
+          const plan = plansData[planKey];
+          const button = document.createElement("button");
+          button.className = `tab-button px-6 py-2 rounded-xl transition-colors duration-200 ${
+            planKey === appState.currentPlan
+              ? "active"
+              : "text-gray-400 hover:text-gray-200"
+          }`;
+          button.textContent = plan.title;
+          button.onclick = () => handlePlanChange(planKey);
+          planTabsContainer.appendChild(button);
+        });
+      }
+
+      function renderCards() {
+        pricingCardsContainer.innerHTML = "";
+        const currentPlans = plansData[appState.currentPlan].cards;
+
+        currentPlans.forEach((card, cardIndex) => {
+          const selectedOption = card.planOptions.find(
+            (opt) => opt.type === appState.selectedPlanType
+          );
+          const selectedConfig = selectedOption.configurations.find(
+            (config) => config.minDaysApproval == appState.selectedMinDays
+          );
+
+          const cardHtml = `
+                <div class="bg-[#2e2e2e] rounded-xl p-6 flex flex-col">
+                    <h3 class="text-xl font-bold mb-4">${card.name}</h3>
+
+                    <!-- Select de Tipo de Plano -->
+                    <div class="mb-4 select-wrapper">
+                        <select
+                            class="w-full bg-[#1f1f1f] border border-[#4a4a4a] text-white p-3 rounded-xl pr-8 cursor-pointer"
+                            onchange="handlePlanTypeChange(this.value)"
+                        >
+                            ${card.planOptions
+                              .map(
+                                (option) => `
+                                <option value="${option.type}" ${
+                                  option.type === appState.selectedPlanType
+                                    ? "selected"
+                                    : ""
+                                }>
+                                    ${option.details}
+                                </option>
+                            `
+                              )
+                              .join("")}
+                        </select>
+                    </div>
+
+                    <!-- Select de Dias para Aprovação -->
+                    <div class="mb-6 select-wrapper">
+                        <select
+                            class="w-full bg-[#1f1f1f] border border-[#4a4a4a] text-white p-3 rounded-xl pr-8 cursor-pointer"
+                            onchange="handleMinDaysChange(this.value)"
+                        >
+                            ${selectedOption.configurations
+                              .map(
+                                (config) => `
+                                <option value="${config.minDaysApproval}" ${
+                                  config.minDaysApproval ==
+                                  appState.selectedMinDays
+                                    ? "selected"
+                                    : ""
+                                }>
+                                    Mínimo de ${
+                                      config.minDaysApproval
+                                    } dias para aprovação
+                                </option>
+                            `
+                              )
+                              .join("")}
+                        </select>
+                    </div>
+
+                    <!-- Detalhes do Plano (Seção Superior) -->
+                    <div class="text-gray-400 text-sm space-y-2 mb-4">
+                        <div class="flex justify-between">
+                            <span>Margem na real de até</span>
+                            <span class="text-white">${
+                              selectedOption.profit
+                            }</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Margem de perda</span>
+                            <span class="text-white">${
+                              selectedOption.minLoss
+                            }</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Mínimo de dias para aprovação</span>
+                            <span class="text-white">${
+                              appState.selectedMinDays
+                            }</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Repasse</span>
+                            <span class="text-white">90</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalhes Adicionais (Seção Expansível) -->
+                    <div id="additional-details-${cardIndex}" class="text-gray-400 text-sm space-y-2 ${
+            appState.isExpanded ? "expanded-details" : "hidden-details"
+          }">
+                        <hr class="border-gray-600 my-4">
+                        <div class="flex justify-between">
+                            <span>Plataforma gratuita na real</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Profit one gratis no 1º mês</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Educacional com especialistas</span>
+                            <span class="text-white">50</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Sala ao vivo com mentores</span>
+                            <span class="text-white">Diária</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Gerenciamento de Risco</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Assessoria especializada</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Suporte psicológico</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <hr class="border-gray-600 my-4">
+                        <div class="flex justify-between">
+                            <span>Cashback de R$ 250,00</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Saque quinzenal ou mensal</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Cartão Black</span>
+                            <span class="text-white">Sim</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="text-center text-sm font-semibold text-gray-400 hover:text-gray-200 mt-4 mb-4 block no-underline"
+                       onclick="event.preventDefault(); handleToggleDetails();">
+                       ${appState.isExpanded ? "Mostrar menos" : "Mostrar mais"}
+                    </a>
+
+
+                    <!-- Preço -->
+                    <div class="text-center mt-auto">
+                        <span class="text-3xl font-bold text-white">${
+                          selectedConfig.price
+                        }</span>
+                        <p class="text-xs text-gray-500 mt-1 mb-4">Em até 21x com taxas reduzidas</p>
+                        <!-- Botão Assinar Agora com URL dinâmica -->
+                        <a href="${
+                          selectedConfig.url
+                        }" class="block w-full py-3 bg-[#4a4a4a] hover:bg-[#6a6a6a] transition-colors rounded-xl font-semibold text-white no-underline text-center">
+                            Assinar agora
+                        </a>
+                    </div>
+                </div>
+            `;
+          const cardDiv = document.createElement("div");
+          cardDiv.innerHTML = cardHtml;
+          pricingCardsContainer.appendChild(cardDiv);
+        });
+      }
+
+      // Funções de manipulação de eventos
+      function handlePlanChange(newPlan) {
+        appState.currentPlan = newPlan;
+        renderTabs();
+        renderCards();
+      }
+
+      // A função é global para ser chamada pelo onchange do HTML
+      window.handlePlanTypeChange = function (newPlanType) {
+        appState.selectedPlanType = newPlanType;
+        renderCards();
+      };
+
+      window.handleMinDaysChange = function (newMinDays) {
+        appState.selectedMinDays = parseInt(newMinDays);
+        renderCards();
+      };
+
+      // Nova função para expandir/recolher os detalhes
+      window.handleToggleDetails = function () {
+        appState.isExpanded = !appState.isExpanded;
+        renderCards();
+      };
+
+      // Inicializa o componente
+      function init() {
+        renderTabs();
+        renderCards();
+      }
+
+      // Inicia a aplicação quando a página é carregada
+      window.onload = init;
+    </script>
+  </body>
+</html>

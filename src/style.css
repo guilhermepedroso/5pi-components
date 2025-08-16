@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./styles/swiper.css";
 @import "./styles/offers.css";
+@import "./styles/comparison.css";
 
 .custom-container {
   position: relative;
@@ -10,9 +11,26 @@
 }
 
 .button-primary {
-  @apply h-14 bg-gradient-to-r from-[#ED903F] text-white rounded-full to-[#FF5500] flex items-center justify-center font-bold transition-all duration-200;
+  @apply h-12 bg-gradient-to-r from-[#ED903F] text-lg text-white rounded-full to-[#FF5500] flex items-center justify-center font-semibold transition-all duration-200;
 
   &:hover {
     @apply scale-105;
   }
+}
+
+.text-colours {
+  background: var(
+    --Linear,
+    linear-gradient(
+      90deg,
+      #1e61bd 0%,
+      #973abf 19.23%,
+      #bc1d67 55.29%,
+      #cb1633 80.29%,
+      #b84100 100%
+    )
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

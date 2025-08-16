@@ -1,0 +1,52 @@
+.comparison-table {
+  @apply text-center w-full;
+}
+
+.comparison-table tr {
+  @apply relative grid grid-cols-2;
+}
+
+.comparison-table tr td {
+  border-bottom: 1px solid #d9d9d9;
+  @apply p-4 font-semibold flex flex-col items-center justify-center text-base;
+}
+
+.comparison-table .comparison-table-row--last td {
+  @apply border-b-0;
+}
+
+.comparison-table tr td div {
+  @apply font-normal;
+}
+
+.comparison-table .comparison-table-item-left {
+  background-color: #efeded;
+}
+
+.comparison-table .comparison-table-item-left:before {
+  content: "vs";
+  background-color: #d9d9d9;
+  @apply font-semibold text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full flex items-center justify-center;
+}
+
+.comparison-table .comparison-table-row--first > td:first-child:before {
+  @apply hidden;
+}
+
+.comparison-table .comparison-table-item-right {
+  background-color: #eeffe9;
+}
+
+.comparison-table .comparison-table-item-right:before {
+  content: "vs";
+  background-color: #d9d9d9;
+  @apply font-semibold text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full flex items-center justify-center;
+}
+
+.comparison-table .comparison-table-row--first td {
+  border-radius: 16px 16px 0 0;
+}
+
+.comparison-table .comparison-table-row--last td {
+  border-radius: 0 0 16px 16px;
+}

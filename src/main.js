@@ -16,6 +16,7 @@ const swiperConfigs = {
 
 Handlebars.registerHelper("lt", (a, b) => a < b);
 Handlebars.registerHelper("gt", (a, b) => a > b);
+Handlebars.registerHelper("eq", (a, b) => a === b);
 
 const renderTemplate = ({ templateId, data, containerId, callback }) => {
 	const template = Handlebars.compile(
