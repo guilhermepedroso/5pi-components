@@ -13,7 +13,15 @@
 }
 
 .button-primary {
-  @apply h-12 bg-gradient-to-r from-[#ED903F] text-lg text-white rounded-full to-[#FF5500] flex items-center justify-center font-semibold transition-all duration-200;
+  background: #2a7b9b;
+  background: linear-gradient(
+    90deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(85, 196, 134, 1) 0%,
+    rgba(237, 144, 63, 1) 0%,
+    rgba(255, 85, 0, 1) 100%
+  );
+  @apply h-12 text-lg text-white rounded-full flex items-center justify-center font-semibold transition-all duration-200;
 
   &:hover {
     @apply scale-105;

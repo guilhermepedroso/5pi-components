@@ -16,12 +16,12 @@ const plansData = {
 						minLoss: "R$ 1400",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 550,40",
 								url: "#starter-duo-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 500,40",
 								url: "#starter-duo-10",
 							},
@@ -34,12 +34,12 @@ const plansData = {
 						minLoss: "R$ 1100",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 400,00",
 								url: "#starter-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 350,00",
 								url: "#starter-mini-dolar-10",
 							},
@@ -52,12 +52,12 @@ const plansData = {
 						minLoss: "R$ 1200",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 450,00",
 								url: "#starter-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 400,00",
 								url: "#starter-mini-indice-10",
 							},
@@ -75,12 +75,12 @@ const plansData = {
 						minLoss: "R$ 2400",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 1550,40",
 								url: "#starter-duo-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 1500,40",
 								url: "#starter-duo-10",
 							},
@@ -93,12 +93,12 @@ const plansData = {
 						minLoss: "R$ 2100",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 1400,00",
 								url: "#starter-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 1350,00",
 								url: "#starter-mini-dolar-10",
 							},
@@ -111,12 +111,12 @@ const plansData = {
 						minLoss: "R$ 2200",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 1450,00",
 								url: "#starter-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 1400,00",
 								url: "#starter-mini-indice-10",
 							},
@@ -134,12 +134,12 @@ const plansData = {
 						minLoss: "R$ 3800",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2550,40",
 								url: "#starter-duo-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2500,40",
 								url: "#starter-duo-10",
 							},
@@ -152,12 +152,12 @@ const plansData = {
 						minLoss: "R$ 3600",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2400,00",
 								url: "#starter-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2350,00",
 								url: "#starter-mini-dolar-10",
 							},
@@ -170,12 +170,12 @@ const plansData = {
 						minLoss: "R$ 3700",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2450,00",
 								url: "#starter-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2400,00",
 								url: "#starter-mini-indice-10",
 							},
@@ -200,8 +200,8 @@ const plansData = {
 						profit: "R$ 2000",
 						minLoss: "R$ 1800",
 						configurations: [
-							{ minDaysApproval: 5, price: "R$ 800,00", url: "#plus-duo-5" },
-							{ minDaysApproval: 10, price: "R$ 750,00", url: "#plus-duo-10" },
+							{ minDaysApproval: 45, price: "R$ 800,00", url: "#plus-duo-5" },
+							{ minDaysApproval: 60, price: "R$ 750,00", url: "#plus-duo-10" },
 						],
 					},
 					{
@@ -211,12 +211,12 @@ const plansData = {
 						minLoss: "R$ 1600",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 650,00",
 								url: "#plus-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 600,00",
 								url: "#plus-mini-dolar-10",
 							},
@@ -229,12 +229,12 @@ const plansData = {
 						minLoss: "R$ 1700",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 700,00",
 								url: "#plus-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 650,00",
 								url: "#plus-mini-indice-10",
 							},
@@ -251,8 +251,8 @@ const plansData = {
 						profit: "R$ 5000",
 						minLoss: "R$ 4800",
 						configurations: [
-							{ minDaysApproval: 5, price: "R$ 2500,00", url: "#plus-duo-5" },
-							{ minDaysApproval: 10, price: "R$ 2450,00", url: "#plus-duo-10" },
+							{ minDaysApproval: 45, price: "R$ 2500,00", url: "#plus-duo-5" },
+							{ minDaysApproval: 60, price: "R$ 2450,00", url: "#plus-duo-10" },
 						],
 					},
 					{
@@ -262,12 +262,12 @@ const plansData = {
 						minLoss: "R$ 4600",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2300,00",
 								url: "#plus-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2250,00",
 								url: "#plus-mini-dolar-10",
 							},
@@ -280,12 +280,12 @@ const plansData = {
 						minLoss: "R$ 4700",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2400,00",
 								url: "#plus-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2350,00",
 								url: "#plus-mini-indice-10",
 							},
@@ -302,8 +302,8 @@ const plansData = {
 						profit: "R$ 6500",
 						minLoss: "R$ 6200",
 						configurations: [
-							{ minDaysApproval: 5, price: "R$ 3500,00", url: "#plus-duo-5" },
-							{ minDaysApproval: 10, price: "R$ 3450,00", url: "#plus-duo-10" },
+							{ minDaysApproval: 45, price: "R$ 3500,00", url: "#plus-duo-5" },
+							{ minDaysApproval: 60, price: "R$ 3450,00", url: "#plus-duo-10" },
 						],
 					},
 					{
@@ -313,12 +313,12 @@ const plansData = {
 						minLoss: "R$ 5900",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 3300,00",
 								url: "#plus-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 3250,00",
 								url: "#plus-mini-dolar-10",
 							},
@@ -331,12 +331,12 @@ const plansData = {
 						minLoss: "R$ 6000",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 3400,00",
 								url: "#plus-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 3350,00",
 								url: "#plus-mini-indice-10",
 							},
@@ -362,12 +362,12 @@ const plansData = {
 						minLoss: "R$ 2800",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 1800,00",
 								url: "#private-duo-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 1750,00",
 								url: "#private-duo-10",
 							},
@@ -380,12 +380,12 @@ const plansData = {
 						minLoss: "R$ 2600",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 1600,00",
 								url: "#private-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 1550,00",
 								url: "#private-mini-dolar-10",
 							},
@@ -398,12 +398,12 @@ const plansData = {
 						minLoss: "R$ 2700",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 1700,00",
 								url: "#private-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 1650,00",
 								url: "#private-mini-indice-10",
 							},
@@ -421,12 +421,12 @@ const plansData = {
 						minLoss: "R$ 5800",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 3000,00",
 								url: "#private-duo-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2950,00",
 								url: "#private-duo-10",
 							},
@@ -439,12 +439,12 @@ const plansData = {
 						minLoss: "R$ 5600",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2800,00",
 								url: "#private-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2750,00",
 								url: "#private-mini-dolar-10",
 							},
@@ -457,12 +457,12 @@ const plansData = {
 						minLoss: "R$ 5700",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 2900,00",
 								url: "#private-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 2850,00",
 								url: "#private-mini-indice-10",
 							},
@@ -480,12 +480,12 @@ const plansData = {
 						minLoss: "R$ 9500",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 5000,00",
 								url: "#private-duo-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 4900,00",
 								url: "#private-duo-10",
 							},
@@ -498,12 +498,12 @@ const plansData = {
 						minLoss: "R$ 9300",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 4800,00",
 								url: "#private-mini-dolar-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 4700,00",
 								url: "#private-mini-dolar-10",
 							},
@@ -516,12 +516,12 @@ const plansData = {
 						minLoss: "R$ 9400",
 						configurations: [
 							{
-								minDaysApproval: 5,
+								minDaysApproval: 45,
 								price: "R$ 4900,00",
 								url: "#private-mini-indice-5",
 							},
 							{
-								minDaysApproval: 10,
+								minDaysApproval: 60,
 								price: "R$ 4800,00",
 								url: "#private-mini-indice-10",
 							},

@@ -10,9 +10,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
 
         font-synthesis: none;
         text-rendering: optimizeLegibility;
@@ -71,16 +77,20 @@
                   <div class="font-bold text-2xl mb-3">
                     {{name}}
                   </div>
-                  <div class="space-y-2 mb-4">
-                    <div class="relative">
-                      <div class="absolute top-1/2 left-2 lg:left-3 -translate-y-1/2">
-                        <!-- Duo image -->
-                        <img {{#unless (eq selectedPlanType "Duo")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg"/>
-                        <!-- Indice -->
-                        <img {{#unless (eq selectedPlanType "Mini Indice")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+1.svg"/>
-                        <!-- Dolar -->
-                        <img {{#unless (eq selectedPlanType "Mini Dolar")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+2.svg"/>
-                      </div>
+                  <div class="mb-4">
+                    <div class="relative mb-2">
+                        <div class="absolute top-1/2 left-2 lg:left-3 -translate-y-1/2">
+                          {{#if (eq selectedPlanType "Duo")}}
+                            <!-- Duo image -->
+                            <img class="block" src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg"/>
+                          {{else if (eq selectedPlanType "Mini Indice")}}
+                            <!-- Indice -->
+                            <img class="block" src="https://irp.cdn-website.com/a02461d5/icon/image+1.svg"/>
+                          {{else if (eq selectedPlanType "Mini Dolar")}}
+                            <!-- Dolar -->
+                            <img  class="block" src="https://irp.cdn-website.com/a02461d5/icon/image+2.svg"/>
+                          {{/if}}
+                        </div>
                       <select class="offers-plan-select !pl-8 lg:!pl-10 plan-combobox">
                         {{#each planOptions}}
                           <option value="{{type}}" {{#if isSelected}}selected{{/if}}>{{details}}</option>
@@ -121,7 +131,7 @@
                       </svg>
                     </div>
                   </div>
-                  <ul class="offer-list space-y-2">
+                  <ul class="offer-list">
                     <li class="offers-list--divider"></li>
                     <li class="offers-list--item">
                       Margem na real de até:
@@ -132,7 +142,7 @@
                       <span>R$ {{attributes.margemDePerda}}</span>
                     </li>
                     <li class="offers-list--item">
-                      Mínimo de dias para aprovação:
+                      Mínimo para aprovação:
                       <span>{{attributes.diasParaAprovacao}} dias</span>
                     </li>
                     <li class="offers-list--item">
@@ -185,7 +195,7 @@
                       </li>
                     {{/if}}
                     <li>
-                      <button class="offers-toggle-details font-medium underline-offset-2 underline cursor-pointer mt-1">{{#if @root.offers.isExpanded}}Mostrar menos{{else}}Ver todos os benefícios{{/if}}</button>
+                      <button class="offers-toggle-details font-medium underline-offset-2 text-base underline cursor-pointer mt-1">{{#if @root.offers.isExpanded}}Mostrar menos{{else}}Ver todos os benefícios{{/if}}</button>
                     </li>
                     <li class="offers-list--divider"></li>
                   </ul>
@@ -197,7 +207,6 @@
                 </div>
               {{/each}}
             </div>
-            <!-- Move pagination inside the swiper container -->
             <div class="offers-swiper-pagination swiper-pagination"></div>
           </div>
         </div>

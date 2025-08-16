@@ -19,6 +19,10 @@
   }
 }
 
+.offer-list > li {
+  @apply mb-2;
+}
+
 .offers-list--item {
   @apply flex gap-2 justify-between font-medium text-base text-[#363636];
 
@@ -28,11 +32,11 @@
 }
 
 .offers-plan-select {
-  @apply w-full bg-transparent font-medium border border-[#C0C0C0] rounded-md p-2 pl-4 appearance-none;
+  @apply w-full bg-transparent font-medium border border-[#C0C0C0] text-base rounded-md p-2 pl-4 appearance-none;
 }
 
 .offers-list--divider {
-  @apply bg-[#CDCDCD] h-[1px] my-4;
+  @apply bg-[#CDCDCD] h-[1px] !my-4;
 }
 
 .offers-swiper-pagination {
