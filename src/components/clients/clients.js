@@ -1,18 +1,70 @@
 const clientsData = {
 	clients: [
-		{ number: 1 },
-		{ number: 2 },
-		{ number: 3 },
-		{ number: 4 },
-		{ number: 5 },
-		{ number: 6 },
-		{ number: 7 },
-		{ number: 8 },
-		{ number: 9 },
-		{ number: 10 },
-		{ number: 11 },
-		{ number: 12 },
-		{ number: 13 },
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
+		{
+			imageUrl:
+				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+			videoId: "dQw4w9WgXcQ",
+		},
 	],
 };
 
@@ -22,11 +74,19 @@ orion.renderTemplate({
 	data: clientsData,
 	callback: () => {
 		const clientsSwiperConfig = {
-			slidesPerView: 4,
-			// spaceBetween: 24,
+			slidesPerView: "auto",
+			// spaceBetween: 16,
+			// loop: true,
+			// loopedSlides: clientsData.clients.length,
+			// loopedSlidesLimit: false,
+			// loopAdditionalSlides: 5,
+			// watchSlidesProgress: true,
+			// observer: true,
+			// observeParents: true,
 			autoplay: {
 				delay: 2000,
 				disableOnInteraction: false,
+				pauseOnMouseEnter: false,
 			},
 			grabCursor: true,
 		};
