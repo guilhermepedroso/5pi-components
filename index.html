@@ -39,39 +39,41 @@
     <script type="text/x-handlebars-template" id="offers-template">
       <div class="offers">
         <div class="custom-container">
-          <div class="offers-header overflow-x-scroll">
-            {{#each offers.tabs}}
-              <button class="offers-header--button {{#if isActive}}active{{/if}}" data-plan="{{key}}">
-                <div class="sup">{{title.sup}}</div>
-                {{title.text}}
-              </button>
-            {{/each}}
-            <!-- <button class="offers-header--button">Personalizar
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12.2407 0.759773C12.793 0.760063 13.2405 1.20801 13.2402 1.7603L13.2355 10.7603C13.2352 11.3126 12.7872 11.7601 12.235 11.7598C11.6827 11.7595 11.2352 11.3115 11.2355 10.7592L11.2397 2.75925L3.2397 2.75503C2.68741 2.75474 2.23993 2.30679 2.24022 1.75451C2.24052 1.20222 2.68847 0.754745 3.24075 0.755035L12.2407 0.759773ZM0.994081 12.9941L0.287347 12.2866L11.5335 1.05229L12.2402 1.75977L12.947 2.46725L1.70082 13.7016L0.994081 12.9941Z"
-                  fill="white"
-                  />
-                </svg>
-              </button> -->
+          <div class="offers-header overflow-x-auto scrollbar-thin scrollbar-thumb-[#FD5A03] scrollbar-track-transparent lg:overflow-x-visible lg:scrollbar-none" style="-webkit-overflow-scrolling: touch; scrollbar-width: auto; scrollbar-color: #FD5A03 transparent;">
+            <div class="flex gap-4 mb-4 min-w-max lg:min-w-0">
+              {{#each offers.tabs}}
+                <button class="offers-header--button {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+                  <div class="sup">{{title.sup}}</div>
+                  {{title.text}}
+                </button>
+              {{/each}}
+              <!-- <button class="offers-header--button">Personalizar
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.2407 0.759773C12.793 0.760063 13.2405 1.20801 13.2402 1.7603L13.2355 10.7603C13.2352 11.3126 12.7872 11.7601 12.235 11.7598C11.6827 11.7595 11.2352 11.3115 11.2355 10.7592L11.2397 2.75925L3.2397 2.75503C2.68741 2.75474 2.23993 2.30679 2.24022 1.75451C2.24052 1.20222 2.68847 0.754745 3.24075 0.755035L12.2407 0.759773ZM0.994081 12.9941L0.287347 12.2866L11.5335 1.05229L12.2402 1.75977L12.947 2.46725L1.70082 13.7016L0.994081 12.9941Z"
+                    fill="white"
+                    />
+                  </svg>
+                </button> -->
+            </div>
           </div>
 
-          <div class="offers-cards-container" id="offers-swiper">
-            <div class="swiper-wrapper lg:flex gap-4 w-full">
+          <div class="offers-cards-container block" id="offers-swiper">
+            <div class="swiper-wrapper flex lg:gap-4 w-full">
               {{#each offers.cards}}
-                <div class="swiper-slide lg:!w-1/3 offers-card bg-white rounded-[12px] p-8" data-card-index="{{@index}}">
+                <div class="swiper-slide w-full flex-shrink-0 lg:!w-1/3 offers-card bg-white rounded-[12px] p-4 lg:p-8" data-card-index="{{@index}}">
                   <div class="font-bold text-2xl mb-3">
                     {{name}}
                   </div>
                   <div class="space-y-2 mb-4">
                     <div class="relative">
-                      <div class="absolute top-1/2 left-3 -translate-y-1/2">
+                      <div class="absolute top-1/2 left-2 lg:left-3 -translate-y-1/2">
                         <!-- Duo image -->
                         <img {{#unless (eq selectedPlanType "Duo")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg"/>
                         <!-- Indice -->
@@ -79,7 +81,7 @@
                         <!-- Dolar -->
                         <img {{#unless (eq selectedPlanType "Mini Dolar")}}class="hidden"{{/unless}} src="https://irp.cdn-website.com/a02461d5/icon/image+2.svg"/>
                       </div>
-                      <select class="offers-plan-select !pl-10 plan-combobox">
+                      <select class="offers-plan-select !pl-8 lg:!pl-10 plan-combobox">
                         {{#each planOptions}}
                           <option value="{{type}}" {{#if isSelected}}selected{{/if}}>{{details}}</option>
                         {{/each}}
@@ -89,7 +91,7 @@
                         height="13"
                         viewBox="0 0 16 13"
                         fill="none"
-                        class="absolute size-3 top-1/2 right-4 -translate-y-1/2"
+                        class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -99,7 +101,7 @@
                       </svg>
                     </div>
                     <div class="relative">
-                      <select class="offers-plan-select approval-combobox">
+                      <select class="offers-plan-select !pl-2 approval-combobox">
                         {{#each configurations}}
                           <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>Mínimo de {{minDaysApproval}} dias para aprovação</option>
                         {{/each}}
@@ -108,7 +110,7 @@
                         width="16"
                         height="13"
                         viewBox="0 0 16 13"
-                        class="absolute size-3 top-1/2 right-4 -translate-y-1/2"
+                        class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >

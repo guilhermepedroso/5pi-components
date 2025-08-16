@@ -2,12 +2,12 @@
 }
 
 .offers-header {
-  @apply flex gap-4 mb-10;
+  @apply flex gap-4 mb-6 lg:mb-2;
 }
 
 .offers-header--button {
   border: 1px solid #cac8bc;
-  @apply py-2 px-4 rounded-xl text-white text-left text-lg w-[160px] font-medium cursor-pointer;
+  @apply py-2 px-4 rounded-xl text-white text-left text-lg lg:w-[160px] font-medium cursor-pointer;
 
   .sup {
     @apply text-sm -mb-1 font-normal;
@@ -23,7 +23,7 @@
   @apply flex gap-2 justify-between font-medium text-base text-[#363636];
 
   span {
-    @apply font-semibold text-black;
+    @apply font-semibold text-black text-nowrap;
   }
 }
 
@@ -47,26 +47,21 @@
   }
 }
 
-/* Mobile: Swiper layout */
-@media (max-width: 1024px) {
-  .offers-cards-container {
-    @apply block;
+@media (max-width: 1023px) {
+  .offers-header {
+    scrollbar-width: auto !important;
   }
-
-  .offers-cards-container.swiper {
-    /* @apply overflow-hidden; */
+  .offers-header::-webkit-scrollbar {
+    height: 8px;
+    border-radius: 4px;
+    background: white;
+    display: block !important;
   }
-
-  .offers-cards-container .swiper-wrapper {
-    @apply flex;
+  .offers-header::-webkit-scrollbar-thumb {
+    background: #fd5a03;
+    border-radius: 4px;
   }
-
-  .offers-cards-container .swiper-slide {
-    @apply w-full flex-shrink-0;
-  }
-
-  /* Override desktop width for mobile - since the slide itself has the card classes */
-  .offers-cards-container .swiper-slide.offers-card {
-    /* @apply !w-full; */
+  .offers-header::-webkit-scrollbar-track {
+    background: white;
   }
 }

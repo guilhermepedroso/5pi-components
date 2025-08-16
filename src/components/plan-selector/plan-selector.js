@@ -622,7 +622,7 @@ const initializeSwiper = () => {
 			swiperContainer.classList.add("swiper");
 			offersSwiper = new Swiper("#offers-swiper", {
 				slidesPerView: 1,
-				spaceBetween: 20,
+				spaceBetween: 24,
 				navigation: {
 					nextEl: ".swiper-button-next",
 					prevEl: ".swiper-button-prev",
