@@ -76,11 +76,11 @@ window.addEventListener("DOMContentLoaded", () => {
 		callback: () => {
 			const clientsSwiperConfig = {
 				slidesPerView: "auto",
-				autoplay: {
-					delay: 2000,
-					disableOnInteraction: false,
-					pauseOnMouseEnter: true,
-				},
+				// autoplay: {
+				// 	delay: 2000,
+				// 	disableOnInteraction: false,
+				// 	pauseOnMouseEnter: true,
+				// },
 				grabCursor: true,
 			};
 			new Swiper(".swiper-clients", clientsSwiperConfig);
