@@ -31,8 +31,30 @@
     <link href="/src/style.css" rel="stylesheet" />
   </head>
   <body class="">
+    <div id="clients-container"></div>
+    <script type="text/x-handlebars-template" id="clients-template">
+      <div class="clients">
+        <div class="custom-container">
+          <div class="swiper-clients">
+            <div class="swiper-wrapper clients-list flex gap-4">
+              {{#each clients}}
+                <div class="swiper-slide">
+                  <div
+                    class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[160px] h-[220px] rounded-[20px]"
+                  >
+                    {{number}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/components/day-trade/day-trade.js"></script>
+    <script type="module" src="/src/components/clients/clients.js"></script>
   </body>
 </html>

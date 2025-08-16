@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "./styles/swiper.css";
 @import "./styles/offers.css";
+@import "./components/clients/clients.css";
+
+/* @import "./components/advisors/advisors.css"; */
 
 .custom-container {
   position: relative;
