@@ -19,6 +19,10 @@ Handlebars.registerHelper("gt", (a, b) => a > b);
 Handlebars.registerHelper("eq", (a, b) => a === b);
 
 const renderTemplate = ({ templateId, data, containerId, callback }) => {
+	if (!document.getElementById(templateId)) {
+		return;
+	}
+
 	const template = Handlebars.compile(
 		document.getElementById(templateId).innerHTML,
 	);
