@@ -25,6 +25,11 @@ const plansData = {
 								price: "R$ 500,40",
 								url: "#starter-duo-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 900,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -43,6 +48,11 @@ const plansData = {
 								price: "R$ 350,00",
 								url: "#starter-mini-dolar-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -60,6 +70,11 @@ const plansData = {
 								minDaysApproval: 60,
 								price: "R$ 400,00",
 								url: "#starter-mini-indice-10",
+							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
 							},
 						],
 					},
@@ -84,6 +99,11 @@ const plansData = {
 								price: "R$ 1500,40",
 								url: "#starter-duo-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -102,6 +122,11 @@ const plansData = {
 								price: "R$ 1350,00",
 								url: "#starter-mini-dolar-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -119,6 +144,11 @@ const plansData = {
 								minDaysApproval: 60,
 								price: "R$ 1400,00",
 								url: "#starter-mini-indice-10",
+							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
 							},
 						],
 					},
@@ -143,6 +173,11 @@ const plansData = {
 								price: "R$ 2500,40",
 								url: "#starter-duo-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -161,6 +196,11 @@ const plansData = {
 								price: "R$ 2350,00",
 								url: "#starter-mini-dolar-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -178,6 +218,11 @@ const plansData = {
 								minDaysApproval: 60,
 								price: "R$ 2400,00",
 								url: "#starter-mini-indice-10",
+							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
 							},
 						],
 					},
@@ -200,8 +245,21 @@ const plansData = {
 						profit: "R$ 2000",
 						minLoss: "R$ 1800",
 						configurations: [
-							{ minDaysApproval: 45, price: "R$ 800,00", url: "#plus-duo-5" },
-							{ minDaysApproval: 60, price: "R$ 750,00", url: "#plus-duo-10" },
+							{
+								minDaysApproval: 45,
+								price: "R$ 800,00",
+								url: "#plus-duo-5",
+							},
+							{
+								minDaysApproval: 60,
+								price: "R$ 750,00",
+								url: "#plus-duo-10",
+							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1000,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -220,6 +278,11 @@ const plansData = {
 								price: "R$ 600,00",
 								url: "#plus-mini-dolar-10",
 							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 900,40",
+								url: "#sem-limite",
+							},
 						],
 					},
 					{
@@ -237,6 +300,11 @@ const plansData = {
 								minDaysApproval: 60,
 								price: "R$ 650,00",
 								url: "#plus-mini-indice-10",
+							},
+							{
+								minDaysApproval: 0,
+								price: "R$ 1200,40",
+								url: "#sem-limite",
 							},
 						],
 					},
@@ -580,7 +648,7 @@ const buildOffersViewModel = () => {
 			attributes: {
 				margemReal: stripCurrency(selectedOption.profit),
 				margemDePerda: stripCurrency(selectedOption.minLoss),
-				diasParaAprovacao: appState.selectedMinDays,
+				diasParaAprovacao: 10,
 				repasse: 90,
 				plataformaGratuitaReal: "Sim",
 				proftOneGratis: "Sim",

@@ -70,7 +70,7 @@
                 <div class="relative">
                   <select class="offers-plan-select !pl-2 approval-combobox">
                     {{#each configurations}}
-                      <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>Mínimo de {{minDaysApproval}} dias para aprovação</option>
+                      <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>{{#if (eq minDaysApproval 0)}}Sem prazo para aprovação{{else}}Mínimo de {{minDaysApproval}} dias para aprovação{{/if}}</option>
                     {{/each}}
                   </select>
                   <svg
@@ -100,7 +100,7 @@
                 </li>
                 <li class="offers-list--item">
                   Mínimo para aprovação:
-                  <span>{{attributes.diasParaAprovacao}} dias</span>
+                  <span>{{#if (eq attributes.diasParaAprovacao 0)}}Sem prazo para aprovação{{else}}{{attributes.diasParaAprovacao}} dias{{/if}}</span>
                 </li>
                 <li class="offers-list--item">
                   Repasse:
