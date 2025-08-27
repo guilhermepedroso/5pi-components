@@ -7,11 +7,9 @@
           {{#each clients}}
             <div class="swiper-slide">
               <div
-                class="client-group-item bg-black relative overflow-hidden font-bold text-white flex items-center justify-center w-[160px] h-[200px] rounded-[24px]"
+                class="client-group-item bg-black relative overflow-hidden font-bold text-white flex items-center justify-center w-[300px] h-[180px] rounded-[24px]"
               >
-                <div class="image-wrapper">
-                  <img src="{{imageUrl}}" />
-                </div>
+                <img src="{{imageUrl}}" class="w-full h-full object-cover" />
                 <div
                   class="client-group-overlay w-full absolute inset-0 bg-black/50 opacity-50 transition-opacity duration-200"
                 ></div>

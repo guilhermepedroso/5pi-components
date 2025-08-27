@@ -2,67 +2,37 @@ const clientsData = {
 	clients: [
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Anderson-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Clebson-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Jeferson-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Joa-o-Luiz-Teixeira-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Lauro-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Ovidio-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 		{
 			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
-			videoId: "dQw4w9WgXcQ",
-		},
-		{
-			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
-			videoId: "dQw4w9WgXcQ",
-		},
-		{
-			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
-			videoId: "dQw4w9WgXcQ",
-		},
-		{
-			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
-			videoId: "dQw4w9WgXcQ",
-		},
-		{
-			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
-			videoId: "dQw4w9WgXcQ",
-		},
-		{
-			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
-			videoId: "dQw4w9WgXcQ",
-		},
-		{
-			imageUrl:
-				"https://lirp.cdn-website.com/a02461d5/dms3rep/multi/opt/Mask+group-2x+%281%29-160w.png",
+				"https://irp.cdn-website.com/a02461d5/dms3rep/multi/Ve-ia-Card.jpg",
 			videoId: "dQw4w9WgXcQ",
 		},
 	],
