@@ -1,6 +1,7 @@
 Handlebars.registerHelper("lt", (a, b) => a < b);
 Handlebars.registerHelper("gt", (a, b) => a > b);
 Handlebars.registerHelper("eq", (a, b) => a === b);
+Handlebars.registerHelper("safe", (text) => new Handlebars.SafeString(text));
 
 const renderTemplate = ({ templateId, data, containerId, callback }) => {
 	if (!document.getElementById(templateId)) {

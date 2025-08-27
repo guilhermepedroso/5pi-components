@@ -18,7 +18,7 @@ const benefits = [
 			"https://irp.cdn-website.com/a02461d5/dms3rep/multi/gerenciamentoderisco5pi.png",
 	},
 	{
-		title: "Parcele em até 21x no cartão",
+		title: new Handlebars.SafeString("Parcele em até <br />21x no cartão"),
 		description: "Facilitamos o pagamento no cartão com juros baixos.",
 		background:
 			"linear-gradient(180deg, #332D28 0%, rgba(145, 144, 144, 0.74) 100%)",
