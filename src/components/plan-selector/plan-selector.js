@@ -915,12 +915,3 @@ window.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
-
-// Toastify({
-// 	text: "Código copiado",
-// 	duration: 5000,
-// 	gravity: "bottom",
-// 	position: "center",
-// 	stopOnFocus: true,
-// 	onClick: () => {},
-// }).showToast();
