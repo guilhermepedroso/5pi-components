@@ -26,7 +26,7 @@
 .comparison-table .comparison-table-item-left:before {
   content: "vs";
   background-color: #d9d9d9;
-  @apply font-semibold text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full items-center justify-center hidden md:flex;
+  @apply font-semibold text-base absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full items-center justify-center hidden md:flex;
 }
 
 .comparison-table .comparison-table-row--first > td:first-child:before {
@@ -35,12 +35,6 @@
 
 .comparison-table .comparison-table-item-right {
   background-color: #eeffe9;
-}
-
-.comparison-table .comparison-table-item-right:before {
-  content: "vs";
-  background-color: #d9d9d9;
-  @apply font-semibold text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full flex items-center justify-center;
 }
 
 .comparison-table .comparison-table-row--first td {
