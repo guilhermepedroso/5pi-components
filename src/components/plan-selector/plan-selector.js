@@ -44,6 +44,7 @@ const plansData = {
 								minDaysApproval: 45,
 								price: "R$ 400,00",
 								url: "#starter-mini-dolar-5",
+								couponCode: "PORTAL24",
 							},
 							{
 								minDaysApproval: 60,
@@ -95,6 +96,8 @@ const plansData = {
 								minDaysApproval: 45,
 								price: "R$ 1550,40",
 								url: "#starter-duo-5",
+								couponCode: "PORTAL24",
+								oldPrice: "R$ 1999,00",
 							},
 							{
 								minDaysApproval: 60,
@@ -169,6 +172,8 @@ const plansData = {
 								minDaysApproval: 45,
 								price: "R$ 2550,40",
 								url: "#starter-duo-5",
+								couponCode: "PORTAL24",
+								oldPrice: "R$ 3999,00",
 							},
 							{
 								minDaysApproval: 60,
