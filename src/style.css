@@ -6,6 +6,7 @@
 @import "./components/comparison/comparison.css";
 @import "./components/hero/hero.css";
 @import "./components/faq/faq.css";
+@import "./styles/toastify.css";
 
 .custom-container {
   position: relative;

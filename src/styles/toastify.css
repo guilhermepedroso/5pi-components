@@ -1,0 +1,63 @@
+.toastify {
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: #ffffff;
+  display: inline-block;
+  box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.12),
+    0 10px 36px -4px rgba(77, 96, 232, 0.3);
+  position: fixed;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  max-width: calc(50% - 20px);
+  z-index: 2147483647;
+
+  @apply bg-black text-white font-semibold text-sm inline-block;
+}
+
+.toastify.on {
+  opacity: 1;
+}
+
+.toast-close {
+  display: none;
+}
+
+.toastify-right {
+  right: 15px;
+}
+
+.toastify-left {
+  left: 15px;
+}
+
+.toastify-top {
+  top: -150px;
+}
+
+.toastify-bottom {
+  bottom: -150px;
+}
+
+.toastify-rounded {
+  border-radius: 25px;
+}
+
+.toastify-center {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  max-width: fit-content;
+  max-width: -moz-fit-content;
+}
+
+@media only screen and (max-width: 360px) {
+  .toastify-right,
+  .toastify-left {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    max-width: fit-content;
+  }
+}
