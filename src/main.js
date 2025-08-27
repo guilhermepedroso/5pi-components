@@ -2,6 +2,12 @@ Handlebars.registerHelper("lt", (a, b) => a < b);
 Handlebars.registerHelper("gt", (a, b) => a > b);
 Handlebars.registerHelper("eq", (a, b) => a === b);
 Handlebars.registerHelper("safe", (text) => new Handlebars.SafeString(text));
+Handlebars.registerHelper("discountPercent", (oldPrice, newPrice) => {
+	const oldPriceNum = Number.parseFloat(oldPrice.replace(/[^0-9.]/g, ""));
+	const newPriceNum = Number.parseFloat(newPrice.replace(/[^0-9.]/g, ""));
+	const discount = ((oldPriceNum - newPriceNum) / oldPriceNum) * 100;
+	return Math.round(discount);
+});
 
 const renderTemplate = ({ templateId, data, containerId, callback }) => {
 	if (!document.getElementById(templateId)) {

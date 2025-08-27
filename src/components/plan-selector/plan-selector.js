@@ -17,7 +17,9 @@ const plansData = {
 						configurations: [
 							{
 								minDaysApproval: 45,
+								oldPrice: "R$ 699,00",
 								price: "R$ 550,40",
+								couponCode: "PORTAL24",
 								url: "#starter-duo-5",
 							},
 							{
@@ -663,6 +665,10 @@ const buildOffersViewModel = () => {
 			},
 			pricing: {
 				price: stripCurrency(selectedConfig.price),
+				oldPrice: selectedConfig.oldPrice
+					? stripCurrency(selectedConfig.oldPrice)
+					: null,
+				couponCode: selectedConfig.couponCode || null,
 				installments: 21,
 			},
 			ctaUrl: selectedConfig.url,
@@ -839,6 +845,56 @@ window.addEventListener("DOMContentLoaded", () => {
 			e.preventDefault();
 			appState.isExpanded = !appState.isExpanded;
 			reRenderOffers();
+		}
+
+		// Copy coupon code
+		const copyButton = e.target.closest(".offers-discount button");
+		if (copyButton) {
+			e.preventDefault();
+			const container = e.target.closest(".offers-discount");
+			const couponCode = container?.getAttribute("coupon-code");
+			if (couponCode) {
+				const copyWithFallback = (text) => {
+					try {
+						if (navigator.clipboard && navigator.clipboard.writeText) {
+							return navigator.clipboard.writeText(text);
+						}
+						const tempInput = document.createElement("input");
+						tempInput.value = text;
+						document.body.appendChild(tempInput);
+						tempInput.select();
+						document.execCommand("copy");
+						document.body.removeChild(tempInput);
+						return Promise.resolve();
+					} catch (err) {
+						return Promise.reject(err);
+					}
+				};
+
+				copyWithFallback(couponCode)
+					.then(() => {
+						if (typeof Toastify === "function") {
+							Toastify({
+								text: "Código copiado",
+								duration: 3000,
+								gravity: "bottom",
+								position: "center",
+								stopOnFocus: true,
+							}).showToast();
+						}
+					})
+					.catch(() => {
+						if (typeof Toastify === "function") {
+							Toastify({
+								text: "Não foi possível copiar",
+								duration: 3000,
+								gravity: "bottom",
+								position: "center",
+								stopOnFocus: true,
+							}).showToast();
+						}
+					});
+			}
 		}
 	});
 

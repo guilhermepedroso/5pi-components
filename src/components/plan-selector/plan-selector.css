@@ -47,6 +47,16 @@
   }
 }
 
+.offers-price {
+  .offers-old-price {
+    @apply text-[#8a8a8a] text-base mb-1;
+  }
+}
+
+.offers-discount {
+  @apply border-[#77e68c];
+}
+
 @media (max-width: 1023px) {
   .offers-header {
     scrollbar-width: auto !important;
