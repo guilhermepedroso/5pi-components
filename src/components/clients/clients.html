@@ -7,16 +7,16 @@
           {{#each clients}}
             <div class="swiper-slide">
               <div
-                class="bg-black relative overflow-hidden font-bold text-white flex items-center justify-center w-[160px] h-[200px] rounded-[24px] group"
+                class="client-group-item bg-black relative overflow-hidden font-bold text-white flex items-center justify-center w-[160px] h-[200px] rounded-[24px]"
               >
                 <div class="image-wrapper">
                   <img src="{{imageUrl}}" />
                 </div>
                 <div
-                  class="play-wrapper w-full absolute inset-0 bg-black/50 opacity-50 md:group-hover:opacity-100 transition-opacity duration-200"
+                  class="client-group-overlay w-full absolute inset-0 bg-black/50 opacity-50 transition-opacity duration-200"
                 ></div>
                 <button
-                  class="play-button cursor-pointer absolute md:opacity-0 md:group-hover:opacity-100 md:group-hover:pointer-events-auto md:pointer-events-none transition-opacity duration-200"
+                  class="client-group-button cursor-pointer absolute transition-opacity duration-200"
                   video-id="{{videoId}}"
                 >
                   <svg

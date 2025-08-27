@@ -85,12 +85,25 @@ window.addEventListener("DOMContentLoaded", () => {
 			};
 			new Swiper(".swiper-clients", clientsSwiperConfig);
 
-			// missing: on play, pause the autoplay, on close, resume the autoplay
+			// hover: adiciona/remove classe no card interno
+			const slides = document.querySelectorAll(".swiper-clients .swiper-slide");
+			for (const slide of slides) {
+				const card = slide.querySelector(".client-group-item");
+				if (!card) {
+					return;
+				}
+				slide.addEventListener("mouseenter", () => {
+					card.classList.add("card--hover");
+				});
+				slide.addEventListener("mouseleave", () => {
+					card.classList.remove("card--hover");
+				});
+			}
 
 			document.addEventListener("click", (e) => {
-				if (e.target.closest(".play-button")) {
+				if (e.target.closest(".client-group-button")) {
 					e.preventDefault();
-					const button = e.target.closest(".play-button");
+					const button = e.target.closest(".client-group-button");
 					const videoId = button.getAttribute("video-id");
 
 					if (videoId) {

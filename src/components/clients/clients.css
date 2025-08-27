@@ -1,33 +1,20 @@
-.clients-section {
-  padding: 120px 0;
-  background: black;
+.clients .client-group-overlay {
+  @apply opacity-60 md:opacity-0;
 }
 
-.clients-section-title {
-  font-size: 54px;
-  font-weight: 800;
+.clients .client-group-button {
+  @apply opacity-100 md:opacity-0;
 }
 
-.clients-section .swiper-slide {
-  width: 250px; /* or any custom width */
+.clients .card--hover .client-group-overlay {
+  @apply lg:opacity-100;
 }
 
-.shorts-cases-list {
-  display: flex;
+.clients .card--hover .client-group-button {
+  @apply lg:opacity-100 z-50;
 }
 
-.clients-section-item {
-  background: #fff;
-  border-radius: 20px;
-  height: 300px;
-  color: #fff;
-  padding: 24px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+/* 
 .short-icon {
   width: 54px;
   height: 54px;
@@ -35,4 +22,4 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-}
+} */
