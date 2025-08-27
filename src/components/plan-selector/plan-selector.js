@@ -537,7 +537,7 @@ const plansData = {
 const appState = {
 	currentPlan: "starter",
 	selectedPlanType: "Duo",
-	selectedMinDays: 10,
+	selectedMinDays: 45,
 	isExpanded: false,
 };
 

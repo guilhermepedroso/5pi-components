@@ -19,12 +19,8 @@
   }
 }
 
-.offer-list > li {
-  @apply mb-2;
-}
-
 .offers-list--item {
-  @apply flex gap-2 justify-between font-medium text-base text-[#363636];
+  @apply flex gap-2 mb-2 justify-between font-medium text-base text-[#363636];
 
   span {
     @apply font-semibold text-black text-nowrap;
