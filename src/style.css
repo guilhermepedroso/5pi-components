@@ -7,6 +7,7 @@
 @import "./components/hero/hero.css";
 @import "./components/faq/faq.css";
 @import "./styles/toastify.css";
+@import "./components/trader-cta/trader-cta.css";
 
 .custom-container {
   position: relative;
