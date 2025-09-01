@@ -56,4 +56,16 @@ window.addEventListener("DOMContentLoaded", () => {
 	} else {
 		update();
 	}
+
+	const button = document.getElementById("floating-cta-button");
+	button.addEventListener("click", () => {
+		const offersContainer = document.getElementById("offers-container");
+		if (!offersContainer) {
+			return;
+		}
+		document.getElementById("offers-container")?.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest", // or "center", "end", "nearest"
+		});
+	});
 });
