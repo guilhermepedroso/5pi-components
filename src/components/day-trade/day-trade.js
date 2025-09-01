@@ -68,17 +68,47 @@ window.addEventListener("DOMContentLoaded", () => {
 	window.orion.renderTemplate({
 		templateId: "day-trade-template",
 		containerId: "day-trade-container",
-		data: { benefits: benefits },
+		data: { benefits: benefits.concat(benefits).concat(benefits) },
 		callback: () => {
-			new Swiper(".swiper-day-trade", {
+			const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+			const swiperConfig = {
 				slidesPerView: "auto",
 				grabCursor: true,
-				autoPlay: 2000,
 				navigation: {
 					nextEl: ".swiper-day-trade-button-next",
 					prevEl: ".swiper-day-trade-button-prev",
 				},
-			});
+			};
+
+			if (isDesktop) {
+				swiperConfig.speed = 7000;
+				swiperConfig.direction = "horizontal";
+				swiperConfig.autoplay = {
+					delay: 0,
+					disableOnInteraction: true,
+					pauseOnMouseEnter: true,
+				};
+			}
+			new Swiper(".swiper-day-trade", swiperConfig);
 		},
 	});
 });
+
+// old
+// window.addEventListener("DOMContentLoaded", () => {
+// 	window.orion.renderTemplate({
+// 		templateId: "day-trade-template",
+// 		containerId: "day-trade-container",
+// 		data: { benefits: benefits },
+// 		callback: () => {
+// 			new Swiper(".swiper-day-trade", {
+// 				slidesPerView: "auto",
+// 				grabCursor: true,
+// 				autoPlay: 2000,
+// 				navigation: {
+// 					nextEl: ".swiper-day-trade-button-next",
+// 					prevEl: ".swiper-day-trade-button-prev",
+// 				},
+// 			});
+// 		},
+// 	});

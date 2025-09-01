@@ -47,3 +47,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.swiper-day-trade .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
