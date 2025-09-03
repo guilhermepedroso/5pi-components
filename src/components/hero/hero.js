@@ -1,11 +1,42 @@
 window.addEventListener("DOMContentLoaded", () => {
 	const videoPlayButton = document.querySelector(".video-play-hero-button");
-	videoPlayButton.addEventListener("click", () => {
-		window.orion.videoModal.open("dQw4w9WgXcQ");
+	if (videoPlayButton) {
+		videoPlayButton.addEventListener("click", () => {
+			window.orion.videoModal.open("dQw4w9WgXcQ");
+		});
+	}
+
+	const button = document.getElementById("hero-cta--buton");
+	button.addEventListener("click", () => {
+		const offersContainer = document.getElementById("offers-container");
+		if (!offersContainer) {
+			return;
+		}
+		document.getElementById("offers-container")?.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest", // or "center", "end", "nearest"
+		});
 	});
 
-	setInterval(() => {
-		document.querySelector("#hero-title .text-1").classList.toggle("hidden");
-		document.querySelector("#hero-title .text-2").classList.toggle("hidden");
-	}, 6000);
+	const titleEl = document.getElementById("hero-title");
+	const line1 = titleEl?.querySelector(".text-1");
+	const line2 = titleEl?.querySelector(".text-2");
+
+	if (titleEl && line1 && line2) {
+		let showingFirst = true;
+		setInterval(() => {
+			if (showingFirst) {
+				line1.classList.remove("is-active");
+				line1.classList.add("is-inactive");
+				line2.classList.remove("is-inactive");
+				line2.classList.add("is-active");
+			} else {
+				line2.classList.remove("is-active");
+				line2.classList.add("is-inactive");
+				line1.classList.remove("is-inactive");
+				line1.classList.add("is-active");
+			}
+			showingFirst = !showingFirst;
+		}, 6000);
+	}
 });

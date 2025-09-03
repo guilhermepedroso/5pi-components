@@ -1,5 +1,5 @@
 .hero-bg {
-  @apply bg-no-repeat bg-top lg:bg-cover xl:bg-contain;
+  @apply bg-no-repeat bg-top lg:bg-center bg-size-[600px] lg:bg-cover;
 }
 
 .box-hero-container {
@@ -93,4 +93,31 @@
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
     opacity: 0;
   }
+}
+
+/* Hero title crossfade/slide animation */
+#hero-title {
+  position: relative;
+}
+
+#hero-title .hero-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  will-change: opacity;
+}
+
+#hero-title .is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#hero-title .is-inactive {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
