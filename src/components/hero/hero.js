@@ -23,6 +23,12 @@ window.addEventListener("DOMContentLoaded", () => {
 	const line2 = titleEl?.querySelector(".text-2");
 
 	if (titleEl && line1 && line2) {
+		const setStableHeight = () => {
+			const maxHeight = Math.max(line1.scrollHeight, line2.scrollHeight);
+			titleEl.style.height = `${maxHeight}px`;
+		};
+		setStableHeight();
+
 		let showingFirst = true;
 		setInterval(() => {
 			if (showingFirst) {

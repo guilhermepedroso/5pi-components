@@ -1,5 +1,5 @@
 .hero-bg {
-  @apply bg-no-repeat bg-top lg:bg-center bg-size-[600px] lg:bg-cover;
+  @apply bg-no-repeat bg-top lg:bg-center bg-size-[600px] lg:bg-cover xl:bg-contain xl:bg-bottom;
 }
 
 .box-hero-container {
