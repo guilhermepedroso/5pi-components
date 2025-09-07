@@ -902,29 +902,17 @@ window.addEventListener("DOMContentLoaded", () => {
 					}
 				};
 
-				copyWithFallback(couponCode)
-					.then(() => {
-						if (typeof Toastify === "function") {
-							Toastify({
-								text: "Código copiado",
-								duration: 3000,
-								gravity: "bottom",
-								position: "center",
-								stopOnFocus: true,
-							}).showToast();
-						}
-					})
-					.catch(() => {
-						if (typeof Toastify === "function") {
-							Toastify({
-								text: "Não foi possível copiar",
-								duration: 3000,
-								gravity: "bottom",
-								position: "center",
-								stopOnFocus: true,
-							}).showToast();
-						}
-					});
+				copyWithFallback(couponCode).then(() => {
+					if (typeof Toastify === "function") {
+						Toastify({
+							text: "Código copiado",
+							duration: 3000,
+							gravity: "bottom",
+							position: "center",
+							stopOnFocus: true,
+						}).showToast();
+					}
+				});
 			}
 		}
 	});

@@ -10,6 +10,7 @@
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   max-width: calc(50% - 20px);
   z-index: 2147483647;
+  width: 150px !important;
 
   @apply bg-black text-white font-semibold text-sm inline-block;
 }
