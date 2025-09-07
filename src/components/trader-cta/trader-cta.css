@@ -1,7 +1,5 @@
 .trader-cta {
   padding: 4% 0;
-  background: #a1a1a1;
-  background: linear-gradient(227deg, #a1a1a1 -19.48%, #050505 64.3%);
 
   @apply text-white text-center;
 }
@@ -11,6 +9,6 @@
 
   &::before {
     content: "";
-    @apply absolute top-4 left-0 w-full h-0.5 bg-red-500;
+    @apply absolute top-[16px] md:top-[20px] left-0 w-full h-[3px] bg-[#FF0000];
   }
 }
