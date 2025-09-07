@@ -852,6 +852,32 @@ window.addEventListener("DOMContentLoaded", () => {
 			reRenderOffers();
 		}
 
+		// Open/close tooltip containers
+		const openTooltipButton = e.target.closest(
+			".open-tooltip-button[data-target]",
+		);
+		if (openTooltipButton) {
+			e.preventDefault();
+			const targetId = openTooltipButton.getAttribute("data-target");
+			if (targetId) {
+				const tooltip = document.getElementById(targetId);
+				if (tooltip) {
+					tooltip.classList.toggle("hidden");
+				}
+			}
+			return;
+		}
+
+		const closeTooltipButton = e.target.closest(".close-tooltip-button");
+		if (closeTooltipButton) {
+			e.preventDefault();
+			const container = closeTooltipButton.closest(".offers-tooltip-container");
+			if (container) {
+				container.classList.add("hidden");
+			}
+			return;
+		}
+
 		// Copy coupon code
 		const copyButton = e.target.closest(".offers-discount button");
 		if (copyButton) {

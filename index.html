@@ -119,17 +119,18 @@
                     </div>
                   </div>
                   <ul class="offer-list">
-                    <li class="offers-list--divider"></li>
                     <li class="offers-list--item">
                       <div class="inline-flex relative gap-2 items-center">
                       Margem na real de até:
                       <div>
-                        <svg class="size-4" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="10.5" cy="10.5" r="10.5" fill="#393939"/>
-                          <path d="M10.142 16V7.27273H11.8409V16H10.142ZM11 5.92614C10.7045 5.92614 10.4508 5.82765 10.2386 5.63068C10.0303 5.42992 9.92614 5.19129 9.92614 4.91477C9.92614 4.63447 10.0303 4.39583 10.2386 4.19886C10.4508 3.99811 10.7045 3.89773 11 3.89773C11.2955 3.89773 11.5473 3.99811 11.7557 4.19886C11.9678 4.39583 12.0739 4.63447 12.0739 4.91477C12.0739 5.19129 11.9678 5.42992 11.7557 5.63068C11.5473 5.82765 11.2955 5.92614 11 5.92614Z" fill="white"/>
-                          </svg>
+                        <button class="open-tooltip-button" data-target="credit-card-tooltip">
+                          <svg class="size-4" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10.5" cy="10.5" r="10.5" fill="#393939"/>
+                            <path d="M10.142 16V7.27273H11.8409V16H10.142ZM11 5.92614C10.7045 5.92614 10.4508 5.82765 10.2386 5.63068C10.0303 5.42992 9.92614 5.19129 9.92614 4.91477C9.92614 4.63447 10.0303 4.39583 10.2386 4.19886C10.4508 3.99811 10.7045 3.89773 11 3.89773C11.2955 3.89773 11.5473 3.99811 11.7557 4.19886C11.9678 4.39583 12.0739 4.63447 12.0739 4.91477C12.0739 5.19129 11.9678 5.42992 11.7557 5.63068C11.5473 5.82765 11.2955 5.92614 11 5.92614Z" fill="white"/>
+                            </svg>
+                        </button>
 
-                          <div class="offers-tooltip-container text-black absolute w-[356px] p-6 rounded-2xl">
+                          <div id="credit-card-tooltip" class="offers-tooltip-container hidden text-black absolute w-[356px] p-6 rounded-2xl">
                             <button class="close-tooltip-button absolute top-6 right-6">
                               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 2L18.5 18.5" stroke="#4D4D4D" stroke-width="3"/>
