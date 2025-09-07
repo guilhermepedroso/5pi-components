@@ -57,6 +57,38 @@
   @apply border-[#77e68c];
 }
 
+.offers-tooltip-container {
+  background: #2a7b9b;
+  background: linear-gradient(
+    90deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(85, 196, 134, 1) 0%,
+    rgba(223, 220, 219, 1) 0%,
+    rgba(187, 187, 170, 1) 100%
+  );
+}
+
+.offers-tooltip-container-divider {
+  background: #2a7b9b;
+  background: linear-gradient(
+    90deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(85, 196, 134, 1) 0%,
+    rgba(64, 64, 64, 1) 0%,
+    rgba(123, 123, 123, 1) 100%
+  );
+}
+
+.offers-list-tooltip-benefits {
+  li {
+    @apply flex gap-2 mb-2 text-black items-start;
+  }
+
+  img {
+    @apply mt-1 shrink-0 inline-block;
+  }
+}
+
 @media (max-width: 1023px) {
   .offers-header {
     scrollbar-width: auto !important;

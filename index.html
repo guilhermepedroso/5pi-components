@@ -42,6 +42,228 @@
     <link href="/src/style.css" rel="stylesheet" />
   </head>
   <body class="bg-black">
+    <div id="offers-container" class=""></div>
+    <script type="text/x-handlebars-template" id="offers-template">
+      <div class="offers">
+        <div class="custom-container">
+          <div class="offers-header overflow-x-auto scrollbar-thin scrollbar-thumb-[#FD5A03] scrollbar-track-transparent lg:overflow-x-visible lg:scrollbar-none" style="-webkit-overflow-scrolling: touch; scrollbar-width: auto; scrollbar-color: #FD5A03 transparent;">
+            <div class="flex gap-4 mb-4 min-w-max lg:min-w-0">
+              {{#each offers.tabs}}
+                <button class="offers-header--button {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+                  <div class="sup">{{title.sup}}</div>
+                  {{title.text}}
+                </button>
+              {{/each}}
+            </div>
+          </div>
+
+          <div class="offers-cards-container block" id="offers-swiper">
+            <div class="swiper-wrapper flex lg:gap-4 w-full">
+              {{#each offers.cards}}
+                <div class="swiper-slide w-full flex-shrink-0 lg:!w-1/3 offers-card bg-white rounded-[12px] p-4 lg:p-8" data-card-index="{{@index}}">
+                  <div class="font-bold text-2xl mb-3">
+                    {{name}}
+                  </div>
+                  <div class="mb-4">
+                    <div class="relative mb-2">
+                        <div class="absolute top-1/2 left-2 lg:left-3 -translate-y-1/2">
+                          {{#if (eq selectedPlanType "Duo")}}
+                            <!-- Duo image -->
+                            <img class="block" src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg"/>
+                          {{else if (eq selectedPlanType "Mini Indice")}}
+                            <!-- Indice -->
+                            <img class="block" src="https://irp.cdn-website.com/a02461d5/icon/image+1.svg"/>
+                          {{else if (eq selectedPlanType "Mini Dolar")}}
+                            <!-- Dolar -->
+                            <img  class="block" src="https://irp.cdn-website.com/a02461d5/icon/image+2.svg"/>
+                          {{/if}}
+                        </div>
+                      <select class="offers-plan-select !pl-8 lg:!pl-10 plan-combobox">
+                        {{#each planOptions}}
+                          <option value="{{type}}" {{#if isSelected}}selected{{/if}}>{{details}}</option>
+                        {{/each}}
+                      </select>
+                      <svg
+                        width="16"
+                        height="13"
+                        viewBox="0 0 16 13"
+                        fill="none"
+                        class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15.0711 6.34315C15.4616 5.95262 15.4616 5.31946 15.0711 4.92893C14.6805 4.53841 14.0474 4.53841 13.6569 4.92893L8 10.5858L2.34315 4.92893C1.95262 4.53841 1.31946 4.53841 0.928932 4.92893C0.538408 5.31946 0.538408 5.95262 0.928932 6.34315L7.29289 12.7071ZM8 0L7 -4.10533e-08L7 12L8 12L9 12L9 4.10533e-08L8 0Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <div class="relative">
+                      <select class="offers-plan-select !pl-2 approval-combobox">
+                        {{#each configurations}}
+                          <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>{{#if (eq minDaysApproval 0)}}Sem prazo para aprovação{{else}}Mínimo de {{minDaysApproval}} dias para aprovação{{/if}}</option>
+                        {{/each}}
+                      </select>
+                      <svg
+                        width="16"
+                        height="13"
+                        viewBox="0 0 16 13"
+                        class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15.0711 6.34315C15.4616 5.95262 15.4616 5.31946 15.0711 4.92893C14.6805 4.53841 14.0474 4.53841 13.6569 4.92893L8 10.5858L2.34315 4.92893C1.95262 4.53841 1.31946 4.53841 0.928932 4.92893C0.538408 5.31946 0.538408 5.95262 0.928932 6.34315L7.29289 12.7071ZM8 0L7 -4.10533e-08L7 12L8 12L9 12L9 4.10533e-08L8 0Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <ul class="offer-list">
+                    <li class="offers-list--divider"></li>
+                    <li class="offers-list--item">
+                      <div class="inline-flex relative gap-2 items-center">
+                      Margem na real de até:
+                      <div>
+                        <svg class="size-4" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="10.5" cy="10.5" r="10.5" fill="#393939"/>
+                          <path d="M10.142 16V7.27273H11.8409V16H10.142ZM11 5.92614C10.7045 5.92614 10.4508 5.82765 10.2386 5.63068C10.0303 5.42992 9.92614 5.19129 9.92614 4.91477C9.92614 4.63447 10.0303 4.39583 10.2386 4.19886C10.4508 3.99811 10.7045 3.89773 11 3.89773C11.2955 3.89773 11.5473 3.99811 11.7557 4.19886C11.9678 4.39583 12.0739 4.63447 12.0739 4.91477C12.0739 5.19129 11.9678 5.42992 11.7557 5.63068C11.5473 5.82765 11.2955 5.92614 11 5.92614Z" fill="white"/>
+                          </svg>
+
+                          <div class="offers-tooltip-container text-black absolute w-[356px] p-6 rounded-2xl">
+                            <button class="close-tooltip-button absolute top-6 right-6">
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 2L18.5 18.5" stroke="#4D4D4D" stroke-width="3"/>
+                                <path d="M18.5 2L2 18.5" stroke="#4D4D4D" stroke-width="3"/>
+                                </svg>
+
+                            </button>
+                            <div class="font-bold text-3xl">Cartão Black</div>
+                            <div>Benecífio na Conta Real</div>
+
+                            <div class="offers-tooltip-container-divider h-[1px] opacity-50 my-4"></div>
+
+                            <ul class="offers-list-tooltip-benefits">
+                              <li>
+                                <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                                Receba seus repasse e gaste no credito.
+                              </li>
+                              <li class="flex gap-2">
+                                <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                                Saque seu dinheiro em qualquer caixa eletroníco 24h.
+                              </li>
+                              <li class="flex gap-2">
+                                <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                                Habilite o programa Mastercard surpreenda e receba pontos.
+                              </li>
+                              <li class="flex gap-2">
+                                <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                                Desconto em mais de 1.000 lojas parceiras no aplicativo do cartão.
+                              </li>
+                            </ul>
+                          </div>
+                      </div>
+                      </div>
+                      <span>R$ {{attributes.margemReal}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Margem de perda:
+                      <span>R$ {{attributes.margemDePerda}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Mínimo para aprovação:
+                      <span>{{#if (eq attributes.diasParaAprovacao 0)}}Sem prazo para aprovação{{else}}{{attributes.diasParaAprovacao}} dias{{/if}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Repasse:
+                      <span>{{attributes.repasse}}</span>
+                    </li>
+                    <li class="offers-list--divider"></li>
+                    <li class="offers-list--item">
+                      Plataforma gratuita na real:
+                      <span>{{attributes.plataformaGratuitaReal}}</span>
+                    </li>
+                    <li class="offers-list--item">
+                      Profit one gratís no 1° mês:
+                      <span>{{attributes.proftOneGratis}}</span>
+                    </li>
+                    {{#if @root.offers.isExpanded}}
+                      <li class="offers-list--divider"></li>
+                      <li class="offers-list--item">
+                        Educacional com especialistas:
+                        <span>{{attributes.educaionalEspecialistas}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Sala ao vivo com mentores:
+                        <span>{{attributes.salasAoVivoComMentores}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Gerenciamento de Risco:
+                        <span>{{attributes.gerenciamentoDeRisco}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Assessoria especializada:
+                        <span>{{attributes.acessoriaEspecializada}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Suporte psicológico:
+                        <span>{{attributes.suportePsicologico}}</span>
+                      </li>
+                      <li class="offers-list--divider"></li>
+                      <li class="offers-list--item">
+                        Cashback de R$ 250,00:
+                        <span>{{attributes.cashback}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Saque quinzenal ou mensal:
+                        <span>{{attributes.saqueQuinzenalOuMensal}}</span>
+                      </li>
+                      <li class="offers-list--item">
+                        Cartão Black:
+                      </div>
+                        <span>{{attributes.cartaoBlack}}</span>
+                      </li>
+                    {{/if}}
+                    <li>
+                      <button class="offers-toggle-details font-medium underline-offset-2 text-base underline cursor-pointer mt-1">{{#if @root.offers.isExpanded}}Mostrar menos{{else}}Ver todos os benefícios{{/if}}</button>
+                    </li>
+                    <li class="offers-list--divider"></li>
+                  </ul>
+                  <div class="offers-price mb-4">
+                    {{#if pricing.oldPrice}}
+                      <div class="offers-old-price line-through">R$ {{pricing.oldPrice}}</div>
+                      <div class="offers-price--value font-bold text-3xl">
+                        R$ {{pricing.price}}
+                        {{#if pricing.oldPrice}}
+                          <span class="text-lime-700 text-lg">{{discountPercent pricing.oldPrice pricing.price}}% OFF</span>
+                        {{/if}}
+                      </div>
+                    {{else}}
+                      <div class="offers-price--value font-bold text-3xl">
+                        R$ {{pricing.price}}
+                      </div>
+                    {{/if}}
+                    <div class="text-base">Em até {{pricing.installments}}x com taxas reduzidas</div>
+                  </div>
+                  {{#if pricing.couponCode}}
+                  <div coupon-code="{{pricing.couponCode}}" class="offers-discount mb-4 text-base flex items-center justify-between border-dashed border-1 bg-lime-50 text-lime-700 font-semibold p-2 rounded-md">
+                    <div>
+                      Cupom: {{pricing.couponCode}}
+                    </div>
+                    <button class="ml-2 px-2 cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    </button>
+                  </div>
+                  {{/if}}
+                  <a href="{{ctaUrl}}" class="button-primary offers-button-cta">Comprar agora</a>
+                </div>
+              {{/each}}
+            </div>
+            <div class="offers-swiper-pagination swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </script>
+
     <!-- DONT REMOVE THIS -->
     <div id="video-modal-container"></div>
     <script type="text/x-handlebars-template" id="video-modal-template">

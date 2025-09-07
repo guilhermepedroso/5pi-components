@@ -700,7 +700,7 @@ const initializeSwiper = () => {
 		if (swiperContainer) {
 			swiperContainer.classList.add("swiper");
 			offersSwiper = new Swiper("#offers-swiper", {
-				slidesPerView: 1,
+				slidesPerView: 1.2,
 				spaceBetween: 24,
 				navigation: {
 					nextEl: ".swiper-button-next",
