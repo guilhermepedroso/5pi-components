@@ -59,6 +59,6 @@ window.addEventListener("DOMContentLoaded", () => {
 				line1.classList.add("is-active");
 			}
 			showingFirst = !showingFirst;
-		}, 6000);
+		}, 4000);
 	}
 });
