@@ -3,10 +3,21 @@ Handlebars.registerHelper("gt", (a, b) => a > b);
 Handlebars.registerHelper("eq", (a, b) => a === b);
 Handlebars.registerHelper("safe", (text) => new Handlebars.SafeString(text));
 Handlebars.registerHelper("discountPercent", (oldPrice, newPrice) => {
-	const oldPriceNum = Number.parseFloat(oldPrice.replace(/[^0-9.]/g, ""));
-	const newPriceNum = Number.parseFloat(newPrice.replace(/[^0-9.]/g, ""));
-	const discount = ((oldPriceNum - newPriceNum) / oldPriceNum) * 100;
-	return Math.round(discount);
+	const toNumber = (v) => {
+		if (v == null) return NaN;
+		const s = String(v)
+			.replace(/\u00A0/g, " ")
+			.replace(/\s*R\$\s*/g, "")
+			.replace(/\./g, "")
+			.replace(",", ".")
+			.trim();
+		return Number.parseFloat(s);
+	};
+	const o = toNumber(oldPrice);
+	const n = toNumber(newPrice);
+	if (!isFinite(o) || !isFinite(n) || o <= 0) return 0;
+	const pct = Math.round((1 - n / o) * 100);
+	return Math.max(0, pct);
 });
 
 const renderTemplate = ({ templateId, data, containerId, callback }) => {

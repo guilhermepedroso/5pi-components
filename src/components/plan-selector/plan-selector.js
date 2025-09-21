@@ -1,626 +1,999 @@
-// Data aligned with component.html
+/* ===== Helpers ===== */
+/* Parse pt-BR robusto:
+     - 1.140 -> 1140
+     - 4.512,50 -> 4512.50
+     - 617,50 -> 617.50
+     - 650 -> 650
+  */
+function parseBRAmount(x) {
+	if (x == null) return NaN;
+	let s = String(x)
+		.replace(/\u00A0/g, " ") // nbsp
+		.replace(/[^\d.,-]/g, "") // mantém só dígitos . , -
+		.trim();
+	if (!s) return NaN;
+	const hasComma = s.includes(",");
+	const hasDot = s.includes(".");
+	if (hasComma && hasDot) {
+		// pt-BR clássico: . milhar, , decimal
+		s = s.replace(/\./g, "").replace(",", ".");
+		return Number(s);
+	}
+	if (hasComma) {
+		// vírgula = decimal
+		return Number(s.replace(",", "."));
+	}
+	if (hasDot) {
+		// apenas ponto: em pt-BR é milhar -> remove pontos
+		return Number(s.replace(/\./g, ""));
+	}
+	return Number(s);
+}
+function discountPercent(oldP, newP) {
+	const o = parseBRAmount(oldP);
+	const n = parseBRAmount(newP);
+	if (!isFinite(o) || !isFinite(n) || o <= n)
+		return Math.max(0, Math.round((1 - n / o) * 100)) || 0;
+	return Math.round((1 - n / o) * 100);
+}
+window.discountPercent = discountPercent;
+function formatBRInt(value) {
+	const s = String(value ?? "")
+		.replace(/\s*R\$\s*/g, "")
+		.replace(/\./g, "")
+		.replace(",", ".");
+	const n = Number(s);
+	if (!isFinite(n)) return "";
+	return new Intl.NumberFormat("pt-BR", {
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0,
+	}).format(n);
+}
+const stripCurrency = (v) =>
+	typeof v === "string"
+		? v
+				.replace(/\s*R\$\s*/g, "")
+				.replace(/\./g, "")
+				.replace(",", ".")
+		: v;
+/* Mantém pontos de milhar e centavos (se existirem) */
+function formatBRMoney(value) {
+	const raw = String(value ?? "").trim();
+	if (!raw) return "";
+	const numeric = stripCurrency(raw);
+	const hasCents = /\.\d{1,2}$/.test(String(numeric));
+	const n = Number(numeric);
+	if (!isFinite(n)) return "";
+	return new Intl.NumberFormat("pt-BR", {
+		minimumFractionDigits: hasCents ? 2 : 0,
+		maximumFractionDigits: hasCents ? 2 : 0,
+	}).format(n);
+}
+/* Normalização de cupom (mantido) */
+function normalizeCoupon(v) {
+	if (v == null) return null;
+	const s = String(v)
+		.replace(/\u00A0/g, " ")
+		.replace(/[\r\n\t]+/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+	return s ? s.toUpperCase() : null;
+}
+function hasRealCoupon(v) {
+	if (v == null) return false;
+	const s = String(v)
+		.replace(/\u00A0/g, " ")
+		.replace(/[\r\n\t]+/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+	return s.length > 0;
+}
+/* ===== DADOS ===== */
 const plansData = {
-	starter: {
-		title: {
-			text: "Starter",
-			sup: "Iniciantes",
-		},
+	plus: {
+		title: { text: "Planos Plus", sup: "Mais vendidos" },
 		cards: [
 			{
-				name: "Book 15 contratos",
-				planOptions: [
+				name: "Book 90",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
 					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 1500",
-						minLoss: "R$ 1400",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								oldPrice: "R$ 699,00",
-								price: "R$ 550,40",
-								couponCode: "PORTAL24",
-								url: "#starter-duo-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 500,40",
-								url: "#starter-duo-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 900,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "11.000",
+							margemDePerda: "11.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 3.500",
+							price: "R$ 2.849",
+							couponCode: "NEW56OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 1200",
-						minLoss: "R$ 1100",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 400,00",
-								url: "#starter-mini-dolar-5",
-								couponCode: "PORTAL24",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 350,00",
-								url: "#starter-mini-dolar-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "11.000",
+							margemDePerda: "11.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 3.500",
+							price: "R$ 2.450",
+							couponCode: "NEW56OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 1300",
-						minLoss: "R$ 1200",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 450,00",
-								url: "#starter-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 400,00",
-								url: "#starter-mini-indice-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
-					},
-				],
-			},
-			{
-				name: "Book 30 contratos",
-				planOptions: [
-					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 2500",
-						minLoss: "R$ 2400",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 1550,40",
-								url: "#starter-duo-5",
-								couponCode: "PORTAL24",
-								oldPrice: "R$ 1999,00",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 1500,40",
-								url: "#starter-duo-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "11.000",
+							margemDePerda: "11.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 3.500",
+							price: "R$ 3.325",
+							couponCode: "NEW56OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 2200",
-						minLoss: "R$ 2100",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 1400,00",
-								url: "#starter-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 1350,00",
-								url: "#starter-mini-dolar-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
-					},
-					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 2300",
-						minLoss: "R$ 2200",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 1450,00",
-								url: "#starter-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 1400,00",
-								url: "#starter-mini-indice-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "11.000",
+							margemDePerda: "11.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 3.500",
+							price: "R$ 3.150",
+							couponCode: "NEW56OFF",
+						},
+						url: "#",
 					},
 				],
 			},
 			{
-				name: "Book 40 contratos",
-				planOptions: [
+				name: "Book 140",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
 					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 4000",
-						minLoss: "R$ 3800",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2550,40",
-								url: "#starter-duo-5",
-								couponCode: "PORTAL24",
-								oldPrice: "R$ 3999,00",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2500,40",
-								url: "#starter-duo-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "15.000",
+							margemDePerda: "15.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 4.750",
+							price: "R$ 3.878",
+							couponCode: "NEW53OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 3800",
-						minLoss: "R$ 3600",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2400,00",
-								url: "#starter-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2350,00",
-								url: "#starter-mini-dolar-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "15.000",
+							margemDePerda: "15.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 4.750",
+							price: "R$ 3.330",
+							couponCode: "NEW53OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 3900",
-						minLoss: "R$ 3700",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2450,00",
-								url: "#starter-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2400,00",
-								url: "#starter-mini-indice-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "15.000",
+							margemDePerda: "15.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 4.750",
+							price: "R$ 4.512,50",
+							couponCode: "NEW53OFF",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "15.000",
+							margemDePerda: "15.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 4.750",
+							price: "R$ 4.280",
+							couponCode: "NEW53OFF",
+						},
+						url: "#",
+					},
+				],
+			},
+			{
+				name: "Book 200",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
+					{
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "18.000",
+							margemDePerda: "18.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 5.430",
+							price: "R$ 4.429",
+							couponCode: "NEWTRADER50",
+						},
+						url: "#",
+					},
+					{
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "18.000",
+							margemDePerda: "18.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 5.430",
+							price: "R$ 3.800",
+							couponCode: "NEWTRADER50",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "18.000",
+							margemDePerda: "18.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 5.430",
+							price: "R$ 5.158,50",
+							couponCode: "NEWTRADER50",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "18.000",
+							margemDePerda: "18.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 5.430",
+							price: "R$ 4.880",
+							couponCode: "NEWTRADER50",
+						},
+						url: "#",
 					},
 				],
 			},
 		],
 	},
-	plus: {
-		title: {
-			text: "Plus",
-			sup: "Mais comprados",
-		},
+	starter: {
+		title: { text: "Planos Starter", sup: "Mais acessíveis" },
 		cards: [
 			{
-				name: "Book 20 contratos Pro",
-				planOptions: [
+				name: "Book 15",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
 					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 2000",
-						minLoss: "R$ 1800",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 800,00",
-								url: "#plus-duo-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 750,00",
-								url: "#plus-duo-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1000,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "2.200",
+							margemDePerda: "2.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 650",
+							price: "R$ 535",
+							couponCode: "NEW15OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 1800",
-						minLoss: "R$ 1600",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 650,00",
-								url: "#plus-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 600,00",
-								url: "#plus-mini-dolar-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 900,40",
-								url: "#sem-limite",
-							},
-						],
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "2.200",
+							margemDePerda: "2.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 650",
+							price: "R$ 450",
+							couponCode: "NEW15OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 1900",
-						minLoss: "R$ 1700",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 700,00",
-								url: "#plus-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 650,00",
-								url: "#plus-mini-indice-10",
-							},
-							{
-								minDaysApproval: 0,
-								price: "R$ 1200,40",
-								url: "#sem-limite",
-							},
-						],
-					},
-				],
-			},
-			{
-				name: "Book 50 contratos Pro",
-				planOptions: [
-					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 5000",
-						minLoss: "R$ 4800",
-						configurations: [
-							{ minDaysApproval: 45, price: "R$ 2500,00", url: "#plus-duo-5" },
-							{ minDaysApproval: 60, price: "R$ 2450,00", url: "#plus-duo-10" },
-						],
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "2.200",
+							margemDePerda: "2.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 650",
+							price: "R$ 617,50",
+							couponCode: "NEW15OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 4800",
-						minLoss: "R$ 4600",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2300,00",
-								url: "#plus-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2250,00",
-								url: "#plus-mini-dolar-10",
-							},
-						],
-					},
-					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 4900",
-						minLoss: "R$ 4700",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2400,00",
-								url: "#plus-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2350,00",
-								url: "#plus-mini-indice-10",
-							},
-						],
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "2.200",
+							margemDePerda: "2.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 650",
+							price: "R$ 585",
+							couponCode: "NEW15OFF",
+						},
+						url: "#",
 					},
 				],
 			},
 			{
-				name: "Book 70 contratos Pro",
-				planOptions: [
+				name: "Book 30",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
 					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 6500",
-						minLoss: "R$ 6200",
-						configurations: [
-							{ minDaysApproval: 45, price: "R$ 3500,00", url: "#plus-duo-5" },
-							{ minDaysApproval: 60, price: "R$ 3450,00", url: "#plus-duo-10" },
-						],
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "3.400",
+							margemDePerda: "3.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 1.140",
+							price: "R$ 939",
+							couponCode: "NEW32OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 6200",
-						minLoss: "R$ 5900",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 3300,00",
-								url: "#plus-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 3250,00",
-								url: "#plus-mini-dolar-10",
-							},
-						],
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "3.400",
+							margemDePerda: "3.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 1.140",
+							price: "R$ 800",
+							couponCode: "NEW32OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 6300",
-						minLoss: "R$ 6000",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 3400,00",
-								url: "#plus-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 3350,00",
-								url: "#plus-mini-indice-10",
-							},
-						],
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "3.400",
+							margemDePerda: "3.300",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 1.140",
+							price: "R$ 1.083",
+							couponCode: "NEW32OFF",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "3.400",
+							margemDePerda: "3.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 1.140",
+							price: "R$ 1.020",
+							couponCode: "NEW32OFF",
+						},
+						url: "#",
+					},
+				],
+			},
+			{
+				name: "Book 40",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
+					{
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "6.000",
+							margemDePerda: "5.500",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 2.150",
+							price: "R$ 1.789",
+							couponCode: "NEW25OFF",
+						},
+						url: "#",
+					},
+					{
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "6.000",
+							margemDePerda: "5.500",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 2.150",
+							price: "R$ 1.500",
+							couponCode: "NEW25OFF",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "6.000",
+							margemDePerda: "5.500",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 2.150",
+							price: "R$ 2.042,50",
+							couponCode: "NEW25OFF",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "6.000",
+							margemDePerda: "5.500",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 2.150",
+							price: "R$ 1.930",
+							couponCode: "NEW25OFF",
+						},
+						url: "#",
 					},
 				],
 			},
 		],
 	},
 	private: {
-		title: {
-			text: "Private",
-			sup: "Maiores lucros",
-		},
+		title: { text: "Planos Private", sup: "Maiores lucros" },
 		cards: [
 			{
-				name: "Book 30 contratos Premium",
-				planOptions: [
+				name: "Book 250",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
 					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 3000",
-						minLoss: "R$ 2800",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 1800,00",
-								url: "#private-duo-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 1750,00",
-								url: "#private-duo-10",
-							},
-						],
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "25.000",
+							margemDePerda: "25.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 7.575",
+							price: "R$ 6.198",
+							couponCode: "NEW57OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 2800",
-						minLoss: "R$ 2600",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 1600,00",
-								url: "#private-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 1550,00",
-								url: "#private-mini-dolar-10",
-							},
-						],
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "25.000",
+							margemDePerda: "25.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 7.575",
+							price: "R$ 5.300",
+							couponCode: "NEW57OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 2900",
-						minLoss: "R$ 2700",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 1700,00",
-								url: "#private-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 1650,00",
-								url: "#private-mini-indice-10",
-							},
-						],
-					},
-				],
-			},
-			{
-				name: "Book 60 contratos Premium",
-				planOptions: [
-					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 6000",
-						minLoss: "R$ 5800",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 3000,00",
-								url: "#private-duo-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2950,00",
-								url: "#private-duo-10",
-							},
-						],
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "25.000",
+							margemDePerda: "25.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 7.575",
+							price: "R$ 7.196,25",
+							couponCode: "NEW57OFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 5800",
-						minLoss: "R$ 5600",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2800,00",
-								url: "#private-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2750,00",
-								url: "#private-mini-dolar-10",
-							},
-						],
-					},
-					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 5900",
-						minLoss: "R$ 5700",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 2900,00",
-								url: "#private-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 2850,00",
-								url: "#private-mini-indice-10",
-							},
-						],
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "25.000",
+							margemDePerda: "25.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 7.575",
+							price: "R$ 6.800",
+							couponCode: "NEW57OFF",
+						},
+						url: "#",
 					},
 				],
 			},
 			{
-				name: "Book 100 contratos Premium",
-				planOptions: [
+				name: "Book 500",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					meta: "Meta",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
 					{
-						type: "Duo",
-						details: "Duo (WDO e WIN)",
-						profit: "R$ 10000",
-						minLoss: "R$ 9500",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 5000,00",
-								url: "#private-duo-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 4900,00",
-								url: "#private-duo-10",
-							},
-						],
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "50.000",
+							margemDePerda: "50.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 17.000",
+							price: "R$ 14.500",
+							couponCode: "NEW5KOFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Dolar",
-						details: "Mini Dólar (WDO)",
-						profit: "R$ 9800",
-						minLoss: "R$ 9300",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 4800,00",
-								url: "#private-mini-dolar-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 4700,00",
-								url: "#private-mini-dolar-10",
-							},
-						],
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "50.000",
+							margemDePerda: "50.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 17.000",
+							price: "R$ 13.000",
+							couponCode: "NEW5KOFF",
+						},
+						url: "#",
 					},
 					{
-						type: "Mini Indice",
-						details: "Mini Índice (WIN)",
-						profit: "R$ 9900",
-						minLoss: "R$ 9400",
-						configurations: [
-							{
-								minDaysApproval: 45,
-								price: "R$ 4900,00",
-								url: "#private-mini-indice-5",
-							},
-							{
-								minDaysApproval: 60,
-								price: "R$ 4800,00",
-								url: "#private-mini-indice-10",
-							},
-						],
+						key: "D5-SP",
+						baseDays: 5,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "50.000",
+							margemDePerda: "50.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 17.000",
+							price: "R$ 16.150",
+							couponCode: "NEW5KOFF",
+						},
+						url: "#",
+					},
+					{
+						key: "D5-P60",
+						baseDays: 5,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "50.000",
+							margemDePerda: "50.000",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 17.000",
+							price: "R$ 15.300",
+							couponCode: "NEW5KOFF",
+						},
+						url: "#",
 					},
 				],
 			},
 		],
 	},
 };
-
-// App state aligned to component.html behavior
+/* ===== Estado ===== */
 const appState = {
-	currentPlan: "starter",
-	selectedPlanType: "Duo",
-	selectedMinDays: 45,
+	currentPlan: "plus",
+	selectedBase: "D10", // 10 primeiro
+	selectedMinDays: 60, // 60 primeiro
 	isExpanded: false,
 };
-
-const stripCurrency = (value) => {
-	if (typeof value !== "string") return value;
-	return value.replace(/\s*R\$\s*/g, "");
-};
-
+/* ===== VM ===== */
 const buildOffersViewModel = () => {
 	const planKey = appState.currentPlan;
 	const plan = plansData[planKey];
@@ -629,76 +1002,98 @@ const buildOffersViewModel = () => {
 		title: plansData[key].title,
 		isActive: key === planKey,
 	}));
-
-	const cards = plan.cards.map((card) => {
-		const selectedOption =
-			card.planOptions.find((opt) => opt.type === appState.selectedPlanType) ||
-			card.planOptions[0];
-		const selectedConfig =
-			selectedOption.configurations.find(
-				(c) => Number(c.minDaysApproval) === Number(appState.selectedMinDays),
-			) || selectedOption.configurations[0];
-
+	const cards = (plan.cards || []).map((card) => {
+		const variants = card.variants || [];
+		const desiredKey = `${appState.selectedBase}-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
+		let selected =
+			variants.find((v) => v.key === desiredKey) ||
+			variants.find(
+				(v) =>
+					v.baseDays === (appState.selectedBase === "D5" ? 5 : 10) &&
+					v.minDaysApproval === appState.selectedMinDays,
+			) ||
+			variants[0] ||
+			{};
+		// Selects
+		const planOptions = [
+			{
+				key: "D10",
+				label: "Mínimo 10 dias operados",
+				isSelected: appState.selectedBase === "D10",
+			},
+			{
+				key: "D5",
+				label: "Mínimo 5 dias operados",
+				isSelected: appState.selectedBase === "D5",
+			},
+		];
+		const approvalOptions = [
+			{ minDaysApproval: 60, isSelected: appState.selectedMinDays === 60 },
+			{ minDaysApproval: 0, isSelected: appState.selectedMinDays === 0 },
+		];
+		const L = card.labels || {};
+		const V = selected.values || {};
+		const P = selected.pricing || {};
+		const margemRealFmt = formatBRInt(V.margemReal);
+		const margemDePerdaFmt = formatBRInt(V.margemDePerda);
+		const metaParaAprovacaoText =
+			appState.selectedMinDays === 60 ? `R$ ${margemRealFmt}` : "Sem meta";
+		const couponExists = hasRealCoupon(P.couponCode);
+		const couponClean = couponExists ? normalizeCoupon(P.couponCode) : null;
 		return {
 			name: card.name,
-			selectedPlanType: appState.selectedPlanType,
-			planOptions: card.planOptions.map((opt) => ({
-				type: opt.type,
-				details: opt.details,
-				isSelected: opt.type === appState.selectedPlanType,
-			})),
-			configurations: selectedOption.configurations.map((c) => ({
-				minDaysApproval: c.minDaysApproval,
-				isSelected:
-					Number(c.minDaysApproval) === Number(appState.selectedMinDays),
-			})),
+			planOptions,
+			approvalOptions,
+			fields: {
+				labels: {
+					margemReal: L.margemReal,
+					margemDePerda: L.margemDePerda,
+					meta: L.meta,
+					repasse: L.repasse,
+					cashback: L.cashback,
+					profitOne: L.profitOne,
+					plataforma: L.plataforma,
+					educacional: L.educacional,
+					salaAoVivo: L.salaAoVivo,
+					gerenciamento: L.gerenciamento,
+					assessoria: L.assessoria,
+				},
+			},
 			attributes: {
-				margemReal: stripCurrency(selectedOption.profit),
-				margemDePerda: stripCurrency(selectedOption.minLoss),
-				diasParaAprovacao: 10,
-				repasse: 90,
-				plataformaGratuitaReal: "Sim",
-				proftOneGratis: "Sim",
-				educaionalEspecialistas: 50,
-				salasAoVivoComMentores: "Diária",
-				gerenciamentoDeRisco: "Sim",
-				acessoriaEspecializada: "Sim",
-				suportePsicologico: "Sim",
-				cashback: "Sim",
-				saqueQuinzenalOuMensal: "Sim",
-				cartaoBlack: "Sim",
+				margemReal: stripCurrency(V.margemReal ?? ""),
+				margemDePerda: stripCurrency(V.margemDePerda ?? ""),
+				repasse: V.repasse ?? "",
+				cashback: V.cashback ?? "",
+				proftOneGratis: V.proftOneGratis ?? "",
+				plataformaGratuitaReal: V.plataformaGratuitaReal ?? "",
+				educacionalEspecialistas: V.educacionalEspecialistas ?? "",
+				salasAoVivoComMentores: V.salasAoVivoComMentores ?? "",
+				gerenciamentoDeRisco: V.gerenciamentoDeRisco ?? "",
+				acessoriaEspecializada: V.acessoriaEspecializada ?? "",
+				margemRealFmt,
+				margemDePerdaFmt,
+				metaParaAprovacaoText,
 			},
 			pricing: {
-				price: stripCurrency(selectedConfig.price),
-				oldPrice: selectedConfig.oldPrice
-					? stripCurrency(selectedConfig.oldPrice)
-					: null,
-				couponCode: selectedConfig.couponCode || null,
+				price: formatBRMoney(P.price ?? ""),
+				oldPrice: P.oldPrice ? formatBRMoney(P.oldPrice) : null,
+				couponCode: couponClean,
 				installments: 21,
 			},
-			ctaUrl: selectedConfig.url,
+			ctaUrl: selected.url || "#",
 		};
 	});
-
-	return {
-		tabs,
-		cards,
-		isExpanded: appState.isExpanded,
-	};
+	return { tabs, cards, isExpanded: appState.isExpanded };
 };
-
+/* ===== Render + Listeners ===== */
 let offers = buildOffersViewModel();
-
-// Swiper instance for mobile
 let offersSwiper = null;
-
 const isMobile = () => window.innerWidth < 1024;
-
 const initializeSwiper = () => {
 	if (isMobile() && !offersSwiper) {
-		const swiperContainer = document.getElementById("offers-swiper");
-		if (swiperContainer) {
-			swiperContainer.classList.add("swiper");
+		const c = document.getElementById("offers-swiper");
+		if (c) {
+			c.classList.add("swiper");
 			offersSwiper = new Swiper("#offers-swiper", {
 				slidesPerView: 1.2,
 				spaceBetween: 24,
@@ -711,221 +1106,69 @@ const initializeSwiper = () => {
 					clickable: true,
 					type: "bullets",
 				},
-				breakpoints: {
-					1024: {
-						enabled: false,
-					},
-				},
+				breakpoints: { 1024: { enabled: false } },
 			});
 		}
 	} else if (!isMobile() && offersSwiper) {
-		destroySwiper();
-	}
-};
-
-const destroySwiper = () => {
-	if (offersSwiper) {
-		const swiperContainer = document.getElementById("offers-swiper");
-		if (swiperContainer) {
-			swiperContainer.classList.remove("swiper");
-		}
+		const c = document.getElementById("offers-swiper");
+		if (c) c.classList.remove("swiper");
 		offersSwiper.destroy(true, true);
 		offersSwiper = null;
 	}
 };
-
-const updateIcons = () => {
-	// Update icons based on selected plan type
-	const cards = document.querySelectorAll("[data-card-index]");
-
-	cards.forEach((card, index) => {
-		const planSelect = card.querySelector(".plan-combobox");
-		if (planSelect) {
-			const selectedPlanType = planSelect.value;
-			const iconContainer = card.querySelector(".absolute.top-1\\/2.left-3");
-
-			if (iconContainer) {
-				const duoImg = iconContainer.children[0]; // Duo image
-				const indiceImg = iconContainer.children[1]; // Indice image
-				const dolarImg = iconContainer.children[2]; // Dolar image
-
-				// Hide all icons first
-				duoImg.classList.add("hidden");
-				indiceImg.classList.add("hidden");
-				dolarImg.classList.add("hidden");
-
-				// Show the appropriate icon
-				if (selectedPlanType === "Duo") {
-					duoImg.classList.remove("hidden");
-				} else if (selectedPlanType === "Mini Indice") {
-					indiceImg.classList.remove("hidden");
-				} else if (selectedPlanType === "Mini Dolar") {
-					dolarImg.classList.remove("hidden");
+function attachInteractiveHandlers() {
+	document
+		.querySelectorAll(".offers-header--button[data-plan]")
+		.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const plan = btn.getAttribute("data-plan");
+				if (plan && plan !== appState.currentPlan) {
+					appState.currentPlan = plan;
+					reRenderOffers();
 				}
-			}
-		}
+			});
+		});
+	document.querySelectorAll(".plan-combobox").forEach((sel) => {
+		sel.addEventListener("change", (e) => {
+			appState.selectedBase = e.target.value;
+			reRenderOffers();
+		});
 	});
-};
-
-const reRenderOffers = () => {
-	// Destroy existing swiper before re-rendering
-	destroySwiper();
-
-	offers = buildOffersViewModel();
-	window.orion.renderTemplate({
-		templateId: "offers-template",
-		containerId: "offers-container",
-		data: { offers },
-		callback: () => {
-			// keep plan selects synced across cards
-			const planSelects = document.querySelectorAll(".plan-combobox");
-			for (const planSelect of planSelects) {
-				planSelect.addEventListener("change", (e) => {
-					const selectedValue = e.target.value;
-					for (const otherSelect of planSelects) {
-						if (otherSelect !== e.target) {
-							otherSelect.value = selectedValue;
-						}
-					}
-					updateIcons(); // Update icons when plan changes
-				});
-			}
-			updateIcons(); // Update icons on initial render
-
-			// Wait for DOM to be fully rendered before initializing swiper
-			setTimeout(() => {
-				initializeSwiper();
-			}, 10);
-		},
+	document.querySelectorAll(".approval-combobox").forEach((sel) => {
+		sel.addEventListener("change", (e) => {
+			appState.selectedMinDays = parseInt(e.target.value, 10) || 0;
+			reRenderOffers();
+		});
 	});
-};
-
-window.addEventListener("DOMContentLoaded", () => {
-	window.orion.renderTemplate({
-		templateId: "offers-template",
-		containerId: "offers-container",
-		data: { offers: offers },
-		callback: () => {
-			console.log("Offers template rendered successfully");
-
-			const planSelects = document.querySelectorAll(".plan-combobox");
-
-			for (const planSelect of planSelects) {
-				planSelect.addEventListener("change", (e) => {
-					const selectedValue = e.target.value;
-					for (const otherSelect of planSelects) {
-						if (otherSelect !== e.target) {
-							otherSelect.value = selectedValue;
-						}
-					}
-					updateIcons(); // Update icons when plan changes
-				});
-			}
-			updateIcons(); // Update icons on initial render
-			initializeSwiper(); // Initialize swiper for mobile
-		},
-	});
-});
-
-// Handle window resize for responsive swiper behavior
-window.addEventListener("resize", () => {
-	initializeSwiper();
-});
-
-// Delegated interactions to mirror component.html behavior without changing the block above
-window.addEventListener("DOMContentLoaded", () => {
-	// Tabs
-	document.addEventListener("click", (e) => {
-		const tabButton = e.target.closest(".offers-header--button[data-plan]");
-		if (tabButton) {
-			const newPlan = tabButton.getAttribute("data-plan");
-			if (newPlan && newPlan !== appState.currentPlan) {
-				appState.currentPlan = newPlan;
-				reRenderOffers();
-			}
-		}
-
-		const toggle = e.target.closest(".offers-toggle-details");
-		if (toggle) {
+	document.querySelectorAll(".offers-toggle-details").forEach((btn) => {
+		btn.addEventListener("click", (e) => {
 			e.preventDefault();
 			appState.isExpanded = !appState.isExpanded;
 			reRenderOffers();
-		}
-
-		// Open/close tooltip containers
-		const openTooltipButton = e.target.closest(
-			".open-tooltip-button[data-target]",
-		);
-		if (openTooltipButton) {
-			e.preventDefault();
-			const targetId = openTooltipButton.getAttribute("data-target");
-			if (targetId) {
-				const tooltip = document.getElementById(targetId);
-				if (tooltip) {
-					tooltip.classList.toggle("hidden");
-				}
-			}
-			return;
-		}
-
-		const closeTooltipButton = e.target.closest(".close-tooltip-button");
-		if (closeTooltipButton) {
-			e.preventDefault();
-			const container = closeTooltipButton.closest(".offers-tooltip-container");
-			if (container) {
-				container.classList.add("hidden");
-			}
-			return;
-		}
-
-		// Copy coupon code
-		const copyButton = e.target.closest(".offers-discount button");
-		if (copyButton) {
-			e.preventDefault();
-			const container = e.target.closest(".offers-discount");
-			const couponCode = container?.getAttribute("coupon-code");
-			if (couponCode) {
-				const copyWithFallback = (text) => {
-					try {
-						if (navigator.clipboard && navigator.clipboard.writeText) {
-							return navigator.clipboard.writeText(text);
-						}
-						const tempInput = document.createElement("input");
-						tempInput.value = text;
-						document.body.appendChild(tempInput);
-						tempInput.select();
-						document.execCommand("copy");
-						document.body.removeChild(tempInput);
-						return Promise.resolve();
-					} catch (err) {
-						return Promise.reject(err);
-					}
-				};
-
-				copyWithFallback(couponCode).then(() => {
-					if (typeof Toastify === "function") {
-						Toastify({
-							text: "Código copiado",
-							duration: 3000,
-							gravity: "bottom",
-							position: "center",
-							stopOnFocus: true,
-						}).showToast();
-					}
-				});
-			}
-		}
+		});
 	});
-
-	// Selections
-	document.addEventListener("change", (e) => {
-		if (e.target.matches(".plan-combobox")) {
-			appState.selectedPlanType = e.target.value;
-			reRenderOffers();
-		}
-		if (e.target.matches(".approval-combobox")) {
-			appState.selectedMinDays = Number.parseInt(e.target.value, 10);
-			reRenderOffers();
-		}
+}
+function renderOffers(cb) {
+	window.orion.renderTemplate({
+		templateId: "offers-template",
+		containerId: "offers-container",
+		data: { offers, discountPercent },
+		callback: () => {
+			attachInteractiveHandlers();
+			initializeSwiper();
+			if (typeof cb === "function") cb();
+		},
 	});
-});
+}
+function reRenderOffers() {
+	if (offersSwiper) {
+		const c = document.getElementById("offers-swiper");
+		if (c) c.classList.remove("swiper");
+		offersSwiper.destroy(true, true);
+		offersSwiper = null;
+	}
+	offers = buildOffersViewModel();
+	renderOffers();
+}
+window.addEventListener("DOMContentLoaded", () => renderOffers());
+window.addEventListener("resize", initializeSwiper);

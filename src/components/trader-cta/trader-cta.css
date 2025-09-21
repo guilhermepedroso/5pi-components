@@ -1,7 +1,7 @@
 .trader-cta {
   padding: 4% 0;
 
-  @apply text-white text-center;
+  @apply text-white sm:text-center;
 }
 
 .trader-cta .line {
@@ -9,6 +9,6 @@
 
   &::before {
     content: "";
-    @apply absolute top-[16px] md:top-[20px] left-0 w-full h-[3px] bg-[#FF0000];
+    @apply absolute top-[16px] md:top-[20px] left-0 w-full h-[3px] bg-[#ed9146];
   }
 }
