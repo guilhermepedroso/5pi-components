@@ -63,7 +63,7 @@ function formatBRMoney(value) {
 	const numeric = stripCurrency(raw);
 	const hasCents = /\.\d{1,2}$/.test(String(numeric));
 	const n = Number(numeric);
-	if (!Number.isFinite(n)) return "";
+	if (!isFinite(n)) return "";
 	return new Intl.NumberFormat("pt-BR", {
 		minimumFractionDigits: hasCents ? 2 : 0,
 		maximumFractionDigits: hasCents ? 2 : 0,
@@ -155,10 +155,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 3.500",
-							price: "R$ 2.849",
-							couponCode: "NEW56OFF",
+							price: "R$ 2.835",
+							couponCode: "NEW90SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-90-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -179,9 +179,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 3.500",
 							price: "R$ 2.450",
-							couponCode: "NEW56OFF",
+							couponCode: "NEW90D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-90-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -202,9 +202,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 3.500",
 							price: "R$ 3.325",
-							couponCode: "NEW56OFF",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-90-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -225,9 +225,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 3.500",
 							price: "R$ 3.150",
-							couponCode: "NEW56OFF",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-90-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -265,10 +265,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 4.750",
-							price: "R$ 3.878",
-							couponCode: "NEW53OFF",
+							price: "R$ 3.895",
+							couponCode: "NEW140SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-140-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -289,9 +289,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 4.750",
 							price: "R$ 3.330",
-							couponCode: "NEW53OFF",
+							couponCode: "NEW140D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-140-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -312,9 +312,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 4.750",
 							price: "R$ 4.512,50",
-							couponCode: "NEW53OFF",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-140-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -335,9 +335,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 4.750",
 							price: "R$ 4.280",
-							couponCode: "NEW53OFF",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-140-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -375,10 +375,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 5.430",
-							price: "R$ 4.429",
-							couponCode: "NEWTRADER50",
+							price: "R$ 4.452,60",
+							couponCode: "NEW200SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-200-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -399,9 +399,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 5.430",
 							price: "R$ 3.800",
-							couponCode: "NEWTRADER50",
+							couponCode: "NEW200D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-200-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -422,9 +422,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 5.430",
 							price: "R$ 5.158,50",
-							couponCode: "NEWTRADER50",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-200-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -445,9 +445,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 5.430",
 							price: "R$ 4.880",
-							couponCode: "NEWTRADER50",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-200-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -491,9 +491,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 650",
 							price: "R$ 535",
-							couponCode: "NEW15OFF",
+							couponCode: "NEW15SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-15-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -514,9 +514,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 650",
 							price: "R$ 450",
-							couponCode: "NEW15OFF",
+							couponCode: "NEW15D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-15-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -537,9 +537,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 650",
 							price: "R$ 617,50",
-							couponCode: "NEW15OFF",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-15-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -560,9 +560,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 650",
 							price: "R$ 585",
-							couponCode: "NEW15OFF",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-15-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -601,9 +601,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 1.140",
 							price: "R$ 939",
-							couponCode: "NEW32OFF",
+							couponCode: "NEW30SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-30-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -624,9 +624,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 1.140",
 							price: "R$ 800",
-							couponCode: "NEW32OFF",
+							couponCode: "NEW30D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-30-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -647,9 +647,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 1.140",
 							price: "R$ 1.083",
-							couponCode: "NEW32OFF",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-30-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -670,9 +670,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 1.140",
 							price: "R$ 1.020",
-							couponCode: "NEW32OFF",
+							couponCode: "NEW30CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-30-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -711,9 +711,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 2.150",
 							price: "R$ 1.789",
-							couponCode: "NEW25OFF",
+							couponCode: "NEW40SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-40-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -734,9 +734,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 2.150",
 							price: "R$ 1.500",
-							couponCode: "NEW25OFF",
+							couponCode: "NEW40D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-40-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -756,10 +756,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 2.150",
-							price: "R$ 2.042,50",
-							couponCode: "NEW25OFF",
+							price: "R$ 1.935",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-40-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -780,9 +780,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 2.150",
 							price: "R$ 1.930",
-							couponCode: "NEW25OFF",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-40-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -825,10 +825,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 7.575",
-							price: "R$ 6.198",
-							couponCode: "NEW57OFF",
+							price: "R$ 6.212",
+							couponCode: "NEW250SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-250-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -849,9 +849,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 7.575",
 							price: "R$ 5.300",
-							couponCode: "NEW57OFF",
+							couponCode: "NEW250D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-250-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -872,9 +872,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 7.575",
 							price: "R$ 7.196,25",
-							couponCode: "NEW57OFF",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-250-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -894,10 +894,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 7.575",
-							price: "R$ 6.800",
-							couponCode: "NEW57OFF",
+							price: "R$ 6.818",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-250-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -935,10 +935,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 17.000",
-							price: "R$ 14.500",
-							couponCode: "NEW5KOFF",
+							price: "R$ 14.450",
+							couponCode: "NEW500SP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-500-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -959,9 +959,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 17.000",
 							price: "R$ 13.000",
-							couponCode: "NEW5KOFF",
+							couponCode: "NEW500D",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-500-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -982,9 +982,9 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 17.000",
 							price: "R$ 16.150",
-							couponCode: "NEW5KOFF",
+							couponCode: "NEW5CINCOSP",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-500-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -1005,16 +1005,15 @@ const plansData = {
 						pricing: {
 							oldPrice: "R$ 17.000",
 							price: "R$ 15.300",
-							couponCode: "NEW5KOFF",
+							couponCode: "NEW10CINCOD",
 						},
-						url: "#",
+						url: "https://checkout.cincoporcento.com/pay/book-500-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
 		],
 	},
 };
-
 /* ===== Estado ===== */
 const appState = {
 	currentPlan: "plus",
