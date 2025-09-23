@@ -15,7 +15,8 @@
 
   &:hover,
   &.active {
-    background: linear-gradient(0deg, #545247 0%, #403c37 122.22%);
+    background: #eddebe;
+    color: #000;
   }
 }
 

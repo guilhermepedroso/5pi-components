@@ -32,7 +32,7 @@ function parseBRAmount(x) {
 function discountPercent(oldP, newP) {
 	const o = parseBRAmount(oldP);
 	const n = parseBRAmount(newP);
-	if (!isFinite(o) || !isFinite(n) || o <= n)
+	if (!Number.isFinite(o) || !Number.isFinite(n) || o <= n)
 		return Math.max(0, Math.round((1 - n / o) * 100)) || 0;
 	return Math.round((1 - n / o) * 100);
 }
@@ -43,7 +43,7 @@ function formatBRInt(value) {
 		.replace(/\./g, "")
 		.replace(",", ".");
 	const n = Number(s);
-	if (!isFinite(n)) return "";
+	if (!Number.isFinite(n)) return "";
 	return new Intl.NumberFormat("pt-BR", {
 		minimumFractionDigits: 0,
 		maximumFractionDigits: 0,
@@ -63,7 +63,7 @@ function formatBRMoney(value) {
 	const numeric = stripCurrency(raw);
 	const hasCents = /\.\d{1,2}$/.test(String(numeric));
 	const n = Number(numeric);
-	if (!isFinite(n)) return "";
+	if (!Number.isFinite(n)) return "";
 	return new Intl.NumberFormat("pt-BR", {
 		minimumFractionDigits: hasCents ? 2 : 0,
 		maximumFractionDigits: hasCents ? 2 : 0,
@@ -87,6 +87,34 @@ function hasRealCoupon(v) {
 		.replace(/\s+/g, " ")
 		.trim();
 	return s.length > 0;
+}
+
+/* Copiar texto para a área de transferência (com fallback) */
+function copyToClipboard(text) {
+	if (!text) return Promise.reject(new Error("empty"));
+	try {
+		if (navigator.clipboard && window.isSecureContext) {
+			return navigator.clipboard.writeText(text);
+		}
+	} catch {}
+	return new Promise((resolve, reject) => {
+		const textarea = document.createElement("textarea");
+		textarea.value = text;
+		textarea.setAttribute("readonly", "");
+		textarea.style.position = "fixed";
+		textarea.style.opacity = "0";
+		textarea.style.top = "-9999px";
+		textarea.style.left = "-9999px";
+		document.body.appendChild(textarea);
+		textarea.focus();
+		textarea.select();
+		let ok = false;
+		try {
+			ok = document.execCommand("copy");
+		} catch {}
+		document.body.removeChild(textarea);
+		ok ? resolve() : reject(new Error("copy_failed"));
+	});
 }
 /* ===== DADOS ===== */
 const plansData = {
@@ -986,6 +1014,7 @@ const plansData = {
 		],
 	},
 };
+
 /* ===== Estado ===== */
 const appState = {
 	currentPlan: "plus",
@@ -1005,7 +1034,7 @@ const buildOffersViewModel = () => {
 	const cards = (plan.cards || []).map((card) => {
 		const variants = card.variants || [];
 		const desiredKey = `${appState.selectedBase}-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
-		let selected =
+		const selected =
 			variants.find((v) => v.key === desiredKey) ||
 			variants.find(
 				(v) =>
@@ -1145,6 +1174,31 @@ function attachInteractiveHandlers() {
 			e.preventDefault();
 			appState.isExpanded = !appState.isExpanded;
 			reRenderOffers();
+		});
+	});
+	// Copy coupon code (button inside discount box)
+	document.querySelectorAll(".offers-discount button").forEach((btn) => {
+		btn.addEventListener("click", (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			const box = btn.closest(".offers-discount");
+			const code =
+				(box &&
+					(box.getAttribute("coupon-code") ||
+						box.getAttribute("data-coupon"))) ||
+				"";
+			if (!code) return;
+			copyToClipboard(code).then(() => {
+				if (typeof Toastify === "function") {
+					Toastify({
+						text: "Código copiado",
+						duration: 3000,
+						gravity: "bottom",
+						position: "center",
+						stopOnFocus: true,
+					}).showToast();
+				}
+			});
 		});
 	});
 }

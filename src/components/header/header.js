@@ -44,6 +44,15 @@ window.addEventListener("DOMContentLoaded", () => {
 	// Previously we checked the day-trade section; now we gate behavior by a fixed threshold
 
 	const update = () => {
+		// Desktop: always keep header visible and fixed at the top
+		const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+		if (isDesktop) {
+			show();
+			lastScrollY = window.scrollY;
+			applyBodyPadding();
+			return;
+		}
+
 		// Always visible while near the top before threshold
 		if (window.scrollY <= thresholdY) {
 			show();
