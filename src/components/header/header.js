@@ -44,6 +44,14 @@ window.addEventListener("DOMContentLoaded", () => {
 	// Previously we checked the day-trade section; now we gate behavior by a fixed threshold
 
 	const update = () => {
+		// If external control requests header to be disabled (e.g., offers-header-small visible),
+		// force hide and skip scroll-driven logic
+		if (window.__flexHeaderDisabled) {
+			hide();
+			lastScrollY = window.scrollY;
+			applyBodyPadding();
+			return;
+		}
 		// Desktop: always keep header visible and fixed at the top
 		const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 		if (isDesktop) {

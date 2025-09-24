@@ -20,6 +20,10 @@
   }
 }
 
+.offers-header--button--small {
+  @apply py-1.5 px-3 text-sm sm:text-base border-none;
+}
+
 .offers-list--item {
   @apply flex gap-2 mb-2 justify-between font-medium text-base text-[#363636];
 
@@ -56,6 +60,10 @@
 
 .offers-discount {
   @apply border-[#77e68c];
+}
+
+.offers-header-small {
+  display: none;
 }
 
 .offers-tooltip-container {
@@ -106,5 +114,23 @@
   }
   .offers-header::-webkit-scrollbar-track {
     background: white;
+  }
+}
+
+@media (max-width: 1023px) {
+  .offers-header-small {
+    display: none;
+  }
+  .offers-header-small.is-fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 50;
+    transition: top 300ms ease;
+    will-change: top;
+  }
+  .offers-header-small.is-visible {
+    display: block;
   }
 }

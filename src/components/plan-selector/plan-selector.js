@@ -1144,6 +1144,76 @@ const initializeSwiper = () => {
 		offersSwiper = null;
 	}
 };
+
+// === Mobile small offers header behavior ===
+let smallOffersHeaderInited = false;
+
+const isElementOnScreen = (el) => {
+	if (!el) return false;
+	const r = el.getBoundingClientRect();
+	const vh = window.innerHeight || document.documentElement.clientHeight;
+	return r.bottom > 0 && r.top < vh;
+};
+
+// No longer need dynamic top sync with header. Small header will stick at top:0
+
+function updateSmallOffersHeader() {
+	// Disable/enable page header scroll effects based on offers-container visibility (mobile only)
+	const offersContainer = document.getElementById("offers-container");
+	const containerVisible = isElementOnScreen(offersContainer);
+	const shouldDisableHeader = isMobile() && containerVisible;
+	if (window.__flexHeaderDisabled !== shouldDisableHeader) {
+		window.__flexHeaderDisabled = shouldDisableHeader;
+		// Force header to re-evaluate immediately
+		window.dispatchEvent(new Event("resize"));
+	}
+
+	const small = document.querySelector(".offers-header-small");
+	const large = document.querySelector(".offers-header");
+	const cards = document.querySelector(".offers-cards-container");
+	if (!small || !large || !cards) return;
+
+	if (!isMobile()) {
+		small.classList.remove("is-fixed", "is-visible");
+		small.style.top = "";
+		return;
+	}
+
+	const shouldShow = isElementOnScreen(cards) && !isElementOnScreen(large);
+	if (!shouldShow) {
+		small.classList.remove("is-fixed", "is-visible");
+		small.style.top = "";
+		return;
+	}
+
+	const wasVisible = small.classList.contains("is-visible");
+	small.classList.add("is-fixed");
+	const top = 0;
+	if (!wasVisible) {
+		const prevTransition = small.style.transition;
+		small.style.transition = "none";
+		small.style.top = `${top}px`;
+		small.classList.add("is-visible");
+		void small.offsetHeight;
+		small.style.transition = prevTransition || "";
+	} else {
+		small.classList.add("is-visible");
+		small.style.top = `${top}px`;
+	}
+
+	// Header disable is handled globally by offers-container visibility above
+}
+
+function initSmallOffersHeaderBehavior() {
+	if (!smallOffersHeaderInited) {
+		window.addEventListener("scroll", updateSmallOffersHeader, {
+			passive: true,
+		});
+		window.addEventListener("resize", updateSmallOffersHeader);
+		smallOffersHeaderInited = true;
+	}
+	updateSmallOffersHeader();
+}
 function attachInteractiveHandlers() {
 	document
 		.querySelectorAll(".offers-header--button[data-plan]")
@@ -1209,6 +1279,7 @@ function renderOffers(cb) {
 		callback: () => {
 			attachInteractiveHandlers();
 			initializeSwiper();
+			initSmallOffersHeaderBehavior();
 			if (typeof cb === "function") cb();
 		},
 	});
