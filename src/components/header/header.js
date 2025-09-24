@@ -96,3 +96,39 @@ window.addEventListener("DOMContentLoaded", () => {
 	applyBodyPadding();
 	update();
 });
+
+// BUTTON HEADER
+window.addEventListener("DOMContentLoaded", () => {
+	// If URL has ?scrollTo=some-id, smooth scroll to it and then remove the param
+	const params = new URLSearchParams(window.location.search);
+	const scrollTargetId = params.get("scrollTo");
+	if (scrollTargetId) {
+		const targetEl = document.getElementById(scrollTargetId);
+		if (targetEl) {
+			targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+			const cleanedUrl = new URL(window.location.href);
+			cleanedUrl.searchParams.delete("scrollTo");
+			history.replaceState(null, "", cleanedUrl.toString());
+		}
+	}
+
+	const headerButton = document.querySelector(".cta-header-button a");
+	if (headerButton) {
+		headerButton.addEventListener("click", (event) => {
+			const targetId = "start-plan-selection-section";
+			const targetOnThisPage = document.getElementById(targetId);
+			if (targetOnThisPage) {
+				event.preventDefault();
+				targetOnThisPage.scrollIntoView({ behavior: "smooth", block: "start" });
+				return;
+			}
+
+			// Not on the homepage (target not present): redirect to home with scroll param
+			event.preventDefault();
+			const baseHref = headerButton.getAttribute("href") || "/";
+			const destination = new URL(baseHref, window.location.href);
+			destination.searchParams.set("scrollTo", targetId);
+			window.location.href = destination.toString();
+		});
+	}
+});
