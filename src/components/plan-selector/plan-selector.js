@@ -1,10 +1,3 @@
-/* ===== Helpers ===== */
-/* Parse pt-BR robusto:
-     - 1.140 -> 1140
-     - 4.512,50 -> 4512.50
-     - 617,50 -> 617.50
-     - 650 -> 650
-  */
 function parseBRAmount(x) {
 	if (x == null) return NaN;
 	let s = String(x)
@@ -88,7 +81,6 @@ function hasRealCoupon(v) {
 		.trim();
 	return s.length > 0;
 }
-
 /* Copiar texto para a área de transferência (com fallback) */
 function copyToClipboard(text) {
 	if (!text) return Promise.reject(new Error("empty"));
@@ -158,7 +150,7 @@ const plansData = {
 							price: "R$ 2.835",
 							couponCode: "NEW90SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-90-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-90-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -181,7 +173,7 @@ const plansData = {
 							price: "R$ 2.450",
 							couponCode: "NEW90D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-90-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-90-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -204,7 +196,7 @@ const plansData = {
 							price: "R$ 3.325",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-90-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-90-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -227,7 +219,7 @@ const plansData = {
 							price: "R$ 3.150",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-90-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-90-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -268,7 +260,7 @@ const plansData = {
 							price: "R$ 3.895",
 							couponCode: "NEW140SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-140-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-140-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -291,7 +283,7 @@ const plansData = {
 							price: "R$ 3.330",
 							couponCode: "NEW140D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-140-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-140-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -314,7 +306,7 @@ const plansData = {
 							price: "R$ 4.512,50",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-140-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-140-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -337,7 +329,7 @@ const plansData = {
 							price: "R$ 4.280",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-140-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-140-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -378,7 +370,7 @@ const plansData = {
 							price: "R$ 4.452,60",
 							couponCode: "NEW200SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-200-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-200-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -401,7 +393,7 @@ const plansData = {
 							price: "R$ 3.800",
 							couponCode: "NEW200D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-200-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-200-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -424,7 +416,7 @@ const plansData = {
 							price: "R$ 5.158,50",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-200-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-200-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -447,7 +439,7 @@ const plansData = {
 							price: "R$ 4.880",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-200-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-200-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -493,7 +485,7 @@ const plansData = {
 							price: "R$ 535",
 							couponCode: "NEW15SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-15-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-15-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -516,7 +508,7 @@ const plansData = {
 							price: "R$ 450",
 							couponCode: "NEW15D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-15-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-15-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -539,7 +531,7 @@ const plansData = {
 							price: "R$ 617,50",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-15-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-15-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -562,7 +554,7 @@ const plansData = {
 							price: "R$ 585",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-15-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-15-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -603,7 +595,7 @@ const plansData = {
 							price: "R$ 939",
 							couponCode: "NEW30SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-30-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-30-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -626,7 +618,7 @@ const plansData = {
 							price: "R$ 800",
 							couponCode: "NEW30D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-30-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-30-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -649,7 +641,7 @@ const plansData = {
 							price: "R$ 1.083",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-30-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-30-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -672,7 +664,7 @@ const plansData = {
 							price: "R$ 1.020",
 							couponCode: "NEW30CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-30-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-30-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -713,7 +705,7 @@ const plansData = {
 							price: "R$ 1.789",
 							couponCode: "NEW40SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-40-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-40-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -736,7 +728,7 @@ const plansData = {
 							price: "R$ 1.500",
 							couponCode: "NEW40D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-40-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-40-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -759,7 +751,7 @@ const plansData = {
 							price: "R$ 1.935",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-40-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-40-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -782,7 +774,7 @@ const plansData = {
 							price: "R$ 1.930",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-40-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-40-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -828,7 +820,7 @@ const plansData = {
 							price: "R$ 6.212",
 							couponCode: "NEW250SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-250-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-250-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -851,7 +843,7 @@ const plansData = {
 							price: "R$ 5.300",
 							couponCode: "NEW250D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-250-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-250-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -874,7 +866,7 @@ const plansData = {
 							price: "R$ 7.196,25",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-250-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-250-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -897,7 +889,7 @@ const plansData = {
 							price: "R$ 6.818",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-250-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-250-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -938,7 +930,7 @@ const plansData = {
 							price: "R$ 14.450",
 							couponCode: "NEW500SP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-500-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-500-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -961,7 +953,7 @@ const plansData = {
 							price: "R$ 13.000",
 							couponCode: "NEW500D",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-500-duo-10-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-500-duo-10-dias-prazo-60-dias",
 					},
 					{
 						key: "D5-SP",
@@ -984,7 +976,7 @@ const plansData = {
 							price: "R$ 16.150",
 							couponCode: "NEW5CINCOSP",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-500-duo-5-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-500-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D5-P60",
@@ -1007,7 +999,7 @@ const plansData = {
 							price: "R$ 15.300",
 							couponCode: "NEW10CINCOD",
 						},
-						url: "https://checkout.cincoporcento.com/pay/book-500-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-500-duo-5-dias-prazo-60-dias",
 					},
 				],
 			},
@@ -1144,19 +1136,15 @@ const initializeSwiper = () => {
 		offersSwiper = null;
 	}
 };
-
 // === Mobile small offers header behavior ===
 let smallOffersHeaderInited = false;
-
 const isElementOnScreen = (el) => {
 	if (!el) return false;
 	const r = el.getBoundingClientRect();
 	const vh = window.innerHeight || document.documentElement.clientHeight;
 	return r.bottom > 0 && r.top < vh;
 };
-
 // No longer need dynamic top sync with header. Small header will stick at top:0
-
 function updateSmallOffersHeader() {
 	// Disable/enable page header scroll effects based on offers-container visibility (mobile only)
 	const offersContainer = document.getElementById("offers-container");
@@ -1167,25 +1155,21 @@ function updateSmallOffersHeader() {
 		// Force header to re-evaluate immediately
 		window.dispatchEvent(new Event("resize"));
 	}
-
 	const small = document.querySelector(".offers-header-small");
 	const large = document.querySelector(".offers-header");
 	const cards = document.querySelector(".offers-cards-container");
 	if (!small || !large || !cards) return;
-
 	if (!isMobile()) {
 		small.classList.remove("is-fixed", "is-visible");
 		small.style.top = "";
 		return;
 	}
-
 	const shouldShow = isElementOnScreen(cards) && !isElementOnScreen(large);
 	if (!shouldShow) {
 		small.classList.remove("is-fixed", "is-visible");
 		small.style.top = "";
 		return;
 	}
-
 	const wasVisible = small.classList.contains("is-visible");
 	small.classList.add("is-fixed");
 	const top = 0;
@@ -1200,10 +1184,8 @@ function updateSmallOffersHeader() {
 		small.classList.add("is-visible");
 		small.style.top = `${top}px`;
 	}
-
 	// Header disable is handled globally by offers-container visibility above
 }
-
 function initSmallOffersHeaderBehavior() {
 	if (!smallOffersHeaderInited) {
 		window.addEventListener("scroll", updateSmallOffersHeader, {

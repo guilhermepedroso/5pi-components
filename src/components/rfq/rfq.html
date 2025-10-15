@@ -1,0 +1,95 @@
+<div id="rfq-container"></div>
+<script type="text/x-handlebars-template" id="rfq-template">
+  <section class="rfq-section">
+    <div class="custom-container">
+      <div class="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
+        <!-- Left: form -->
+        <div class="rfq-form bg-[#111] text-white rounded-2xl p-4 lg:p-6">
+          <!-- Asset -->
+          <div class="mb-5">
+            <div class="font-semibold mb-2">Você deseja operar qual ativo ?</div>
+            <ul class="flex flex-wrap gap-3" data-group="asset">
+              {{#each form.assets}}
+                <li>
+                  <button class="rfq-option {{#if isActive}}active{{/if}}" data-key="{{key}}">{{label}}</button>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <!-- Risk -->
+          <div class="mb-5">
+            <div class="font-semibold mb-2">Margem de ganho e de perda</div>
+            <ul class="flex flex-wrap gap-3" data-group="risk">
+              {{#each form.risks}}
+                <li>
+                  <button class="rfq-option {{#if isActive}}active{{/if}}" data-key="{{key}}">R$ {{label}}</button>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <!-- Contracts -->
+          <div class="mb-5">
+            <div class="font-semibold mb-2">Quantos contratos você deseja operar ?</div>
+            <ul class="flex flex-wrap gap-3" data-group="contracts">
+              {{#each form.contracts}}
+                <li>
+                  <button class="rfq-option {{#if isActive}}active{{/if}}" data-key="{{key}}">{{label}} C</button>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <!-- Term -->
+          <div class="mb-5">
+            <div class="font-semibold mb-2">Escolha seu prazo</div>
+            <ul class="flex flex-wrap gap-3" data-group="term">
+              {{#each form.terms}}
+                <li>
+                  <button class="rfq-option {{#if isActive}}active{{/if}}" data-key="{{key}}">{{label}}</button>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <!-- Target -->
+          <div class="mb-5">
+            <div class="font-semibold mb-2">Meta</div>
+            <ul class="flex flex-wrap gap-3" data-group="target">
+              {{#each form.targets}}
+                <li>
+                  <button class="rfq-option {{#if isActive}}active{{/if}}" data-key="{{key}}">{{label}}</button>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <!-- Approval days -->
+          <div class="mb-5">
+            <div class="font-semibold mb-2">Dias de aprovação</div>
+            <ul class="flex flex-wrap gap-3" data-group="approval">
+              {{#each form.approvals}}
+                <li>
+                  <button class="rfq-option {{#if isActive}}active{{/if}}" data-key="{{key}}">{{label}}</button>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          
+        </div>
+        <!-- Right: summary -->
+        <aside class="rfq-summary bg-white rounded-2xl p-4 lg:p-6">
+          <div class="font-semibold text-xl mb-4">Seu plano</div>
+          <ul class="text-sm divide-y divide-[#eee]">
+            <li class="py-2 flex justify-between"><span>Plano que vai operar</span><span class="font-medium">{{summary.assetLabel}}</span></li>
+            <li class="py-2 flex justify-between"><span>Mínimo de dias para aprovação</span><span class="font-medium">{{summary.minApprovalDays}} dias</span></li>
+            <li class="py-2 flex justify-between"><span>Quantidade de contratos</span><span class="font-medium">{{summary.contracts}}</span></li>
+            <li class="py-2 flex justify-between"><span>Margem de ganho:</span><span class="font-medium">R$ {{summary.gain}}</span></li>
+            <li class="py-2 flex justify-between"><span>Margem de perda:</span><span class="font-medium">R$ {{summary.loss}}</span></li>
+            
+          </ul>
+          <div class="border-t mt-4 pt-4">
+            <div class="text-2xl font-bold mb-2">R$ {{summary.price}}</div>
+            <a href="{{summary.ctaUrl}}" class="button-primary w-full inline-flex justify-center">Comprar agora</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</script>

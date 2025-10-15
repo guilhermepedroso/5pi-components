@@ -1,0 +1,13 @@
+.rfq-section {
+}
+
+.rfq-option {
+	@apply rounded-xl border border-[#3a3a3a] py-2 px-3 text-white/90 text-sm lg:text-base cursor-pointer;
+}
+.rfq-option.active {
+	@apply border-[#EDDEBE] bg-[#EDDEBE] text-black;
+}
+
+.rfq-summary .button-primary {
+	@apply w-full;
+}
