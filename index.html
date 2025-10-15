@@ -114,13 +114,12 @@
                 <li class="offers-list--item flex items-center gap-2 ">Aceita automação: 
                   <span>
                     <div class="relative">
-                      <select class="offers-plan-select !w-[70px] !text-sm h-[32px] !px-3 !py-1">
-                        <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>
-                          Não
+                      <select class="offers-plan-select automation-combobox !w-[70px] !text-sm h-[32px] !px-3 !py-1">
+                        {{#each automationOptions}}
+                        <option value="{{allowsAutomation}}" {{#if isSelected}}selected{{/if}}>
+                          {{#if allowsAutomation}}Sim{{else}}Não{{/if}}
                         </option>
-                        <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>
-                          Sim
-                        </option>
+                        {{/each}}
                       </select>
                       <svg class="absolute pointer-events-none size-4 top-1/2 right-3 lg:right-2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
                         <path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/>
