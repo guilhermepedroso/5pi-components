@@ -8,6 +8,7 @@ const rfqState = {
 	term: "60d", // 60d | no-term
 	target: "with", // with | without
 	approval: 10, // 5 | 10
+	isExpanded: false, // toggle for showing additional benefits
 };
 
 const rfqOptions = {
@@ -96,7 +97,7 @@ function buildRFQViewModel() {
 		ctaUrl: "#", // no backend yet
 	};
 
-	return { form, summary };
+	return { form, summary, isExpanded: rfqState.isExpanded };
 }
 
 function renderRFQ() {
@@ -137,6 +138,15 @@ function attachRFQHandlers() {
 					rfqState.approval = Number(key);
 					break;
 			}
+			renderRFQ();
+		});
+	});
+
+	// Toggle details button handler
+	document.querySelectorAll(".offers-toggle-details").forEach((btn) => {
+		btn.addEventListener("click", (e) => {
+			e.preventDefault();
+			rfqState.isExpanded = !rfqState.isExpanded;
 			renderRFQ();
 		});
 	});
