@@ -1020,6 +1020,26 @@ const appState = {
 	selectedMinDays: 60, // 60 primeiro
 	isExpanded: false,
 };
+/* ===== UTM Helpers ===== */
+function getPartnerUtmSource() {
+	const path = window.location.pathname;
+	const parceirosMatch = path.match(/^\/parceiros\/([^\/]+)/);
+	if (!parceirosMatch) return null;
+	const partnerName = parceirosMatch[1];
+	// Transforma hífens em underscores e adiciona _5p no final
+	return `${partnerName.replace(/-/g, "_")}_5p`;
+}
+function addUtmToUrl(url, utmSource) {
+	if (!url || !utmSource) return url;
+	if (url === "#") return url;
+	try {
+		const urlObj = new URL(url, window.location.origin);
+		urlObj.searchParams.set("utm_source", utmSource);
+		return urlObj.toString();
+	} catch {
+		return url;
+	}
+}
 /* ===== VM ===== */
 const buildOffersViewModel = () => {
 	const planKey = appState.currentPlan;
@@ -1107,7 +1127,11 @@ const buildOffersViewModel = () => {
 				couponCode: couponClean,
 				installments: 21,
 			},
-			ctaUrl: selected.url || "#",
+			ctaUrl: (() => {
+				const baseUrl = selected.url || "#";
+				const utmSource = getPartnerUtmSource();
+				return utmSource ? addUtmToUrl(baseUrl, utmSource) : baseUrl;
+			})(),
 		};
 	});
 	return { tabs, cards, isExpanded: appState.isExpanded };
