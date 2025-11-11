@@ -1,3 +1,10 @@
+/* ===== Helpers ===== */
+/* Parse pt-BR robusto:
+     - 1.140 -> 1140
+     - 4.512,50 -> 4512.50
+     - 617,50 -> 617.50
+     - 650 -> 650
+  */
 function parseBRAmount(x) {
 	if (x == null) return NaN;
 	let s = String(x)
@@ -133,7 +140,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "11.000",
 							margemDePerda: "11.000",
@@ -154,34 +160,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-90-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 3.500",
-							price: "R$ 2.835",
-							couponCode: "NEW90SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "11.000",
 							margemDePerda: "11.000",
@@ -202,34 +183,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-90-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 3.500",
-							price: "R$ 2.450",
-							couponCode: "NEW90D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "11.000",
 							margemDePerda: "11.000",
@@ -250,34 +206,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-90-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 3.500",
-							price: "R$ 3.325",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "11.000",
 							margemDePerda: "11.000",
@@ -296,30 +227,6 @@ const plansData = {
 							couponCode: "NEW10CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-90-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 3.500",
-							price: "R$ 3.150",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -343,7 +250,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "15.000",
 							margemDePerda: "15.000",
@@ -364,34 +270,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-140-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "15.000",
-							margemDePerda: "15.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 4.750",
-							price: "R$ 3.895",
-							couponCode: "NEW140SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "15.000",
 							margemDePerda: "15.000",
@@ -412,34 +293,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-140-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "15.000",
-							margemDePerda: "15.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 4.750",
-							price: "R$ 3.330",
-							couponCode: "NEW140D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "15.000",
 							margemDePerda: "15.000",
@@ -460,34 +316,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-140-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "15.000",
-							margemDePerda: "15.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 4.750",
-							price: "R$ 4.512,50",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "15.000",
 							margemDePerda: "15.000",
@@ -506,30 +337,6 @@ const plansData = {
 							couponCode: "NEW10CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-140-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "15.000",
-							margemDePerda: "15.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 4.750",
-							price: "R$ 4.280",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -553,7 +360,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "18.000",
 							margemDePerda: "18.000",
@@ -574,34 +380,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-200-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "18.000",
-							margemDePerda: "18.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 5.430",
-							price: "R$ 4.452,60",
-							couponCode: "NEW200SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "18.000",
 							margemDePerda: "18.000",
@@ -622,34 +403,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-200-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "18.000",
-							margemDePerda: "18.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 5.430",
-							price: "R$ 3.800",
-							couponCode: "NEW200D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "18.000",
 							margemDePerda: "18.000",
@@ -670,34 +426,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-200-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "18.000",
-							margemDePerda: "18.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 5.430",
-							price: "R$ 5.158,50",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "18.000",
 							margemDePerda: "18.000",
@@ -716,30 +447,6 @@ const plansData = {
 							couponCode: "NEW10CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-200-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "18.000",
-							margemDePerda: "18.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 5.430",
-							price: "R$ 4.880",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -768,7 +475,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "2.200",
 							margemDePerda: "2.000",
@@ -789,34 +495,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-15-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "2.200",
-							margemDePerda: "2.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 650",
-							price: "R$ 535",
-							couponCode: "NEW15SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "2.200",
 							margemDePerda: "2.000",
@@ -837,34 +518,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-15-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "2.200",
-							margemDePerda: "2.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 650",
-							price: "R$ 450",
-							couponCode: "NEW15D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "2.200",
 							margemDePerda: "2.000",
@@ -885,34 +541,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-15-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "2.200",
-							margemDePerda: "2.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 650",
-							price: "R$ 617,50",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "2.200",
 							margemDePerda: "2.000",
@@ -931,30 +562,6 @@ const plansData = {
 							couponCode: "NEW10CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-15-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "2.200",
-							margemDePerda: "2.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 650",
-							price: "R$ 585",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -978,7 +585,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "3.400",
 							margemDePerda: "3.000",
@@ -999,34 +605,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-30-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 1.140",
-							price: "R$ 939",
-							couponCode: "NEW30SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "3.400",
 							margemDePerda: "3.000",
@@ -1047,34 +628,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-30-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 1.140",
-							price: "R$ 800",
-							couponCode: "NEW30D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "3.400",
 							margemDePerda: "3.300",
@@ -1095,34 +651,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-30-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.300",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 1.140",
-							price: "R$ 1.083",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "3.400",
 							margemDePerda: "3.000",
@@ -1141,30 +672,6 @@ const plansData = {
 							couponCode: "NEW30CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-30-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 1.140",
-							price: "R$ 1.020",
-							couponCode: "NEW30CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -1188,7 +695,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "6.000",
 							margemDePerda: "5.500",
@@ -1209,34 +715,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-40-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "6.000",
-							margemDePerda: "5.500",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 2.150",
-							price: "R$ 1.789",
-							couponCode: "NEW40SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "6.000",
 							margemDePerda: "5.500",
@@ -1257,34 +738,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-40-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "6.000",
-							margemDePerda: "5.500",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 2.150",
-							price: "R$ 1.500",
-							couponCode: "NEW40D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "6.000",
 							margemDePerda: "5.500",
@@ -1305,34 +761,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-40-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "6.000",
-							margemDePerda: "5.500",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 2.150",
-							price: "R$ 1.935",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "6.000",
 							margemDePerda: "5.500",
@@ -1351,30 +782,6 @@ const plansData = {
 							couponCode: "NEW10CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-40-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "6.000",
-							margemDePerda: "5.500",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 2.150",
-							price: "R$ 1.930",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -1403,7 +810,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "25.000",
 							margemDePerda: "25.000",
@@ -1424,34 +830,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-250-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "25.000",
-							margemDePerda: "25.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 7.575",
-							price: "R$ 6.212",
-							couponCode: "NEW250SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "25.000",
 							margemDePerda: "25.000",
@@ -1472,34 +853,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-250-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "25.000",
-							margemDePerda: "25.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 7.575",
-							price: "R$ 5.300",
-							couponCode: "NEW250D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "25.000",
 							margemDePerda: "25.000",
@@ -1520,34 +876,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-250-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "25.000",
-							margemDePerda: "25.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 7.575",
-							price: "R$ 7.196,25",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "25.000",
 							margemDePerda: "25.000",
@@ -1566,30 +897,6 @@ const plansData = {
 							couponCode: "NEW10CINCOD",
 						},
 						url: "https://checkout.5pi.com.br/pay/book-250-duo-5-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "25.000",
-							margemDePerda: "25.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 7.575",
-							price: "R$ 6.818",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
 					},
 				],
 			},
@@ -1613,7 +920,6 @@ const plansData = {
 						key: "D10-SP",
 						baseDays: 10,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "50.000",
 							margemDePerda: "50.000",
@@ -1634,34 +940,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-500-duo-10-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D10-SP-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "50.000",
-							margemDePerda: "50.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 17.000",
-							price: "R$ 14.450",
-							couponCode: "NEW500SP",
-						},
-						url: "",
-					},
-					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "50.000",
 							margemDePerda: "50.000",
@@ -1682,34 +963,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-500-duo-10-dias-prazo-60-dias",
 					},
 					{
-						key: "D10-P60-WITH-AUTOMATION",
-						baseDays: 10,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "50.000",
-							margemDePerda: "50.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 17.000",
-							price: "R$ 13.000",
-							couponCode: "NEW500D",
-						},
-						url: "",
-					},
-					{
 						key: "D5-SP",
 						baseDays: 5,
 						minDaysApproval: 0,
-						allowsAutomation: false,
 						values: {
 							margemReal: "50.000",
 							margemDePerda: "50.000",
@@ -1730,34 +986,9 @@ const plansData = {
 						url: "https://checkout.5pi.com.br/pay/book-500-duo-5-dias-sem-prazo-sem-meta",
 					},
 					{
-						key: "D5-SP-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 0,
-						allowsAutomation: true,
-						values: {
-							margemReal: "50.000",
-							margemDePerda: "50.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 17.000",
-							price: "R$ 16.150",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "",
-					},
-					{
 						key: "D5-P60",
 						baseDays: 5,
 						minDaysApproval: 60,
-						allowsAutomation: false,
 						values: {
 							margemReal: "50.000",
 							margemDePerda: "50.000",
@@ -1777,30 +1008,6 @@ const plansData = {
 						},
 						url: "https://checkout.5pi.com.br/pay/book-500-duo-5-dias-prazo-60-dias",
 					},
-					{
-						key: "D5-P60-WITH-AUTOMATION",
-						baseDays: 5,
-						minDaysApproval: 60,
-						allowsAutomation: true,
-						values: {
-							margemReal: "50.000",
-							margemDePerda: "50.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 17.000",
-							price: "R$ 15.300",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "",
-					},
 				],
 			},
 		],
@@ -1811,29 +1018,8 @@ const appState = {
 	currentPlan: "plus",
 	selectedBase: "D10", // 10 primeiro
 	selectedMinDays: 60, // 60 primeiro
-	allowsAutomation: false, // Não é o padrão
 	isExpanded: false,
 };
-/* ===== UTM Helpers ===== */
-function getPartnerUtmSource() {
-	const path = window.location.pathname;
-	const parceirosMatch = path.match(/^\/parceiros\/([^\/]+)/);
-	if (!parceirosMatch) return null;
-	const partnerName = parceirosMatch[1];
-	// Transforma hífens em underscores e adiciona _5p no final
-	return `${partnerName.replace(/-/g, "_")}_5p`;
-}
-function addUtmToUrl(url, utmSource) {
-	if (!url || !utmSource) return url;
-	if (url === "#") return url;
-	try {
-		const urlObj = new URL(url, window.location.origin);
-		urlObj.searchParams.set("utm_source", utmSource);
-		return urlObj.toString();
-	} catch {
-		return url;
-	}
-}
 /* ===== VM ===== */
 const buildOffersViewModel = () => {
 	const planKey = appState.currentPlan;
@@ -1845,14 +1031,13 @@ const buildOffersViewModel = () => {
 	}));
 	const cards = (plan.cards || []).map((card) => {
 		const variants = card.variants || [];
-		const desiredKey = `${appState.selectedBase}-${appState.selectedMinDays === 0 ? "SP" : "P60"}-${appState.allowsAutomation ? "AUTO" : "NO_AUTO"}`;
+		const desiredKey = `${appState.selectedBase}-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
 		const selected =
 			variants.find((v) => v.key === desiredKey) ||
 			variants.find(
 				(v) =>
 					v.baseDays === (appState.selectedBase === "D5" ? 5 : 10) &&
-					v.minDaysApproval === appState.selectedMinDays &&
-					v.allowsAutomation === appState.allowsAutomation,
+					v.minDaysApproval === appState.selectedMinDays,
 			) ||
 			variants[0] ||
 			{};
@@ -1873,10 +1058,6 @@ const buildOffersViewModel = () => {
 			{ minDaysApproval: 60, isSelected: appState.selectedMinDays === 60 },
 			{ minDaysApproval: 0, isSelected: appState.selectedMinDays === 0 },
 		];
-		const automationOptions = [
-			{ allowsAutomation: false, isSelected: !appState.allowsAutomation },
-			{ allowsAutomation: true, isSelected: appState.allowsAutomation },
-		];
 		const L = card.labels || {};
 		const V = selected.values || {};
 		const P = selected.pricing || {};
@@ -1890,7 +1071,6 @@ const buildOffersViewModel = () => {
 			name: card.name,
 			planOptions,
 			approvalOptions,
-			automationOptions,
 			fields: {
 				labels: {
 					margemReal: L.margemReal,
@@ -1927,11 +1107,7 @@ const buildOffersViewModel = () => {
 				couponCode: couponClean,
 				installments: 21,
 			},
-			ctaUrl: (() => {
-				const baseUrl = selected.url || "#";
-				const utmSource = getPartnerUtmSource();
-				return utmSource ? addUtmToUrl(baseUrl, utmSource) : baseUrl;
-			})(),
+			ctaUrl: selected.url || "#",
 		};
 	});
 	return { tabs, cards, isExpanded: appState.isExpanded };
@@ -2051,12 +1227,6 @@ function attachInteractiveHandlers() {
 			reRenderOffers();
 		});
 	});
-	document.querySelectorAll(".automation-combobox").forEach((sel) => {
-		sel.addEventListener("change", (e) => {
-			appState.allowsAutomation = e.target.value === "true";
-			reRenderOffers();
-		});
-	});
 	document.querySelectorAll(".offers-toggle-details").forEach((btn) => {
 		btn.addEventListener("click", (e) => {
 			e.preventDefault();
@@ -2088,33 +1258,6 @@ function attachInteractiveHandlers() {
 				}
 			});
 		});
-	});
-	// Open/close tooltip containers
-	document.addEventListener("click", (e) => {
-		const openTooltipButton = e.target.closest(
-			".open-tooltip-button[data-target]",
-		);
-		if (openTooltipButton) {
-			e.preventDefault();
-			const targetId = openTooltipButton.getAttribute("data-target");
-			if (targetId) {
-				const tooltip = document.getElementById(targetId);
-				if (tooltip) {
-					tooltip.classList.toggle("hidden");
-				}
-			}
-			return;
-		}
-
-		const closeTooltipButton = e.target.closest(".close-tooltip-button");
-		if (closeTooltipButton) {
-			e.preventDefault();
-			const container = closeTooltipButton.closest(".offers-tooltip-container");
-			if (container) {
-				container.classList.add("hidden");
-			}
-			return;
-		}
 	});
 }
 function renderOffers(cb) {

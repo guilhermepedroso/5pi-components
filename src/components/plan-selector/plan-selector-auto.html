@@ -24,7 +24,7 @@
       <div class="offers-cards-container block" id="offers-swiper">
         <div class="swiper-wrapper lg:gap-4 lg:grid lg:grid-cols-3 flex w-full">
           {{#each offers.cards}}
-            <div class="swiper-slide w-full flex-shrink-0 offers-card bg-white rounded-[12px] p-4 lg:p-8" data-card-index="{{@index}}">
+            <div class="swiper-slide relative w-full flex-shrink-0 offers-card bg-white rounded-[12px] p-4 lg:p-8" data-card-index="{{@index}}">
               <div class="font-bold text-2xl mb-3">
                 {{name}} <div class="inline-flex ml-1 bg-[#EDDEBE] text-sm rounded-[20px] items-center gap-1 pr-1 font-semibold">
                   <img src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg" /> WIN E WDO
@@ -38,8 +38,8 @@
                       <option value="{{key}}" {{#if isSelected}}selected{{/if}}>{{label}}</option>
                     {{/each}}
                   </select>
-                  <svg width="16" height="13" viewBox="0 0 16 13" fill="none" class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.2929 12.7071c.3905.3905 1.0237.3905 1.4142 0l6.364-6.364a1 1 0 10-1.4142-1.4142L8 10.5858 2.3431 4.9289A1 1 0 10.9289 6.3431L7.2929 12.7071ZM8 0H7v12h2V0H8Z" fill="currentColor"></path>
+                  <svg class="absolute pointer-events-none size-5 top-1/2 right-3 lg:right-3 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+                    <path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/>
                   </svg>
                 </div>
                 <div class="relative">
@@ -50,8 +50,8 @@
                       </option>
                     {{/each}}
                   </select>
-                  <svg width="16" height="13" viewBox="0 0 16 13" class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.2929 12.7071c.3905.3905 1.0237.3905 1.4142 0l6.364-6.364a1 1 0 10-1.4142-1.4142L8 10.5858 2.3431 4.9289A1 1 0 10.9289 6.3431L7.2929 12.7071ZM8 0H7v12h2V0H8Z" fill="currentColor"></path>
+                  <svg class="absolute pointer-events-none size-5 top-1/2 right-3 lg:right-3 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+                    <path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/>
                   </svg>
                 </div>
               </div>
@@ -64,6 +64,69 @@
                   <span>{{attributes.metaParaAprovacaoText}}</span>
                 </li>
                 <li class="offers-list--item">{{fields.labels.repasse}} <span>{{attributes.repasse}}</span></li>
+                <li class="offers-list--divider"></li>
+                <li class="offers-list--item flex items-center gap-2 ">
+                  
+                  <div class="inline-flex relative gap-2 items-center">
+                    Aceita automação: 
+                    <div class="flex">
+                  <button class="open-tooltip-button cursor-pointer" data-target="credit-card-tooltip-{{@index}}">
+                    <svg class="size-4" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10.5" cy="10.5" r="10.5" fill="#393939"/>
+                      <path d="M10.142 16V7.27273H11.8409V16H10.142ZM11 5.92614C10.7045 5.92614 10.4508 5.82765 10.2386 5.63068C10.0303 5.42992 9.92614 5.19129 9.92614 4.91477C9.92614 4.63447 10.0303 4.39583 10.2386 4.19886C10.4508 3.99811 10.7045 3.89773 11 3.89773C11.2955 3.89773 11.5473 3.99811 11.7557 4.19886C11.9678 4.39583 12.0739 4.63447 12.0739 4.91477C12.0739 5.19129 11.9678 5.42992 11.7557 5.63068C11.5473 5.82765 11.2955 5.92614 11 5.92614Z" fill="white"/>
+                    </svg>
+                  </button>
+
+                  <div id="credit-card-tooltip-{{@index}}" class="offers-tooltip-container z-50 hidden text-black absolute w-[320px] md:w-[356px] p-6 left-0 right-0 mx-auto bottom-6 rounded-2xl">
+                    <button class="close-tooltip-button cursor-pointer absolute top-7 right-6">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L18.5 18.5" stroke="#4D4D4D" stroke-width="3"/>
+                        <path d="M18.5 2L2 18.5" stroke="#4D4D4D" stroke-width="3"/>
+                      </svg>
+                    </button>
+                    <div class="font-bold text-2xl">Aceita automação</div>
+                    <!-- <div>Benecífio na Conta Real</div> -->
+
+                    <div class="offers-tooltip-container-divider h-[1px] opacity-50 my-4"></div>
+
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+
+                    <!-- <ul class="offers-list-tooltip-benefits">
+                      <li>
+                        <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                        Receba seus repasse e gaste no credito.
+                      </li>
+                      <li class="flex gap-2">
+                        <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                        Saque seu dinheiro em qualquer caixa eletroníco 24h.
+                      </li>
+                      <li class="flex gap-2">
+                        <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                        Habilite o programa Mastercard surpreenda e receba pontos.
+                      </li>
+                      <li class="flex gap-2">
+                        <img src="https://irp.cdn-website.com/a02461d5/dms3rep/multi/check-tooltip.svg" />
+                        Desconto em mais de 1.000 lojas parceiras no aplicativo do cartão.
+                      </li>
+                    </ul> -->
+                  </div>
+                </div>
+                </div>
+                  <span>
+                    <div class="relative">
+                      <select class="offers-plan-select automation-combobox !w-[70px] !text-sm h-[32px] !px-3 !py-1">
+                        {{#each automationOptions}}
+                        <option value="{{allowsAutomation}}" {{#if isSelected}}selected{{/if}}>
+                          {{#if allowsAutomation}}Sim{{else}}Não{{/if}}
+                        </option>
+                        {{/each}}
+                      </select>
+                      <svg class="absolute pointer-events-none size-4 top-1/2 right-3 lg:right-2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+                        <path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/>
+                      </svg>
+                    </div>
+                  </span>
+                </li>
                 <li class="offers-list--divider"></li>
                 <!-- Ordem: Cashback -> Profit One -> Plataforma -->
                 <li class="offers-list--item">{{fields.labels.cashback}} <span>{{attributes.cashback}}</span></li>
@@ -114,4 +177,4 @@
       </div>
     </div>
   </div>
- </script>
+</script>
