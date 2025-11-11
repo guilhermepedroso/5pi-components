@@ -2,22 +2,34 @@ window.addEventListener("DOMContentLoaded", () => {
 	const headerEl = document.getElementById("flex-header");
 	if (!headerEl) return;
 
+	// Ensure header is fixed and starts at the top
+	headerEl.style.position = "fixed";
+	headerEl.style.top = "0px";
+	headerEl.style.left = "0";
+	headerEl.style.right = "0";
+	headerEl.style.zIndex = "40";
+
 	// Ensure animated movement using the top property (similar feel to floating-cta)
 	headerEl.style.transition = headerEl.style.transition || "top 300ms ease";
 	headerEl.style.willChange = "top";
-	if (!headerEl.style.top) headerEl.style.top = "0px";
 
 	let lastScrollY = window.scrollY;
 	let isVisible = true;
 	const thresholdY = 500; // header always visible until this scroll offset
 
 	const applyBodyPadding = () => {
-		// Keep padding equal to header height at all times to avoid layout shift
-		document.body.style.setProperty(
-			"padding-top",
-			`${getHeaderHeight()}px`,
-			"important",
-		);
+		// Only apply padding on mobile (desktop header is always fixed at top)
+		const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+		if (isDesktop) {
+			document.body.style.removeProperty("padding-top");
+		} else {
+			// Keep padding equal to header height to avoid layout shift on mobile
+			document.body.style.setProperty(
+				"padding-top",
+				`${getHeaderHeight()}px`,
+				"important",
+			);
+		}
 	};
 
 	const getHeaderHeight = () => {
