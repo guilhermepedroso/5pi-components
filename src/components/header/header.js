@@ -132,3 +132,62 @@ window.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 });
+
+// PARCEIROS PERSISTENCE
+window.addEventListener("DOMContentLoaded", () => {
+	const PARTNER_STORAGE_KEY = "partnerUrl";
+
+	// Detecta se estamos em uma página de parceiro e salva no sessionStorage
+	const savePartnerFromCurrentUrl = () => {
+		const path = window.location.pathname;
+		const partnerMatch = path.match(/^\/parceiros\/([^/]+)/);
+		if (partnerMatch) {
+			const partnerPath = `/parceiros/${partnerMatch[1]}`;
+			sessionStorage.setItem(PARTNER_STORAGE_KEY, partnerPath);
+			return partnerPath;
+		}
+		return null;
+	};
+
+	// Obtém o parceiro salvo do sessionStorage
+	const getSavedPartner = () => {
+		return sessionStorage.getItem(PARTNER_STORAGE_KEY);
+	};
+
+	// Salva o parceiro da URL atual, se houver
+	savePartnerFromCurrentUrl();
+
+	// Se estiver na home, remove o parceiro salvo para navegação normal
+	if (window.location.pathname === "/") {
+		sessionStorage.removeItem(PARTNER_STORAGE_KEY);
+	}
+
+	const savedPartner = getSavedPartner();
+
+	// Se houver parceiro salvo, atualiza os hrefs dos links
+	if (savedPartner) {
+		// Logo header link - altera o href para o parceiro
+		const logoLink = document.querySelector(".logo-header-link");
+		if (logoLink) {
+			logoLink.setAttribute("href", savedPartner);
+		}
+
+		// Primeiro link do navigation-header (UL com role="menubar")
+		const menubar = document.querySelector('[role="menubar"]');
+		if (menubar) {
+			const firstMenuItem = menubar.querySelector("li:first-child a");
+			if (firstMenuItem) {
+				firstMenuItem.setAttribute("href", savedPartner);
+			}
+		}
+
+		// Primeiro link do navigation-footer (NAV > UL > LI:first-child > A)
+		const footerNav = document.querySelector(".navigation-footer nav ul");
+		if (footerNav) {
+			const firstFooterLink = footerNav.querySelector("li:first-child a");
+			if (firstFooterLink) {
+				firstFooterLink.setAttribute("href", savedPartner);
+			}
+		}
+	}
+});
