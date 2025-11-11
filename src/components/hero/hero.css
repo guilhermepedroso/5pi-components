@@ -1,0 +1,123 @@
+.hero-bg {
+  @apply bg-no-repeat bg-top lg:bg-center bg-size-[600px] lg:bg-cover xl:bg-contain xl:bg-bottom;
+}
+
+.box-hero-container {
+  @apply relative size-[150px] m-auto;
+}
+
+.video-play-hero-button {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  box-sizing: content-box;
+  display: block;
+  width: 32px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 18px 20px 18px 28px;
+  opacity: 0.8;
+}
+
+.video-play-hero-button:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+
+  @media (min-width: 1024px) {
+    animation: pulse-border 1500ms ease-out infinite;
+  }
+}
+
+.video-play-hero-button:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: block;
+  width: 120px;
+  height: 120px;
+  background: #2a7b9b;
+  background: linear-gradient(
+    180deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(85, 196, 134, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(153, 153, 153, 1) 100%
+  );
+  border-radius: 50%;
+  transition: all 200ms;
+}
+
+.video-play-hero-button:hover:after {
+  background-color: darken(#fa183d, 10%);
+}
+
+.video-play-hero-button img {
+  position: relative;
+  z-index: 3;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+.video-play-hero-button span {
+  display: block;
+  position: relative;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-left: 32px solid #000;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+}
+
+@keyframes pulse-border {
+  0% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Hero title crossfade/slide animation */
+#hero-title {
+  position: relative;
+}
+
+#hero-title .hero-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  will-change: opacity;
+}
+
+#hero-title .is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#hero-title .is-inactive {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}

@@ -1,0 +1,38 @@
+.faq-item {
+  @apply mb-4 last:mb-0;
+}
+
+.faq-header {
+  @apply cursor-pointer;
+}
+
+.faq-header .count {
+  background: var(
+    --Linear,
+    linear-gradient(
+      90deg,
+      #1e61bd 0%,
+      #973abf 19.23%,
+      #bc1d67 55.29%,
+      #cb1633 80.29%,
+      #b84100 100%
+    )
+  );
+  @apply size-8  rounded-full text-white flex items-center justify-center font-semibold shrink-0;
+}
+
+.faq-content {
+  @apply hidden text-base;
+}
+
+.faq-content.open {
+  @apply block;
+}
+
+.faq-item.active .faq-content {
+  @apply block;
+}
+
+.faq-item.active svg {
+  @apply rotate-180;
+}

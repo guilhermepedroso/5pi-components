@@ -1,0 +1,117 @@
+<div id="offers-container" class=""></div>
+<script type="text/x-handlebars-template" id="offers-template">
+  <div class="offers">
+    <div class="custom-container">
+      <!-- Tabs -->
+      <div class="offers-header overflow-x-auto scrollbar-thin scrollbar-thumb-[#FD5A03] scrollbar-track-transparent lg:overflow-x-visible lg:scrollbar-none" style="-webkit-overflow-scrolling:touch; scrollbar-width:auto; scrollbar-color:#FD5A03 transparent;">
+        <div class="flex gap-4 mb-4 min-w-max lg:min-w-0">
+          {{#each offers.tabs}}
+            <button class="offers-header--button {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+              <div class="sup">{{title.sup}}</div>
+              {{title.text}}
+            </button>
+          {{/each}}
+        </div>
+      </div>
+      <div class="offers-header-small bg-[#000000] px-4 py-2">
+        {{#each offers.tabs}}
+          <button class="offers-header--button offers-header--button--small {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+            {{title.text}}
+          </button>
+        {{/each}}
+      </div>
+      <!-- Cards -->
+      <div class="offers-cards-container block" id="offers-swiper">
+        <div class="swiper-wrapper lg:gap-4 lg:grid lg:grid-cols-3 flex w-full">
+          {{#each offers.cards}}
+            <div class="swiper-slide w-full flex-shrink-0 offers-card bg-white rounded-[12px] p-4 lg:p-8" data-card-index="{{@index}}">
+              <div class="font-bold text-2xl mb-3">
+                {{name}} <div class="inline-flex ml-1 bg-[#EDDEBE] text-sm rounded-[20px] items-center gap-1 pr-1 font-semibold">
+                  <img src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg" /> WIN E WDO
+                </div>
+              </div>
+              <!-- Selectores -->
+              <div class="mb-4">
+                <div class="relative mb-2">
+                  <select class="offers-plan-select plan-combobox">
+                    {{#each planOptions}}
+                      <option value="{{key}}" {{#if isSelected}}selected{{/if}}>{{label}}</option>
+                    {{/each}}
+                  </select>
+                  <svg width="16" height="13" viewBox="0 0 16 13" fill="none" class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.2929 12.7071c.3905.3905 1.0237.3905 1.4142 0l6.364-6.364a1 1 0 10-1.4142-1.4142L8 10.5858 2.3431 4.9289A1 1 0 10.9289 6.3431L7.2929 12.7071ZM8 0H7v12h2V0H8Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+                <div class="relative">
+                  <select class="offers-plan-select approval-combobox">
+                    {{#each approvalOptions}}
+                      <option value="{{minDaysApproval}}" {{#if isSelected}}selected{{/if}}>
+                        {{#if (eq minDaysApproval 60)}}Prazo máximo 60 dias{{else}}Sem prazo e sem meta{{/if}}
+                      </option>
+                    {{/each}}
+                  </select>
+                  <svg width="16" height="13" viewBox="0 0 16 13" class="absolute size-3 top-1/2 right-3 lg:right-4 -translate-y-1/2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.2929 12.7071c.3905.3905 1.0237.3905 1.4142 0l6.364-6.364a1 1 0 10-1.4142-1.4142L8 10.5858 2.3431 4.9289A1 1 0 10.9289 6.3431L7.2929 12.7071ZM8 0H7v12h2V0H8Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+              </div>
+              <!-- Lista -->
+              <ul class="offer-list">
+                <li class="offers-list--item">{{fields.labels.margemReal}} <span>R$ {{attributes.margemRealFmt}}</span></li>
+                <li class="offers-list--item">{{fields.labels.margemDePerda}} <span>R$ {{attributes.margemDePerdaFmt}}</span></li>
+                <!-- Meta -->
+                <li class="offers-list--item">{{fields.labels.meta}}
+                  <span>{{attributes.metaParaAprovacaoText}}</span>
+                </li>
+                <li class="offers-list--item">{{fields.labels.repasse}} <span>{{attributes.repasse}}</span></li>
+                <li class="offers-list--divider"></li>
+                <!-- Ordem: Cashback -> Profit One -> Plataforma -->
+                <li class="offers-list--item">{{fields.labels.cashback}} <span>{{attributes.cashback}}</span></li>
+                <li class="offers-list--item">{{fields.labels.profitOne}} <span>{{attributes.proftOneGratis}}</span></li>
+                <li class="offers-list--item">{{fields.labels.plataforma}} <span>{{attributes.plataformaGratuitaReal}}</span></li>
+                {{#if @root.offers.isExpanded}}
+                  <li class="offers-list--divider"></li>
+                  <li class="offers-list--item">{{fields.labels.educacional}} <span>{{attributes.educacionalEspecialistas}}</span></li>
+                  <li class="offers-list--item">{{fields.labels.salaAoVivo}} <span>{{attributes.salasAoVivoComMentores}}</span></li>
+                  <li class="offers-list--item">{{fields.labels.gerenciamento}} <span>{{attributes.gerenciamentoDeRisco}}</span></li>
+                  <li class="offers-list--item">{{fields.labels.assessoria}} <span>{{attributes.acessoriaEspecializada}}</span></li>
+                {{/if}}
+                <li>
+                  <button class="offers-toggle-details font-medium underline-offset-2 text-base underline cursor-pointer mt-1">
+                    {{#if @root.offers.isExpanded}}Mostrar menos{{else}}Ver todos os benefícios{{/if}}
+                  </button>
+                </li>
+                <li class="offers-list--divider"></li>
+              </ul>
+              <!-- Preço / Cupom / CTA -->
+              <div class="offers-price mb-4">
+                {{#if pricing.oldPrice}}
+                  <div class="offers-old-price line-through">R$ {{pricing.oldPrice}}</div>
+                  <div class="offers-price--value font-bold text-3xl">
+                    R$ {{pricing.price}}
+                    {{#if pricing.oldPrice}}
+                      <span class="text-lime-700 text-lg">{{discountPercent pricing.oldPrice pricing.price}}% OFF</span>
+                    {{/if}}
+                  </div>
+                {{else}}
+                  <div class="offers-price--value font-bold text-3xl">R$ {{pricing.price}}</div>
+                {{/if}}
+                <div class="text-base">Em até {{pricing.installments}}x com taxas reduzidas</div>
+              </div>
+              {{#if pricing.couponCode}}
+                <div coupon-code="{{pricing.couponCode}}" class="offers-discount mb-4 text-base flex items-center justify-between border-dashed border-1 bg-lime-50 text-lime-700 font-semibold p-2 rounded-md">
+                  <div>Cupom: {{pricing.couponCode}}</div>
+                  <button class="ml-2 px-2 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                  </button>
+                </div>
+              {{/if}}
+              <a href="{{ctaUrl}}" class="button-primary offers-button-cta">Comprar agora</a>
+            </div>
+          {{/each}}
+        </div>
+        <div class="offers-swiper-pagination swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+ </script>

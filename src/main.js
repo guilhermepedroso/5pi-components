@@ -1,119 +1,84 @@
-// Swiper configurations
-const swiperConfigs = {
-	dayTrade: {
-		selector: ".swiper-day-trade",
-		config: {
-			slidesPerView: 1,
-			spaceBetween: 24,
-			breakpoints: {
-				640: { slidesPerView: 2 },
-				1024: { slidesPerView: 4 },
+Handlebars.registerHelper("lt", (a, b) => a < b);
+Handlebars.registerHelper("gt", (a, b) => a > b);
+Handlebars.registerHelper("eq", (a, b) => a === b);
+Handlebars.registerHelper("safe", (text) => new Handlebars.SafeString(text));
+Handlebars.registerHelper("discountPercent", (oldPrice, newPrice) => {
+	const toNumber = (v) => {
+		if (v == null) return NaN;
+		const s = String(v)
+			.replace(/\u00A0/g, " ")
+			.replace(/\s*R\$\s*/g, "")
+			.replace(/\./g, "")
+			.replace(",", ".")
+			.trim();
+		return Number.parseFloat(s);
+	};
+	const o = toNumber(oldPrice);
+	const n = toNumber(newPrice);
+	if (!isFinite(o) || !isFinite(n) || o <= 0) return 0;
+	const pct = Math.round((1 - n / o) * 100);
+	return Math.max(0, pct);
+});
+
+const renderTemplate = ({ templateId, data, containerId, callback }) => {
+	if (!document.getElementById(templateId)) {
+		return;
+	}
+
+	const template = Handlebars.compile(
+		document.getElementById(templateId).innerHTML,
+	);
+
+	const promise = new Promise((resolve) => {
+		const output = template(data);
+		document.getElementById(containerId).innerHTML = output;
+		resolve(output);
+	});
+
+	promise.then(callback);
+};
+
+// Video Modal functionality
+const videoModal = {
+	open: (videoId) => {
+		orion.renderTemplate({
+			templateId: "video-modal-template",
+			containerId: "video-modal-container",
+			data: { videoId },
+			callback: () => {
+				const modal = document.querySelector(".video-modal-overlay");
+				const closeButton = document.querySelector(".video-modal-close");
+
+				closeButton.addEventListener("click", videoModal.close);
+
+				modal.addEventListener("click", (e) => {
+					if (e.target === modal) {
+						videoModal.close();
+					}
+				});
+
+				document.addEventListener("keydown", videoModal.handleEscape);
+				document.body.style.overflow = "hidden";
 			},
-			grabCursor: true,
-			navigation: {
-				nextEl: ".swiper-day-trade-button-next",
-				prevEl: ".swiper-day-trade-button-prev",
-			},
-		},
+		});
 	},
-	shortsCases: {
-		selector: ".swiper-shorts-cases",
-		config: {
-			slidesPerView: "auto",
-			grabCursor: true,
-			spaceBetween: 24,
-			navigation: {
-				nextEl: ".swiper-shorts-cases-button-next",
-				prevEl: ".swiper-shorts-cases-button-prev",
-			},
-		},
+
+	close: () => {
+		const modalContainer = document.getElementById("video-modal-container");
+		modalContainer.innerHTML = "";
+
+		document.removeEventListener("keydown", videoModal.handleEscape);
+		document.body.style.overflow = "";
 	},
-	advisors: {
-		selector: ".swiper-advisors",
-		config: {
-			slidesPerView: 4,
-			spaceBetween: 24,
-			autoplay: {
-				delay: 2000,
-				disableOnInteraction: false,
-			},
-			grabCursor: true,
-		},
+
+	handleEscape: (e) => {
+		if (e.key === "Escape") {
+			videoModal.close();
+		}
 	},
 };
 
-// Initialize Swipers
-Object.values(swiperConfigs).forEach(({ selector, config }) => {
-	new Swiper(selector, config);
-});
-
-// Plan Selection and Summary Functionality
-class PlanSelector {
-	constructor() {
-		this.selectedValues = {
-			operation: null,
-			expiration: null,
-			platform: null,
-			contracts: null,
-			approval: null,
-			profitShare: null,
-		};
-
-		this.buttonMappings = {
-			operation: "summary-operation",
-			expiration: "summary-expiration",
-			platform: "summary-platform",
-			contracts: "summary-contracts",
-			approval: "summary-approval",
-			"profit-share": "summary-profit-share",
-		};
-
-		this.init();
-	}
-
-	init() {
-		const selectPlanButtons = document.querySelectorAll(".button--select-plan");
-		selectPlanButtons.forEach((button) => {
-			button.addEventListener("click", this.handleButtonClick.bind(this));
-		});
-	}
-
-	handleButtonClick(event) {
-		const button = event.currentTarget;
-		const buttonId = button.id;
-		const buttonText = button.textContent.trim();
-
-		this.updateButtonStates(button);
-		this.updateSelection(buttonId, buttonText);
-	}
-
-	updateButtonStates(clickedButton) {
-		const parentUl = clickedButton.closest("ul");
-		parentUl.querySelectorAll(".button--select-plan").forEach((btn) => {
-			btn.classList.remove("active");
-		});
-		clickedButton.classList.add("active");
-	}
-
-	updateSelection(buttonId, buttonText) {
-		for (const [key, summaryId] of Object.entries(this.buttonMappings)) {
-			if (buttonId.startsWith(`${key}-`)) {
-				this.selectedValues[key.replace("-", "")] = buttonText;
-				this.updateSummary(summaryId, buttonText);
-				break;
-			}
-		}
-	}
-
-	updateSummary(elementId, value) {
-		const summaryElement = document.getElementById(elementId);
-		if (summaryElement) {
-			summaryElement.textContent = value;
-		}
-	}
-}
-
-// Initialize when DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-	new PlanSelector();
-});
+window.orion = {
+	renderTemplate,
+	videoModal,
+};

@@ -1,494 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-    <link
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <!-- <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <link href="/src/style.css" rel="stylesheet" />
-  </head>
-  <body class="">
-    <div class="day-trade">
-      <div class="custom-container">
-        <div>
-          <div class="swiper-day-trade">
-            <div class="swiper-wrapper day-trade-list">
-              <div class="swiper-slide">
-                <div class="day-trade-item">
-                  <div class="day-trade-title">
-                    Opere 5 vezes mais contratos
-                  </div>
-                  <div class="day-trade-description">
-                    Seu capital não precisa ser o limite da sua operação.
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="day-trade-item">
-                  <div class="day-trade-title">
-                    Gestão de risco independente
-                  </div>
-                  <div class="day-trade-description">
-                    Opere como um profissional e ganhe muito mais.
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="day-trade-item">
-                  <div class="day-trade-title">Resgate mensal ou quinzenal</div>
-                  <div class="day-trade-description">
-                    Receba pelo nosso cartão ou via Pix, você decide.
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="day-trade-item">
-                  <div class="day-trade-title">
-                    Parcele em até 21x no cartão
-                  </div>
-                  <div class="day-trade-description">
-                    Facilitamos o pagamento no cartão com juros baixos.
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="day-trade-item">
-                  <div class="day-trade-title">
-                    Parcele em até 21x no cartão
-                  </div>
-                  <div class="day-trade-description">
-                    Facilitamos o pagamento no cartão com juros baixos.
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="day-trade-item">
-                  <div class="day-trade-title">
-                    Parcele 222 em até 21x no cartão
-                  </div>
-                  <div class="day-trade-description">
-                    Facilitamos o pagamento no cartão com juros baixos.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-day-trade-button-prev swiper-button-prev"></div>
-            <div class="swiper-day-trade-button-next swiper-button-next"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    /> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <div class="shorts-cases">
-      <div class="custom-container">
-        <div>
-          <div class="swiper-shorts-cases">
-            <div class="swiper-wrapper shorts-cases-list">
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="shorts-cases-item">
-                  <div class="short-icon"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-shorts-cases-button-prev swiper-button-prev"></div>
-        <div class="swiper-shorts-cases-button-next swiper-button-next"></div>
-      </div>
-    </div>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-    <div class="select-plan py-32">
-      <div class="custom-container flex justify-between">
-        <div class="space-y-2">
-          <div>
-            <div>Tipo de operação</div>
-            <ul class="flex gap-2">
-              <li>
-                <button class="button button--select-plan" id="operation-duo">
-                  Duo
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="operation-mini-dollar"
-                >
-                  Mini Dólar
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="operation-mini-index"
-                >
-                  Mini Índice
-                </button>
-              </li>
-            </ul>
-          </div>
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-          <div class="space-y-2">
-            <div>Vencimento</div>
-            <ul class="flex gap-2">
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="expiration-30-days"
-                >
-                  30 dias
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="expiration-60-days"
-                >
-                  60 dias
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="expiration-no-limit"
-                >
-                  Sem prazo
-                </button>
-              </li>
-            </ul>
-          </div>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
 
-          <div class="space-y-2">
-            <div>Selecione sua plataforma:</div>
-            <ul class="flex gap-2">
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="platform-proft-one"
-                >
-                  Proft One
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="platform-proft-pro"
-                >
-                  Proft Pro
-                </button>
-              </li>
-            </ul>
-          </div>
+    body {
+      /* padding: 16px; */
+    }
+  </style>
+  <link href="/src/style.css" rel="stylesheet" />
+</head>
 
-          <div class="space-y-2">
-            <div>Contratos:</div>
-            <ul class="flex gap-2">
-              <li>
-                <button class="button button--select-plan" id="contracts-15">
-                  15
-                </button>
-              </li>
-              <li>
-                <button class="button button--select-plan" id="contracts-30">
-                  30
-                </button>
-              </li>
-              <li>
-                <button class="button button--select-plan" id="contracts-45">
-                  45
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="contracts-custom"
-                >
-                  N...
-                </button>
-              </li>
-            </ul>
-          </div>
+<body class="bg-black !p-4">
 
-          <div class="space-y-2">
-            <div>Dias para aprovação:</div>
-            <ul class="flex gap-2">
-              <li>
-                <button class="button button--select-plan" id="approval-5-days">
-                  5
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="approval-10-days"
-                >
-                  10
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="approval-20-days"
-                >
-                  20
-                </button>
-              </li>
-              <li>
-                <button class="button button--select-plan" id="approval-custom">
-                  N...
-                </button>
-              </li>
-            </ul>
-          </div>
 
-          <div class="space-y-2">
-            <div>Porcentagem de repasse</div>
-            <ul class="flex gap-2">
-              <li>
-                <button class="button button--select-plan" id="profit-share-70">
-                  70%
-                </button>
-              </li>
-              <li>
-                <button class="button button--select-plan" id="profit-share-80">
-                  80%
-                </button>
-              </li>
-              <li>
-                <button class="button button--select-plan" id="profit-share-90">
-                  90%
-                </button>
-              </li>
-              <li>
-                <button
-                  class="button button--select-plan"
-                  id="profit-share-custom"
-                >
-                  N...
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+  <!-- DONT REMOVE THIS -->
+  <div id="video-modal-container"></div>
+  <script type="text/x-handlebars-template" id="video-modal-template">
+      <div
+        class="video-modal-overlay fixed inset-0 bg-black/50 bg-opacity-75 flex flex-col items-center justify-center z-50 p-4"
+      >
+      <button
+            class="video-modal-close mb-4 cursor-pointer !rounded-full bg-white w-[32px] h-[32px] flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              class-"size-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-x-icon lucide-x"
+            ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          </button>
+        <div
+          class="video-modal-content bg-transparent rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] relative"
+        >
 
-        <div class="summary-section">
-          <h3>Resumo da Seleção</h3>
-          <div class="summary-content">
-            <div class="summary-item">
-              <span class="summary-label">Tipo de operação:</span>
-              <span class="summary-value" id="summary-operation"
-                >Não selecionado</span
+          <div class="video-modal-body bg-black p-0">
+            <div class="video-wrapper relative pb-[56.25%] h-0 overflow-hidden">
+              <iframe
+                class="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/{{videoId}}?autoplay=1&rel=0"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
               >
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Vencimento:</span>
-              <span class="summary-value" id="summary-expiration"
-                >Não selecionado</span
-              >
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Plataforma:</span>
-              <span class="summary-value" id="summary-platform"
-                >Não selecionado</span
-              >
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Contratos:</span>
-              <span class="summary-value" id="summary-contracts"
-                >Não selecionado</span
-              >
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Dias para aprovação:</span>
-              <span class="summary-value" id="summary-approval"
-                >Não selecionado</span
-              >
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Porcentagem de repasse:</span>
-              <span class="summary-value" id="summary-profit-share"
-                >Não selecionado</span
-              >
+              </iframe>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </script>
 
-    <div class="advisors py-32 bg-black">
-      <div class="custom-container">
-        <div class="swiper-advisors">
-          <div class="swiper-wrapper advisors-list">
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                1
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                2
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                3
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                4
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                5
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                6
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                7
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                8
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                9
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                10
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                11
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                12
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div
-                class="bg-orange-400 font-bold text-white flex items-center justify-center text-3xl w-[260px] h-[330px] rounded-[20px]"
-              >
-                13
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/components/header/header.js"></script>
+  <script type="module" src="/src/components/plan-selector/plan-selector.js"></script>
+  <script type="module" src="/src/components/rfq/rfq.js"></script>
+  <script type="module" src="/src/components/day-trade/day-trade.js"></script>
+  <script type="module" src="/src/components/clients/clients.js"></script>
+  <script type="module" src="/src/components/hero/hero.js"></script>
+  <script type="module" src="/src/components/testimonials/testimonials.js"></script>
+  <script type="module" src="/src/components/faq/faq.js"></script>
+  <script type="module" src="/src/components/floating-cta/floating-cta.js"></script>
+</body>
+
 </html>

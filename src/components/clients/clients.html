@@ -1,0 +1,60 @@
+<div id="clients-container"></div>
+<script type="text/x-handlebars-template" id="clients-template">
+  <div class="clients">
+    <div class="custom-container">
+      <div class="swiper swiper-clients">
+        <div class="swiper-wrapper clients-list flex">
+          {{#each clients}}
+            <div class="swiper-slide">
+              <div
+                class="client-group-item bg-black relative overflow-hidden font-bold text-white flex items-center justify-center w-[300px] h-[180px] rounded-[24px]"
+              >
+                <img src="{{imageUrl}}" class="w-full h-full object-cover" />
+                <div
+                  class="client-group-overlay w-full absolute inset-0 bg-black/50 opacity-50 transition-opacity duration-200"
+                ></div>
+                <button
+                  class="client-group-button cursor-pointer absolute transition-opacity duration-200"
+                  video-id="{{videoId}}"
+                >
+                  <svg
+                    width="52"
+                    height="52"
+                    viewBox="0 0 52 52"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="25.9075"
+                      cy="26.1839"
+                      r="25.3811"
+                      fill="url(#paint0_linear_0_1)"
+                      fill-opacity="0.5"
+                    />
+                    <path
+                      d="M36.0596 25.761L20.1964 34.9196L20.1964 16.6024L36.0596 25.761Z"
+                      fill="black"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="paint0_linear_0_1"
+                        x1="25.9075"
+                        y1="0.802734"
+                        x2="25.9075"
+                        y2="51.565"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="white" />
+                        <stop offset="1" stop-color="#999999" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

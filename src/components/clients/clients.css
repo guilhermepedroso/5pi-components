@@ -1,0 +1,25 @@
+.clients .client-group-overlay {
+  @apply opacity-60 md:opacity-0;
+}
+
+.clients .client-group-button {
+  @apply opacity-100 md:opacity-0;
+}
+
+.clients .card--hover .client-group-overlay {
+  @apply lg:opacity-100;
+}
+
+.clients .card--hover .client-group-button {
+  @apply lg:opacity-100 z-50;
+}
+
+/* 
+.short-icon {
+  width: 54px;
+  height: 54px;
+  background-image: url("https://e8markets.com/_ipx/q_70&s_100x100/images/icons/youtube_shorts_icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+} */

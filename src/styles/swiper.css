@@ -1,40 +1,31 @@
-/* Swiper */
 .swiper-button-next,
 .swiper-button-prev {
-  background: red;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent;
+
+  &.theme-light {
+    &:hover {
+      @apply bg-gray-200 cursor-pointer;
+    }
+  }
+
+  &.theme-dark {
+    &:hover {
+      @apply bg-white text-white cursor-pointer;
+    }
+  }
+}
+
+.swiper-button-disabled {
+  opacity: 50%;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
   font-size: 18px;
-}
-
-.shorts-cases .swiper-button-next,
-.shorts-cases .swiper-button-prev {
-  background: #000;
-}
-
-.shorts-cases .swiper-button-next::after,
-.shorts-cases .swiper-button-prev::after {
-  color: #fff;
-}
-
-.day-trade .swiper-button-next,
-.day-trade .swiper-button-prev {
-  background: #fff;
-}
-
-.day-trade .swiper-button-next::after,
-.day-trade .swiper-button-prev::after {
-  color: #000;
-}
-
-.swiper-button-disabled {
-  display: none !important;
 }
