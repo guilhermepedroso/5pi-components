@@ -1,10 +1,3 @@
-/* ===== Helpers ===== */
-/* Parse pt-BR robusto:
-     - 1.140 -> 1140
-     - 4.512,50 -> 4512.50
-     - 617,50 -> 617.50
-     - 650 -> 650
-  */
 function parseBRAmount(x) {
 	if (x == null) return NaN;
 	let s = String(x)
