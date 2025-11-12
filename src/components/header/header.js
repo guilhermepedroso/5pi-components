@@ -1,6 +1,11 @@
 window.addEventListener("DOMContentLoaded", () => {
 	const headerEl = document.getElementById("flex-header");
-	if (!headerEl) return;
+
+	if (!headerEl) {
+		return;
+	}
+
+	headerEl.removeAttribute("data-sticky");
 
 	// Ensure header is fixed and starts at the top
 	headerEl.style.position = "fixed";
@@ -9,27 +14,18 @@ window.addEventListener("DOMContentLoaded", () => {
 	headerEl.style.right = "0";
 	headerEl.style.zIndex = "40";
 
-	// Ensure animated movement using the top property (similar feel to floating-cta)
 	headerEl.style.transition = headerEl.style.transition || "top 300ms ease";
 	headerEl.style.willChange = "top";
 
 	let lastScrollY = window.scrollY;
 	let isVisible = true;
-	const thresholdY = 500; // header always visible until this scroll offset
+	const offersContainerSection = document.getElementById("offers-container");
+	let isOffersContainerSectionInView = false;
 
 	const applyBodyPadding = () => {
-		// Only apply padding on mobile (desktop header is always fixed at top)
-		const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-		if (isDesktop) {
-			document.body.style.removeProperty("padding-top");
-		} else {
-			// Keep padding equal to header height to avoid layout shift on mobile
-			document.body.style.setProperty(
-				"padding-top",
-				`${getHeaderHeight()}px`,
-				"important",
-			);
-		}
+		// Apply padding equal to header height to prevent content from being cut off
+		// since header is always fixed
+		document.body.style.paddingTop = `${getHeaderHeight()}px`;
 	};
 
 	const getHeaderHeight = () => {
@@ -42,7 +38,6 @@ window.addEventListener("DOMContentLoaded", () => {
 		isVisible = true;
 		headerEl.setAttribute("data-visible", "true");
 		headerEl.style.top = "0px";
-		applyBodyPadding();
 	};
 
 	const hide = () => {
@@ -50,20 +45,23 @@ window.addEventListener("DOMContentLoaded", () => {
 		isVisible = false;
 		headerEl.setAttribute("data-visible", "false");
 		headerEl.style.top = `-${getHeaderHeight() + 8}px`;
-		applyBodyPadding();
 	};
 
-	// Previously we checked the day-trade section; now we gate behavior by a fixed threshold
+	// Set up Intersection Observer to track when day-trade section is in view
+	if (offersContainerSection && "IntersectionObserver" in window) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					isOffersContainerSectionInView = entry.isIntersecting;
+					update(); // Trigger update when visibility changes
+				});
+			},
+			{ threshold: 0.1 }, // Trigger when at least 10% is visible
+		);
+		observer.observe(offersContainerSection);
+	}
 
 	const update = () => {
-		// If external control requests header to be disabled (e.g., offers-header-small visible),
-		// force hide and skip scroll-driven logic
-		if (window.__flexHeaderDisabled) {
-			hide();
-			lastScrollY = window.scrollY;
-			applyBodyPadding();
-			return;
-		}
 		// Desktop: always keep header visible and fixed at the top
 		const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 		if (isDesktop) {
@@ -73,13 +71,15 @@ window.addEventListener("DOMContentLoaded", () => {
 			return;
 		}
 
-		// Always visible while near the top before threshold
-		if (window.scrollY <= thresholdY) {
-			show();
+		// Hide header when day-trade section is in view
+		if (isOffersContainerSectionInView) {
+			hide();
 			lastScrollY = window.scrollY;
+			applyBodyPadding();
 			return;
 		}
 
+		// Otherwise use scroll direction to show/hide
 		const currentY = window.scrollY;
 		const scrollingDown = currentY > lastScrollY + 2;
 		const scrollingUp = currentY < lastScrollY - 2;
@@ -89,22 +89,20 @@ window.addEventListener("DOMContentLoaded", () => {
 		} else if (scrollingUp) {
 			show();
 		}
-
 		lastScrollY = currentY;
-		// Keep body padding in sync if header height changes across breakpoints
+
 		applyBodyPadding();
 	};
 
 	window.addEventListener("scroll", update, { passive: true });
 	window.addEventListener("resize", update);
 
-	// Track header size changes (fonts/breakpoints/content) and re-apply padding
+	// // Track header size changes (fonts/breakpoints/content) and re-apply padding
 	if ("ResizeObserver" in window) {
 		const ro = new ResizeObserver(() => applyBodyPadding());
 		ro.observe(headerEl);
 	}
 
-	// Initial sync
 	applyBodyPadding();
 	update();
 });
