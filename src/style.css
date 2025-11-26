@@ -10,6 +10,7 @@
 @import "./components/trader-cta/trader-cta.css";
 @import "./components/header/header.css";
 @import "./components/rfq/rfq.css";
+@import "./styles/slider.css";
 
 .custom-container {
   position: relative;

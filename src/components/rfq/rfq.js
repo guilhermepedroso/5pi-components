@@ -109,6 +109,17 @@ function renderRFQ() {
 		data,
 		callback: () => attachRFQHandlers(),
 	});
+
+	const valueBubble = document.querySelector(".value-bubble");
+	const valueBubbleRangeElement = valueBubble.closest("range-slider");
+	const updateOutput = (event) => (valueBubble.value = event.target.value);
+
+	// Set initial output value
+	valueBubble.textContent = valueBubbleRangeElement.value;
+
+	// Update output value
+	document.addEventListener("input", updateOutput);
+	document.addEventListener("change", updateOutput);
 }
 
 function attachRFQHandlers() {
