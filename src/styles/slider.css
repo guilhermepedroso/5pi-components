@@ -136,7 +136,8 @@ range-slider [data-thumb] .value-bubble {
   transition: opacity 200ms ease;
   user-select: none;
   pointer-events: none; 
-border-radius: 6px;
+  border-radius: 6px;
+  white-space: nowrap;
 }
 
 range-slider:active [data-thumb] {
