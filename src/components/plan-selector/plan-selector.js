@@ -1072,7 +1072,12 @@ const buildOffersViewModel = () => {
 			{ minDaysApproval: 0, isSelected: appState.selectedMinDays === 0 },
 		];
 		const L = card.labels || {};
-		const V = selected.values || {};
+		let V = selected.values || {};
+		// Override do repasse para projeto-monteiro
+		const path = window.location.pathname;
+		if (path.includes("parceiros/projeto-monteiro")) {
+			V = { ...V, repasse: "80%" };
+		}
 		const P = selected.pricing || {};
 		const margemRealFmt = formatBRInt(V.margemReal);
 		const margemDePerdaFmt = formatBRInt(V.margemDePerda);
