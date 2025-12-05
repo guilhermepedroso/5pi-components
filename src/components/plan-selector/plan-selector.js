@@ -1,3 +1,81 @@
+/* ===== CONFIG OVERRIDES ===== */
+/**
+ * Sistema de overrides por parceiro.
+ * Chave: path da URL (ex: "parceiros/projeto-monteiro")
+ *
+ * Seletores disponíveis ("*" = todos):
+ *
+ * PLANS:
+ *   - "plus"     → Planos Plus (Book 90, 140, 200)
+ *   - "starter"  → Planos Starter (Book 15, 30, 40)
+ *   - "private"  → Planos Private (Book 250, 500)
+ *
+ * CARDS:
+ *   Plus:    "book-90", "book-140", "book-200"
+ *   Starter: "book-15", "book-30", "book-40"
+ *   Private: "book-250", "book-500"
+ *
+ * VARIANTS:
+ *   - "D10-SP"  → 10 dias operados, Sem Prazo
+ *   - "D10-P60" → 10 dias operados, Prazo 60 dias
+ *   - "D5-SP"   → 5 dias operados, Sem Prazo
+ *   - "D5-P60"  → 5 dias operados, Prazo 60 dias
+ *
+ * PATCH - campos alteráveis:
+ *   values: { margemReal, margemDePerda, repasse, cashback, ... }
+ *   pricing: { oldPrice, price, couponCode }
+ *   url: string
+ *
+ * EXEMPLOS:
+ *
+ * // Alterar repasse de TODOS os planos/cards/variants:
+ * { plan: "*", card: "*", variant: "*", patch: { values: { repasse: "80%" } } }
+ *
+ * // Alterar cupom de um card específico em todas as variants:
+ * { plan: "plus", card: "book-90", variant: "*", patch: { pricing: { couponCode: "CUPOM10" } } }
+ *
+ *  Alterar preço e URL de uma variant específica:
+ * {
+ * 	plan: "*",
+ * 	card: "*",
+ * 	variant: "*",
+ * 	patch: {
+ * 		pricing: { price: "R$ 2.500" },
+ * 		url: "https://checkout.5pi.com.br/custom"
+ * 	}
+ * }}
+ */
+
+const configOverrides = {
+	"parceiros/projeto-monteiro": [
+		// Altera o repasse para todos os planos/cards/variants
+		{
+			plan: "*",
+			card: "*",
+			variant: "*",
+			patch: {
+				values: { repasse: "80%" },
+			},
+		},
+	],
+	"/parceiros/luana-araujo": [
+		// Book 15 - R$ 399,00 | Margem R$ 2.200 (todas as variants)
+		{
+			plan: "starter",
+			card: "book-15",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 399" },
+				values: { margemReal: "2.200" },
+			},
+		},
+	],
+};
+
+/* ===== ******************** ===== */
+/* ===== NÃO MODIFICAR ABAIXO ===== */
+/* ===== ******************** ===== */
+
 function parseBRAmount(x) {
 	if (x == null) return NaN;
 	let s = String(x)
@@ -128,12 +206,77 @@ function copyToClipboard(text) {
 		ok ? resolve() : reject(new Error("copy_failed"));
 	});
 }
+
+/* ===== HELPERS: Apply Overrides ===== */
+function getOverridesForPath() {
+	const path = window.location.pathname;
+	for (const [key, overrides] of Object.entries(configOverrides)) {
+		if (path.includes(key)) {
+			return overrides;
+		}
+	}
+	return [];
+}
+
+function matchesSelector(selector, value) {
+	return selector === "*" || selector === value;
+}
+
+function applyPatch(target, patch) {
+	const result = { ...target };
+	for (const [key, value] of Object.entries(patch)) {
+		if (value && typeof value === "object" && !Array.isArray(value)) {
+			result[key] = applyPatch(result[key] || {}, value);
+		} else {
+			result[key] = value;
+		}
+	}
+	return result;
+}
+
+function applyOverridesToVariant(planKey, cardKey, variantKey, variant) {
+	const overrides = getOverridesForPath();
+	let result = { ...variant };
+
+	for (const override of overrides) {
+		const { plan, card, variant: variantSelector, patch } = override;
+		if (
+			matchesSelector(plan, planKey) &&
+			matchesSelector(card, cardKey) &&
+			matchesSelector(variantSelector, variantKey)
+		) {
+			// Apply patch to values
+			if (patch.values) {
+				result.values = applyPatch(result.values || {}, patch.values);
+			}
+			// Apply patch to pricing
+			if (patch.pricing) {
+				result.pricing = applyPatch(result.pricing || {}, patch.pricing);
+			}
+			// Apply patch to url
+			if (patch.url !== undefined) {
+				result.url = patch.url;
+			}
+			// Apply other top-level patches
+			for (const [key, value] of Object.entries(patch)) {
+				if (!["values", "pricing", "url"].includes(key)) {
+					result[key] = value;
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
 /* ===== DADOS ===== */
 const plansData = {
 	plus: {
+		key: "plus",
 		title: { text: "Planos Plus", sup: "Mais vendidos" },
 		cards: [
 			{
+				key: "book-90",
 				name: "Book 90",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -244,6 +387,7 @@ const plansData = {
 				],
 			},
 			{
+				key: "book-140",
 				name: "Book 140",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -354,6 +498,7 @@ const plansData = {
 				],
 			},
 			{
+				key: "book-200",
 				name: "Book 200",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -466,9 +611,11 @@ const plansData = {
 		],
 	},
 	starter: {
+		key: "starter",
 		title: { text: "Planos Starter", sup: "Mais acessíveis" },
 		cards: [
 			{
+				key: "book-15",
 				name: "Book 15",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -579,6 +726,7 @@ const plansData = {
 				],
 			},
 			{
+				key: "book-30",
 				name: "Book 30",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -689,6 +837,7 @@ const plansData = {
 				],
 			},
 			{
+				key: "book-40",
 				name: "Book 40",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -801,9 +950,11 @@ const plansData = {
 		],
 	},
 	private: {
+		key: "private",
 		title: { text: "Planos Private", sup: "Maiores lucros" },
 		cards: [
 			{
+				key: "book-250",
 				name: "Book 250",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -914,6 +1065,7 @@ const plansData = {
 				],
 			},
 			{
+				key: "book-500",
 				name: "Book 500",
 				labels: {
 					margemReal: "Margem na real de até:",
@@ -1026,6 +1178,7 @@ const plansData = {
 		],
 	},
 };
+
 /* ===== Estado ===== */
 const appState = {
 	currentPlan: "plus",
@@ -1045,7 +1198,7 @@ const buildOffersViewModel = () => {
 	const cards = (plan.cards || []).map((card) => {
 		const variants = card.variants || [];
 		const desiredKey = `${appState.selectedBase}-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
-		const selected =
+		let selected =
 			variants.find((v) => v.key === desiredKey) ||
 			variants.find(
 				(v) =>
@@ -1054,6 +1207,15 @@ const buildOffersViewModel = () => {
 			) ||
 			variants[0] ||
 			{};
+
+		// Apply config overrides
+		selected = applyOverridesToVariant(
+			planKey,
+			card.key,
+			selected.key,
+			selected,
+		);
+
 		// Selects
 		const planOptions = [
 			{
@@ -1072,12 +1234,7 @@ const buildOffersViewModel = () => {
 			{ minDaysApproval: 0, isSelected: appState.selectedMinDays === 0 },
 		];
 		const L = card.labels || {};
-		let V = selected.values || {};
-		// Override do repasse para projeto-monteiro
-		const path = window.location.pathname;
-		if (path.includes("parceiros/projeto-monteiro")) {
-			V = { ...V, repasse: "80%" };
-		}
+		const V = selected.values || {};
 		const P = selected.pricing || {};
 		const margemRealFmt = formatBRInt(V.margemReal);
 		const margemDePerdaFmt = formatBRInt(V.margemDePerda);
