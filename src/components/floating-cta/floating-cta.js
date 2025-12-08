@@ -6,7 +6,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	const show = () => {
 		floatingCta.setAttribute("data-visible", "true");
-		document.body.style.paddingBottom = "76px";
+		// Use 50px on mobile (typically < 768px), 76px on desktop
+		const isMobile = window.innerWidth < 768;
+		document.body.style.paddingBottom = isMobile ? "50px" : "76px";
 	};
 	const hide = () => {
 		document.body.style.paddingBottom = "0px";
