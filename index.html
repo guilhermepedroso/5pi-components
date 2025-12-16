@@ -67,7 +67,7 @@
             <div class="rfq-form bg-[#101010] text-white rounded-2xl p-4 lg:p-6">
               <div class="font-semibold text-base mb-4">Selecione as condições para ter acesso a conta real</div>
               <div class="font-normal text-base mb-2">Dias mínimos de operação:</div>
-              <ul class="flex flex-wrap gap-4" data-group="contracts">
+              <ul class="flex flex-wrap gap-4" data-group="min-days">
                   <li>
                     <button class="rfq-option active">
                       10 dias <span>R$ 51</span>
@@ -81,57 +81,57 @@
               </ul>
               <hr class="-mx-6 my-6 border-[#202020]"></hr>
               <div class="font-normal text-base mb-2">Prazo máximo de aprovação:</div>
-              <ul class="flex flex-wrap gap-4" data-group="contracts">
+              <ul class="flex flex-wrap gap-4" data-group="approval">
                   <li>
-                    <button class="rfq-option active">
+                    <button class="rfq-option active" data-key="60-days">
                       60 dias <span>R$ 51</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="no-term">
                       Sem prazo e sem meta <span>R$ 153</span>
                     </button>
                   </li>
               </ul>
               <hr class="-mx-6 my-6 border-[#202020]"></hr>
               <div class="font-normal text-base mb-2">Perda diária máxima (MRD):</div>
-              <ul class="flex flex-wrap gap-4" data-group="contracts">
+              <ul class="flex flex-wrap gap-4" data-group="mrd">
                   <li>
                     <button class="rfq-option active">
                       10% <span>R$ 10,2</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="25">
                       25% <span>R$ 20,4</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="33">
                       33% <span>R$ 30,6</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="50">
                       50% <span>R$ 40,8</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="no-mrd">
                       Sem MRD <span>R$ 102</span>
                     </button>
                   </li>
               </ul>
               <hr class="-mx-6 my-6 border-[#202020]"></hr>
               <div class="font-normal text-base mb-2">Fase de adaptação:</div>
-              <ul class="flex flex-wrap gap-4" data-group="contracts">
+              <ul class="flex flex-wrap gap-4" data-group="adaptation">
                   <li>
-                    <button class="rfq-option active">
+                    <button class="rfq-option active" data-key="2-weeks">
                       2 semanas <span>R$ 51</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="1-week">
                       1 semana <span>R$ 102</span>
                     </button>
                   </li>
@@ -142,28 +142,28 @@
             <div class="rfq-form bg-[#101010] text-white rounded-2xl p-4 lg:p-6">
               <div class="font-semibold text-base mb-4">Aproveite</div>
               <div class="font-normal text-base mb-2">Plataforma:</div>
-              <ul class="flex flex-wrap gap-4" data-group="contracts">
+              <ul class="flex flex-wrap gap-4" data-group="platform">
                   <li>
-                    <button class="rfq-option active">
+                    <button class="rfq-option active" data-key="profit-one">
                       Profit One <span>Grátis no 1º mês</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="profit-pro">
                       Profit Pro <span>R$ 269</span>
                     </button>
                   </li>
               </ul>
               <hr class="-mx-6 my-6 border-[#202020]"></hr>
               <div class="font-normal text-base mb-2">Acompanhamento com experts:</div>
-              <ul class="flex flex-wrap gap-4" data-group="contracts">
+              <ul class="flex flex-wrap gap-4" data-group="expert-support">
                   <li>
-                    <button class="rfq-option active">
+                    <button class="rfq-option active" data-key="no-support">
                       Sem acompanhamento <span>R$ 0</span>
                     </button>
                   </li>
                   <li>
-                    <button class="rfq-option">
+                    <button class="rfq-option" data-key="monthly-support">
                       Sala Mensal - Ao vivo <span>R$ 99</span>
                     </button>
                   </li>
@@ -178,12 +178,12 @@
               </div>
             </div>
             <ul class="offer-list">
-              <li class="offers-list--item">Margem na real de até:<span class="font-medium"> R$ 3.400</span></li>
-              <li class="offers-list--item">Quantidade de contratos:<span class="font-medium">40</span></li>
-              <li class="offers-list--item">Mínimo de dias operados:<span class="font-medium">10 dias</span></li>
-              <li class="offers-list--item">Prazo máximo de aprovação:<span class="font-medium">30 dias</span></li>
-              <li class="offers-list--item">Perda diária máxima (MRD):<span class="font-medium">10%</span></li>
-              <li class="offers-list--item">Fase de adaptação: <span>2 semanas</span></li>
+              <li class="offers-list--item" data-key="value-margin">Margem na real de até:<span class="font-medium"> R$ 3.400</span></li>
+              <li class="offers-list--item" data-key="value-contracts">Quantidade de contratos:<span class="font-medium">40</span></li>
+              <li class="offers-list--item" data-key="value-min-days">Mínimo de dias operados:<span class="font-medium">10 dias</span></li>
+              <li class="offers-list--item" data-key="value-approval">Prazo máximo de aprovação:<span class="font-medium">30 dias</span></li>
+              <li class="offers-list--item" data-key="value-mrd">Perda diária máxima (MRD):<span class="font-medium">10%</span></li>
+              <li class="offers-list--item" data-key="value-adaptation">Fase de adaptação: <span>2 semanas</span></li>
   
               <li class="offers-list--divider"></li>
               <li class="offers-list--item">Repasse: <span>90%</span></li>
