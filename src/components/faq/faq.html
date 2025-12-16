@@ -1,163 +1,49 @@
-<div class="faq-container">
-  <div class="faq-item bg-white rounded-xl py-4 px-6">
-    <div class="faq-header flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <span class="count">1</span>
-        <span class="text-lg font-semibold"
-          >Existe algum regulamento da mesa?</span
-        >
-      </div>
-      <div></div>
-    </div>
-    <div class="faq-content open mt-4">
-      <p>
-        Sim. A 5PI possui um regulamento que define como funciona a operação
-        na mesa proprietária: critérios de entrada, regras de consistência,
-        limites de risco e processo para migrar para a conta real. O
-        documento garante transparência e segurança para o trader e para a
-        mesa.
-
-        <div class="mt-6 mb-2">
-          <a
-            target="_blank"
-            href="https://www.thecampusqdl.com/uploads/files/pdf_sample_2.pdf"
-            class="h-12 text-base border px-6 py-2 rounded-full font-semibold transition-all duration-200"
-          >
-            Baixar regulamento
-          </a>
+<div id="faq-container"></div>
+<script type="text/x-handlebars-template" id="faq-template">
+  <div class="faq-container">
+    {{#each items}}
+      <div class="faq-item bg-white rounded-xl py-4 px-6">
+        <div class="faq-header flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <span class="count">{{position}}</span>
+            <span class="text-lg font-semibold">{{question}}</span>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-chevron-down-icon lucide-chevron-down"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </div>
         </div>
-      </p>
-    </div>
+        <div class="faq-content mt-4">
+          {{#if link}}
+            <p>
+              {{{answer}}}
+              <div class="mt-6 mb-2">
+                <a
+                  target="_blank"
+                  href="{{link.url}}"
+                  class="h-12 text-base border px-6 py-2 rounded-full font-semibold transition-all duration-200"
+                >
+                  {{link.label}}
+                </a>
+              </div>
+            </p>
+          {{else}}
+            <p>{{{answer}}}</p>
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
   </div>
-
-  <div class="faq-item bg-white rounded-xl py-4 px-6">
-    <div class="faq-header flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <span class="count">2</span>
-        <span class="text-lg font-semibold"
-          >Como a 5PI é diferente de uma corretora?</span
-        >
-      </div>
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-chevron-down-icon lucide-chevron-down"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </div>
-    </div>
-    <div class="faq-content mt-4">
-      <p>
-        Na corretora você paga corretagem, taxa de custódia e assume 100% do
-        risco. Na 5PI, essas taxas não existem, e o risco é gerenciado pela
-        mesa.
-      </p>
-    </div>
-  </div>
-
-  <div class="faq-item bg-white rounded-xl py-4 px-6">
-    <div class="faq-header flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <span class="count">3</span>
-        <span class="text-lg font-semibold"
-          >Posso aumentar meu capital operacional ao longo do tempo?</span
-        >
-      </div>
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-chevron-down-icon lucide-chevron-down"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </div>
-    </div>
-    <div class="faq-content mt-4">
-      <p>
-        Sim. À medida que você demonstra consistência, podemos ampliar seu
-        limite de operação.
-      </p>
-    </div>
-  </div>
-
-  <div class="faq-item bg-white rounded-xl py-4 px-6">
-    <div class="faq-header flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <span class="count">4</span>
-        <span class="text-lg font-semibold"
-          >Posso operar mais de uma conta 5PI?</span
-        >
-      </div>
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-chevron-down-icon lucide-chevron-down"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </div>
-    </div>
-    <div class="faq-content mt-4">
-      <p>
-        Sim. Nos planos de avaliação da 5PI, é permitido operar até 4 contas
-        no mesmo CPF
-      </p>
-    </div>
-  </div>
-
-  <div class="faq-item bg-white rounded-xl py-4 px-6">
-    <div class="faq-header flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <span class="count">5</span>
-        <span class="text-lg font-semibold">Na 5PI tem drawdown?</span>
-      </div>
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-chevron-down-icon lucide-chevron-down"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </div>
-    </div>
-    <div class="faq-content mt-4">
-      <p>
-        Não existe Drawdown na 5P. Aqui na 5P nós só olhamos o resultado
-        líquido realizado pelo cliente no relatório de performance.
-      </p>
-    </div>
-  </div>
-</div>
+</script>

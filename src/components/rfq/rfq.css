@@ -1,13 +1,29 @@
 .rfq-section {
 }
 
-.rfq-option {
+/* .rfq-option {
 	@apply rounded-xl border border-[#3a3a3a] py-2 px-3 text-white/90 text-sm lg:text-base cursor-pointer;
-}
+} */
 .rfq-option.active {
 	@apply border-[#EDDEBE] bg-[#EDDEBE] text-black;
 }
 
 .rfq-summary .button-primary {
 	@apply w-full;
+}
+
+
+.rfq-option {
+  border: 1px solid #cac8bc;
+  @apply py-2 flex flex-col justify-center px-4 rounded-xl text-white text-base font-medium cursor-pointer;
+
+  span {
+    @apply text-sm font-normal;
+  }
+
+  &:hover,
+  &.active {
+    background: #eddebe;
+    color: #000;
+  }
 }

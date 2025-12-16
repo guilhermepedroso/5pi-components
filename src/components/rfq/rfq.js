@@ -1,6 +1,111 @@
 // RFQ component: simple state -> view model -> render via window.orion.renderTemplate
 // Keep it framework-agnostic and mirror plan-selector patterns
 
+const mock = {
+	id: "d8da9fb2-89c5-468d-aab7-60fbede7d395",
+	name: "TESTE RFQ #1",
+	status: "active",
+	settings: {
+		name: "TESTE RFQ #1",
+		status: "active",
+		sections: [
+			{
+				id: "52d96f68-6652-4184-9244-e2ad6a18354b",
+				order: 0,
+				title: "Margem de ganho e perda",
+				options: [
+					{
+						id: "fa46c351-f576-4119-9470-ccfaa3138073",
+						range: {
+							max: 5000,
+							min: 1000,
+						},
+						operation: "ratio_value",
+						ratioValue: 0.2,
+						operationValue: 0,
+					},
+					{
+						id: "598c723d-33fc-48d6-b677-52027783de72",
+						range: {
+							max: 10000,
+							min: 5001,
+						},
+						operation: "ratio_value",
+						ratioValue: 0.18,
+						operationValue: 0,
+					},
+				],
+				uiConfig: {
+					max: 10000,
+					min: 1000,
+					step: 1000,
+				},
+				inputType: "range",
+				sectionType: "profit_margin",
+			},
+			{
+				id: "5dc728ff-c980-4d96-baa8-609aa971d7c8",
+				order: 1,
+				title: "Numero de contratos",
+				options: [
+					{
+						id: "d4cd8c96-b603-43b8-aa61-ee08ca46651e",
+						label: "",
+						range: {
+							max: 500,
+							min: 101,
+						},
+						operation: "multiply",
+						ratioValue: 1,
+						operationValue: 1.5,
+					},
+				],
+				uiConfig: {
+					max: 500,
+					min: 15,
+					step: 10,
+				},
+				inputType: "range",
+				sectionType: "contract_quantity",
+				customFields: {
+					valuePerExcessContract: 1.2,
+					maxContractsPer1kMargin: 100,
+				},
+			},
+			{
+				id: "5027aecd-dc8c-455b-bb1f-dcc00451cab4",
+				order: 2,
+				title: "Prazo",
+				options: [
+					{
+						id: "660c23eb-1b74-4107-909d-d689d8acde38",
+						label: "60 dias",
+						range: {
+							max: 100,
+							min: 0,
+						},
+						operation: "multiply",
+						ratioValue: 1,
+						operationValue: 0,
+					},
+					{
+						id: "4b62af7b-8497-429f-bcd4-17511cbebdae",
+						label: "Sem prazo",
+						operation: "multiply",
+						operationValue: 1.2,
+					},
+				],
+				inputType: "option",
+				sectionType: "duration",
+			},
+		],
+		versionId: "d8da9fb2-89c5-468d-aab7-60fbede7d395",
+	},
+	templateId: null,
+	createdAt: "2025-12-10T04:49:02.000Z",
+	createdBy: "Wilson Campos",
+};
+
 const rfqState = {
 	asset: "duo", // duo | wdo | win
 	risk: "3000", // amount string without currency separators
