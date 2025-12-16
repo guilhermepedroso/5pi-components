@@ -1,3 +1,13 @@
+.rfq-section {
+	padding: 24px 16px;
+}
+
+.rfq-summary {
+	position: sticky;
+	top: 24px;
+	align-self: start;
+}
+
 .rfq-summary .button-primary {
 	@apply w-full;
 }
