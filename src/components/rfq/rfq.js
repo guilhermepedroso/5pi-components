@@ -440,27 +440,19 @@ function attachRFQHandlers() {
 			if (!btn) return;
 			const group = groupEl.getAttribute("data-group");
 			const key = btn.getAttribute("data-key");
-			switch (group) {
-				case "asset":
-					rfqState.asset = key;
-					break;
-				case "risk":
-					rfqState.risk = key;
-					break;
-				case "contracts":
-					rfqState.contracts = Number(key);
-					break;
-				case "term":
-					rfqState.term = key;
-					break;
-				case "target":
-					rfqState.target = key;
-					break;
-				case "approval":
-					rfqState.approval = Number(key);
-					break;
-			}
-			renderRFQ();
+			const label = btn.getAttribute("data-label");
+			const price = btn.getAttribute("data-price");
+
+			// Remove active class from all buttons in the group
+			groupEl.querySelectorAll(".rfq-option").forEach((b) => {
+				b.classList.remove("active");
+			});
+
+			// Add active class to the clicked button
+			btn.classList.add("active");
+
+			// Update the summary based on the group
+			updateSummary(group, key, label, price);
 		});
 	});
 
@@ -475,6 +467,81 @@ function attachRFQHandlers() {
 
 	// Initialize sliders
 	initSliders();
+}
+
+// Store current prices for each group
+const rfqPrices = {
+	margin: 3400 * 0.15, // initial value * pricePerUnit
+	contracts: 0,
+	"min-days": 51,
+	approval: 51,
+	mrd: 10.2,
+	adaptation: 51,
+	platform: 0,
+	"expert-support": 0,
+};
+
+function updateSummary(group, key, label, price) {
+	const summaryMap = {
+		"min-days": "value-min-days",
+		approval: "value-approval",
+		mrd: "value-mrd",
+		adaptation: "value-adaptation",
+	};
+
+	const summaryKey = summaryMap[group];
+	if (summaryKey) {
+		const summaryItem = document.querySelector(
+			`[data-key='${summaryKey}'] span`,
+		);
+		if (summaryItem) {
+			summaryItem.textContent = ` ${label}`;
+		}
+	}
+
+	// Update price for this group
+	if (price !== undefined) {
+		rfqPrices[group] = parseFloat(price);
+	}
+
+	// Recalculate subtotal
+	updateSubtotal();
+}
+
+function updateSubtotal() {
+	const priceValueEl = document.querySelector(".offers-price--value");
+
+	// Calculate total from all prices
+	let total = 0;
+
+	// Margin
+	total += rfqPrices.margin;
+
+	// Contracts extra
+	total += rfqPrices.contracts;
+
+	// Min days
+	total += rfqPrices["min-days"];
+
+	// Approval
+	total += rfqPrices.approval;
+
+	// MRD
+	total += rfqPrices.mrd;
+
+	// Adaptation
+	total += rfqPrices.adaptation;
+
+	// Platform
+	total += rfqPrices.platform;
+
+	// Expert support
+	total += rfqPrices["expert-support"];
+
+	// Update price display
+	if (priceValueEl) {
+		priceValueEl.textContent = `R$ ${total.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+	}
 }
 
 // Store slider instances
@@ -497,15 +564,20 @@ function initSliders() {
 			formatPrice: (p) => `R$ ${Math.round(p).toLocaleString("pt-BR")}`,
 			onChange: (value) => {
 				rfqState.risk = String(value);
+				const marginPrice = value * sliderMargin.pricePerUnit;
 				document.querySelector("[data-key='value-margin'] span").textContent =
-					`R$ ${Math.round(value * sliderMargin.pricePerUnit).toLocaleString("pt-BR")}`;
+					` R$ ${Math.round(marginPrice).toLocaleString("pt-BR")}`;
+
+				// Update margin price
+				rfqPrices.margin = marginPrice;
+				updateSubtotal();
 			},
 		});
 	}
 
 	if (contractsContainer && !sliderContracts) {
 		document.querySelector("[data-key='value-contracts'] span").textContent =
-			200;
+			" 200";
 
 		sliderContracts = new CustomSlider({
 			container: contractsContainer,
@@ -518,15 +590,22 @@ function initSliders() {
 			pricePerUnit: 1.2,
 			formatValue: (v) => v.toLocaleString("pt-BR"),
 			formatPrice: (p) => `R$ ${Math.round(p).toLocaleString("pt-BR")}`,
-			onChange: (value) => {
+			onChange: (value, price) => {
 				rfqState.contracts = value;
 
 				document.querySelector(
 					"[data-key='value-contracts'] span",
-				).textContent = value;
+				).textContent = ` ${value}`;
+
+				// Update contracts extra price
+				rfqPrices.contracts = price;
+				updateSubtotal();
 			},
 		});
 	}
+
+	// Initialize subtotal on load
+	updateSubtotal();
 }
 
 window.addEventListener("DOMContentLoaded", renderRFQ);
