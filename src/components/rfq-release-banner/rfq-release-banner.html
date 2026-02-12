@@ -1,0 +1,29 @@
+<script>
+  document.getElementById('flex-header').insertAdjacentHTML('afterbegin', `
+  <div class="rqf-release-banner">
+    <b>Novidade!</b> Escolha como quer operar e entregamos a estrutura - <a href="/monte-seu-plano">Personalize seu
+      plano</a>
+  </div>
+`);
+</script>
+
+<style>
+  .rqf-release-banner {
+    background: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px 16px;
+
+    @media (min-width: 768px) {
+      margin-top: -10px;
+    }
+  }
+
+  .rqf-release-banner a {
+    color: #FE5904;
+  }
+
+  .rqf-release-banner a:hover {
+    text-decoration: underline;
+  }
+</style>
