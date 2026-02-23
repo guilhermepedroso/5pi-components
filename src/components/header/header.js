@@ -147,12 +147,19 @@ window.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("DOMContentLoaded", () => {
 	const PARTNER_STORAGE_KEY = "partnerUrl";
 
-	// Detecta se estamos em uma página de parceiro e salva no sessionStorage
+	// Detecta se estamos em uma página de parceiro ou com utm_source e salva no sessionStorage
 	const savePartnerFromCurrentUrl = () => {
 		const path = window.location.pathname;
 		const partnerMatch = path.match(/^\/parceiros\/([^/]+)/);
 		if (partnerMatch) {
 			const partnerPath = `/parceiros/${partnerMatch[1]}`;
+			sessionStorage.setItem(PARTNER_STORAGE_KEY, partnerPath);
+			return partnerPath;
+		}
+		const utmSource = new URLSearchParams(window.location.search).get("utm_source");
+		if (utmSource) {
+			const slug = utmSource.replace(/_5pi?$/, "").replace(/_/g, "-");
+			const partnerPath = `/parceiros/${slug}`;
 			sessionStorage.setItem(PARTNER_STORAGE_KEY, partnerPath);
 			return partnerPath;
 		}
@@ -167,37 +174,32 @@ window.addEventListener("DOMContentLoaded", () => {
 	// Salva o parceiro da URL atual, se houver
 	savePartnerFromCurrentUrl();
 
-	// Se estiver na home, remove o parceiro salvo para navegação normal
-	if (window.location.pathname === "/") {
+	// Se estiver na home sem utm_source, remove o parceiro salvo para navegação normal
+	if (window.location.pathname === "/" && !new URLSearchParams(window.location.search).get("utm_source")) {
 		sessionStorage.removeItem(PARTNER_STORAGE_KEY);
 	}
 
-	const savedPartner = getSavedPartner();
-
-	// Se houver parceiro salvo, atualiza os hrefs dos links
-	if (savedPartner) {
-		// Logo header link - altera o href para o parceiro
-		const logoLink = document.querySelector(".logo-header-link");
-		if (logoLink) {
-			logoLink.setAttribute("href", savedPartner);
-		}
-
-		// Primeiro link do navigation-header (UL com role="menubar")
-		const menubar = document.querySelector('[role="menubar"]');
-		if (menubar) {
-			const firstMenuItem = menubar.querySelector("li:first-child a");
-			if (firstMenuItem) {
-				firstMenuItem.setAttribute("href", savedPartner);
+	// Ao clicar, se houver parceiro salvo (de /parceiros/NAME ou utm_source), navega para ele
+	const attachPartnerClickHandler = (linkEl) => {
+		if (!linkEl) return;
+		linkEl.addEventListener("click", (event) => {
+			const partner = getSavedPartner();
+			if (partner) {
+				event.preventDefault();
+				window.location.href = partner;
 			}
-		}
+		});
+	};
 
-		// Primeiro link do navigation-footer (NAV > UL > LI:first-child > A)
-		const footerNav = document.querySelector(".navigation-footer nav ul");
-		if (footerNav) {
-			const firstFooterLink = footerNav.querySelector("li:first-child a");
-			if (firstFooterLink) {
-				firstFooterLink.setAttribute("href", savedPartner);
-			}
-		}
+	attachPartnerClickHandler(document.querySelector(".logo-header-link"));
+
+	const menubar = document.querySelector('[role="menubar"]');
+	if (menubar) {
+		attachPartnerClickHandler(menubar.querySelector("li:first-child a"));
+	}
+
+	const footerNav = document.querySelector(".navigation-footer nav ul");
+	if (footerNav) {
+		attachPartnerClickHandler(footerNav.querySelector("li:first-child a"));
 	}
 });

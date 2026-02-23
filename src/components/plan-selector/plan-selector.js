@@ -61,12 +61,78 @@ const configOverrides = {
 	"/parceiros/luana-araujo": [
 		// Book 15 - R$ 399,00 | Margem R$ 2.200 (todas as variants)
 		{
+			plan: "plus",
+			card: "book-90",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 1.999", couponCode: "BOOK90P1999" }
+			},
+		},
+		{
+			plan: "plus",
+			card: "book-140",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 2.699", couponCode: "BOOK140P2699" }
+			},
+		},
+	],
+		"/parceiros/suporte": [
+		// Book 15 - R$ 399,00 | Margem R$ 2.200 (todas as variants)
+		{
 			plan: "starter",
 			card: "book-15",
 			variant: "D10-P60",
 			patch: {
-				pricing: { price: "R$ 399" },
-				values: { margemReal: "2.200" },
+				pricing: { price: "R$ 450", couponCode: "SUPORTE15" }
+			},
+		},
+		{
+			plan: "starter",
+			card: "book-30",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 649", couponCode: "SUPORTE30" }
+			},
+		},
+			{
+			plan: "starter",
+			card: "book-40",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 1.099", couponCode: "SUPORTE40" }
+			},
+		},
+			{
+			plan: "plus",
+			card: "book-90",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 1.999", couponCode: "SUPORTE90" }
+			},
+		},
+			{
+			plan: "plus",
+			card: "book-140",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 2.799", couponCode: "SUPORTE140" }
+			},
+		},
+			{
+			plan: "plus",
+			card: "book-200",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 3.299", couponCode: "SUPORTE200" }
+			},
+		},
+			{
+			plan: "private",
+			card: "book-250",
+			variant: "D10-P60",
+			patch: {
+				pricing: { price: "R$ 4.499", couponCode: "SUPORTE250" }
 			},
 		},
 	],
@@ -127,17 +193,15 @@ const stripCurrency = (v) =>
 				.replace(/\./g, "")
 				.replace(",", ".")
 		: v;
-/* Mantém pontos de milhar e centavos (se existirem) */
 function formatBRMoney(value) {
 	const raw = String(value ?? "").trim();
 	if (!raw) return "";
 	const numeric = stripCurrency(raw);
-	const hasCents = /\.\d{1,2}$/.test(String(numeric));
 	const n = Number(numeric);
 	if (!isFinite(n)) return "";
 	return new Intl.NumberFormat("pt-BR", {
-		minimumFractionDigits: hasCents ? 2 : 0,
-		maximumFractionDigits: hasCents ? 2 : 0,
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
 	}).format(n);
 }
 /* ===== UTM Helpers ===== */
@@ -313,7 +377,7 @@ const plansData = {
 							price: "R$ 2.835",
 							couponCode: "NEW90SP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-90-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-90	-dias-sem-prazo-sem-meta",
 					},
 					{
 						key: "D10-P60",
@@ -1182,7 +1246,6 @@ const plansData = {
 /* ===== Estado ===== */
 const appState = {
 	currentPlan: "plus",
-	selectedBase: "D10", // 10 primeiro
 	selectedMinDays: 60, // 60 primeiro
 	isExpanded: false,
 };
@@ -1197,12 +1260,12 @@ const buildOffersViewModel = () => {
 	}));
 	const cards = (plan.cards || []).map((card) => {
 		const variants = card.variants || [];
-		const desiredKey = `${appState.selectedBase}-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
+		const desiredKey = `D10-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
 		let selected =
 			variants.find((v) => v.key === desiredKey) ||
 			variants.find(
 				(v) =>
-					v.baseDays === (appState.selectedBase === "D5" ? 5 : 10) &&
+					v.baseDays === 10 &&
 					v.minDaysApproval === appState.selectedMinDays,
 			) ||
 			variants[0] ||
@@ -1216,19 +1279,6 @@ const buildOffersViewModel = () => {
 			selected,
 		);
 
-		// Selects
-		const planOptions = [
-			{
-				key: "D10",
-				label: "Mínimo 10 dias operados",
-				isSelected: appState.selectedBase === "D10",
-			},
-			{
-				key: "D5",
-				label: "Mínimo 5 dias operados",
-				isSelected: appState.selectedBase === "D5",
-			},
-		];
 		const approvalOptions = [
 			{ minDaysApproval: 60, isSelected: appState.selectedMinDays === 60 },
 			{ minDaysApproval: 0, isSelected: appState.selectedMinDays === 0 },
@@ -1244,7 +1294,6 @@ const buildOffersViewModel = () => {
 		const couponClean = couponExists ? normalizeCoupon(P.couponCode) : null;
 		return {
 			name: card.name,
-			planOptions,
 			approvalOptions,
 			fields: {
 				labels: {
@@ -1394,12 +1443,6 @@ function attachInteractiveHandlers() {
 				}
 			});
 		});
-	document.querySelectorAll(".plan-combobox").forEach((sel) => {
-		sel.addEventListener("change", (e) => {
-			appState.selectedBase = e.target.value;
-			reRenderOffers();
-		});
-	});
 	document.querySelectorAll(".approval-combobox").forEach((sel) => {
 		sel.addEventListener("change", (e) => {
 			appState.selectedMinDays = parseInt(e.target.value, 10) || 0;
