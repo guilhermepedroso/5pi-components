@@ -1,147 +1,3 @@
-/* ===== CONFIG OVERRIDES ===== */
-/**
- * Sistema de overrides por parceiro.
- * Chave: path da URL (ex: "parceiros/projeto-monteiro")
- *
- * Seletores disponíveis ("*" = todos):
- *
- * PLANS:
- *   - "plus"     → Planos Plus (Book 90, 140, 200)
- *   - "starter"  → Planos Starter (Book 15, 30, 40)
- *   - "private"  → Planos Private (Book 250, 500)
- *
- * CARDS:
- *   Plus:    "book-90", "book-140", "book-200"
- *   Starter: "book-15", "book-30", "book-40"
- *   Private: "book-250", "book-500"
- *
- * VARIANTS:
- *   - "D10-SP"  → 10 dias operados, Sem Prazo
- *   - "D10-P60" → 10 dias operados, Prazo 60 dias
- *   - "D5-SP"   → 5 dias operados, Sem Prazo
- *   - "D5-P60"  → 5 dias operados, Prazo 60 dias
- *
- * PATCH - campos alteráveis:
- *   values: { margemReal, margemDePerda, repasse, cashback, ... }
- *   pricing: { oldPrice, price, couponCode }
- *   url: string
- *
- * EXEMPLOS:
- *
- * // Alterar repasse de TODOS os planos/cards/variants:
- * { plan: "*", card: "*", variant: "*", patch: { values: { repasse: "80%" } } }
- *
- * // Alterar cupom de um card específico em todas as variants:
- * { plan: "plus", card: "book-90", variant: "*", patch: { pricing: { couponCode: "CUPOM10" } } }
- *
- *  Alterar preço e URL de uma variant específica:
- * {
- * 	plan: "*",
- * 	card: "*",
- * 	variant: "*",
- * 	patch: {
- * 		pricing: { price: "R$ 2.500" },
- * 		url: "https://checkout.5pi.com.br/custom"
- * 	}
- * }}
- */
-
-const configOverrides = {
-	"parceiros/projeto-monteiro": [
-		// Altera o repasse para todos os planos/cards/variants
-		{
-			plan: "*",
-			card: "*",
-			variant: "*",
-			patch: {
-				values: { repasse: "80%" },
-			},
-		},
-	],
-	"/parceiros/luana-araujo": [
-		// Book 15 - R$ 399,00 | Margem R$ 2.200 (todas as variants)
-		{
-			plan: "plus",
-			card: "book-90",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 1.999", couponCode: "BOOK90P1999" }
-			},
-		},
-		{
-			plan: "plus",
-			card: "book-140",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 2.699", couponCode: "BOOK140P2699" }
-			},
-		},
-	],
-		"/parceiros/suporte": [
-		// Book 15 - R$ 399,00 | Margem R$ 2.200 (todas as variants)
-		{
-			plan: "starter",
-			card: "book-15",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 450", couponCode: "SUPORTE15" }
-			},
-		},
-		{
-			plan: "starter",
-			card: "book-30",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 649", couponCode: "SUPORTE30" }
-			},
-		},
-			{
-			plan: "starter",
-			card: "book-40",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 1.099", couponCode: "SUPORTE40" }
-			},
-		},
-			{
-			plan: "plus",
-			card: "book-90",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 1.999", couponCode: "SUPORTE90" }
-			},
-		},
-			{
-			plan: "plus",
-			card: "book-140",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 2.799", couponCode: "SUPORTE140" }
-			},
-		},
-			{
-			plan: "plus",
-			card: "book-200",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 3.299", couponCode: "SUPORTE200" }
-			},
-		},
-			{
-			plan: "private",
-			card: "book-250",
-			variant: "D10-P60",
-			patch: {
-				pricing: { price: "R$ 4.499", couponCode: "SUPORTE250" }
-			},
-		},
-	],
-};
-
-/* ===== ******************** ===== */
-/* ===== NÃO MODIFICAR ABAIXO ===== */
-/* ===== ******************** ===== */
-
 function parseBRAmount(x) {
 	if (x == null) return NaN;
 	let s = String(x)
@@ -271,68 +127,6 @@ function copyToClipboard(text) {
 	});
 }
 
-/* ===== HELPERS: Apply Overrides ===== */
-function getOverridesForPath() {
-	const path = window.location.pathname;
-	for (const [key, overrides] of Object.entries(configOverrides)) {
-		if (path.includes(key)) {
-			return overrides;
-		}
-	}
-	return [];
-}
-
-function matchesSelector(selector, value) {
-	return selector === "*" || selector === value;
-}
-
-function applyPatch(target, patch) {
-	const result = { ...target };
-	for (const [key, value] of Object.entries(patch)) {
-		if (value && typeof value === "object" && !Array.isArray(value)) {
-			result[key] = applyPatch(result[key] || {}, value);
-		} else {
-			result[key] = value;
-		}
-	}
-	return result;
-}
-
-function applyOverridesToVariant(planKey, cardKey, variantKey, variant) {
-	const overrides = getOverridesForPath();
-	let result = { ...variant };
-
-	for (const override of overrides) {
-		const { plan, card, variant: variantSelector, patch } = override;
-		if (
-			matchesSelector(plan, planKey) &&
-			matchesSelector(card, cardKey) &&
-			matchesSelector(variantSelector, variantKey)
-		) {
-			// Apply patch to values
-			if (patch.values) {
-				result.values = applyPatch(result.values || {}, patch.values);
-			}
-			// Apply patch to pricing
-			if (patch.pricing) {
-				result.pricing = applyPatch(result.pricing || {}, patch.pricing);
-			}
-			// Apply patch to url
-			if (patch.url !== undefined) {
-				result.url = patch.url;
-			}
-			// Apply other top-level patches
-			for (const [key, value] of Object.entries(patch)) {
-				if (!["values", "pricing", "url"].includes(key)) {
-					result[key] = value;
-				}
-			}
-		}
-	}
-
-	return result;
-}
-
 /* ===== DADOS ===== */
 const plansData = {
 	plus: {
@@ -340,12 +134,13 @@ const plansData = {
 		title: { text: "Planos Plus", sup: "Mais vendidos" },
 		cards: [
 			{
-				key: "book-90",
-				name: "Book 90",
+				key: "book-10k",
+				name: "Book 10k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -361,8 +156,9 @@ const plansData = {
 						baseDays: 10,
 						minDaysApproval: 0,
 						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
+							margemReal: "10.000",
+							margemDePerda: "10.000",
+							contratos: "75",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -374,18 +170,19 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 3.500",
-							price: "R$ 2.835",
-							couponCode: "NEW90SP",
+							price: "R$ 2.439",
+							couponCode: "BOOK10KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-90	-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-10k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
 						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
+							margemReal: "10.000",
+							margemDePerda: "10.000",
+							contratos: "75",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -397,66 +194,21 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 3.500",
-							price: "R$ 2.450",
-							couponCode: "NEW90D",
+							price: "R$ 1.999",
+							couponCode: "BOOK10K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-90-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 3.500",
-							price: "R$ 3.325",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-90-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "11.000",
-							margemDePerda: "11.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 3.500",
-							price: "R$ 3.150",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-90-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-10k-prazo-60-dias",
 					},
 				],
 			},
 			{
-				key: "book-140",
-				name: "Book 140",
+				key: "book-15k",
+				name: "Book 15k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -474,6 +226,7 @@ const plansData = {
 						values: {
 							margemReal: "15.000",
 							margemDePerda: "15.000",
+							contratos: "115",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -485,10 +238,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 4.750",
-							price: "R$ 3.895",
-							couponCode: "NEW140SP",
+							price: "R$ 3.659",
+							couponCode: "BOOK15KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-140-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-15k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
@@ -497,6 +250,7 @@ const plansData = {
 						values: {
 							margemReal: "15.000",
 							margemDePerda: "15.000",
+							contratos: "115",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -508,66 +262,21 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 4.750",
-							price: "R$ 3.330",
-							couponCode: "NEW140D",
+							price: "R$ 2.999",
+							couponCode: "BOOK15K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-140-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "15.000",
-							margemDePerda: "15.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 4.750",
-							price: "R$ 4.512,50",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-140-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "15.000",
-							margemDePerda: "15.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 4.750",
-							price: "R$ 4.280",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-140-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-15k-60-dias",
 					},
 				],
 			},
 			{
-				key: "book-200",
-				name: "Book 200",
+				key: "book-18k",
+				name: "Book 18k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -585,6 +294,7 @@ const plansData = {
 						values: {
 							margemReal: "18.000",
 							margemDePerda: "18.000",
+							contratos: "135",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -596,10 +306,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 5.430",
-							price: "R$ 4.452,60",
-							couponCode: "NEW200SP",
+							price: "R$ 4.399",
+							couponCode: "BOOK18KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-200-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-18k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
@@ -608,6 +318,7 @@ const plansData = {
 						values: {
 							margemReal: "18.000",
 							margemDePerda: "18.000",
+							contratos: "135",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -619,56 +330,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 5.430",
-							price: "R$ 3.800",
-							couponCode: "NEW200D",
+							price: "R$ 3.599",
+							couponCode: "BOOK18K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-200-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "18.000",
-							margemDePerda: "18.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 5.430",
-							price: "R$ 5.158,50",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-200-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "18.000",
-							margemDePerda: "18.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 5.430",
-							price: "R$ 4.880",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-200-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-18k-prazo-60-dias",
 					},
 				],
 			},
@@ -679,12 +344,13 @@ const plansData = {
 		title: { text: "Planos Starter", sup: "Mais acessíveis" },
 		cards: [
 			{
-				key: "book-15",
-				name: "Book 15",
+				key: "book-2k",
+				name: "Book 2k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -700,8 +366,9 @@ const plansData = {
 						baseDays: 10,
 						minDaysApproval: 0,
 						values: {
-							margemReal: "2.200",
+							margemReal: "2.000",
 							margemDePerda: "2.000",
+							contratos: "15",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -713,18 +380,19 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 650",
-							price: "R$ 535",
-							couponCode: "NEW15SP",
+							price: "R$ 489",
+							couponCode: "BOOK2KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-15-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-2k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
 						values: {
-							margemReal: "2.200",
+							margemReal: "2.000",
 							margemDePerda: "2.000",
+							contratos: "15",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -736,66 +404,21 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 650",
-							price: "R$ 450",
-							couponCode: "NEW15D",
+							price: "R$ 399",
+							couponCode: "BOOK2K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-15-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "2.200",
-							margemDePerda: "2.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 650",
-							price: "R$ 617,50",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-15-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "2.200",
-							margemDePerda: "2.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 650",
-							price: "R$ 585",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-15-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-2k-prazo-60-dias",
 					},
 				],
 			},
 			{
-				key: "book-30",
-				name: "Book 30",
+				key: "book-4k",
+				name: "Book 4k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -811,8 +434,9 @@ const plansData = {
 						baseDays: 10,
 						minDaysApproval: 0,
 						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.000",
+							margemReal: "4.000",
+							margemDePerda: "4.000",
+							contratos: "30",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -824,18 +448,19 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 1.140",
-							price: "R$ 939",
-							couponCode: "NEW30SP",
+							price: "R$ 979",
+							couponCode: "BOOK4KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-30-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-4k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
 						baseDays: 10,
 						minDaysApproval: 60,
 						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.000",
+							margemReal: "4.000",
+							margemDePerda: "4.000",
+							contratos: "30",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -847,66 +472,21 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 1.140",
-							price: "R$ 800",
-							couponCode: "NEW30D",
+							price: "R$ 799",
+							couponCode: "BOOK4K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-30-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.300",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 1.140",
-							price: "R$ 1.083",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-30-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "3.400",
-							margemDePerda: "3.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 1.140",
-							price: "R$ 1.020",
-							couponCode: "NEW30CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-30-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-4k-prazo-60-dias",
 					},
 				],
 			},
 			{
-				key: "book-40",
-				name: "Book 40",
+				key: "book-6k",
+				name: "Book 6k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -923,7 +503,8 @@ const plansData = {
 						minDaysApproval: 0,
 						values: {
 							margemReal: "6.000",
-							margemDePerda: "5.500",
+							margemDePerda: "6.000",
+							contratos: "45",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -935,10 +516,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 2.150",
-							price: "R$ 1.789",
-							couponCode: "NEW40SP",
+							price: "R$ 1.469",
+							couponCode: "BOOK6KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-40-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-6k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
@@ -946,7 +527,8 @@ const plansData = {
 						minDaysApproval: 60,
 						values: {
 							margemReal: "6.000",
-							margemDePerda: "5.500",
+							margemDePerda: "6.000",
+							contratos: "45",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -958,56 +540,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 2.150",
-							price: "R$ 1.500",
-							couponCode: "NEW40D",
+							price: "R$ 1.199",
+							couponCode: "BOOK6K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-40-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "6.000",
-							margemDePerda: "5.500",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 2.150",
-							price: "R$ 1.935",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-40-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "6.000",
-							margemDePerda: "5.500",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 2.150",
-							price: "R$ 1.930",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-40-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-6k-prazo-60-dias",
 					},
 				],
 			},
@@ -1018,12 +554,13 @@ const plansData = {
 		title: { text: "Planos Private", sup: "Maiores lucros" },
 		cards: [
 			{
-				key: "book-250",
-				name: "Book 250",
+				key: "book-25k",
+				name: "Book 25k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -1041,6 +578,7 @@ const plansData = {
 						values: {
 							margemReal: "25.000",
 							margemDePerda: "25.000",
+							contratos: "190",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -1052,10 +590,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 7.575",
-							price: "R$ 6.212",
-							couponCode: "NEW250SP",
+							price: "R$ 6.099",
+							couponCode: "BOOK25KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-250-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-25k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
@@ -1064,6 +602,7 @@ const plansData = {
 						values: {
 							margemReal: "25.000",
 							margemDePerda: "25.000",
+							contratos: "190",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -1075,66 +614,89 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 7.575",
-							price: "R$ 5.300",
-							couponCode: "NEW250D",
+							price: "R$ 4.999",
+							couponCode: "BOOK25K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-250-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "25.000",
-							margemDePerda: "25.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 7.575",
-							price: "R$ 7.196,25",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-250-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "25.000",
-							margemDePerda: "25.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 7.575",
-							price: "R$ 6.818",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-250-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-25k-prazo-60-dias",
 					},
 				],
 			},
 			{
-				key: "book-500",
-				name: "Book 500",
+				key: "book-30k",
+				name: "Book 30k",
 				labels: {
 					margemReal: "Margem na real de até:",
 					margemDePerda: "Perda Máxima:",
-					meta: "Meta",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
+					repasse: "Repasse:",
+					cashback: "Cashback:",
+					profitOne: "Profit One grátis no 1º mês:",
+					plataforma: "Plataforma gratuita na real:",
+					educacional: "Educacional com especialistas:",
+					salaAoVivo: "Sala ao vivo com mentores:",
+					gerenciamento: "Gerenciamento de Risco:",
+					assessoria: "Assessoria especializada:",
+				},
+				variants: [
+					{
+						key: "D10-SP",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "30.000",
+							margemDePerda: "30.000",
+							contratos: "230",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 9.900",
+							price: "R$ 7.319",
+							couponCode: "BOOK30KSP",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-30k-sem-prazo",
+					},
+					{
+						key: "D10-P60",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "30.000",
+							margemDePerda: "30.000",
+							contratos: "230",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 9.900",
+							price: "R$ 5.999",
+							couponCode: "BOOK30K",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-30k-prazo-60-dias",
+					},
+				],
+			},
+			{
+				key: "book-50k",
+				name: "Book 50k",
+				labels: {
+					margemReal: "Margem na real de até:",
+					margemDePerda: "Perda Máxima:",
+					contratos: "Quantidade de contratos:",
+					meta: "Meta:",
 					repasse: "Repasse:",
 					cashback: "Cashback:",
 					profitOne: "Profit One grátis no 1º mês:",
@@ -1152,6 +714,7 @@ const plansData = {
 						values: {
 							margemReal: "50.000",
 							margemDePerda: "50.000",
+							contratos: "385",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -1163,10 +726,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 17.000",
-							price: "R$ 14.450",
-							couponCode: "NEW500SP",
+							price: "R$ 13.419",
+							couponCode: "BOOK50KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-500-duo-10-dias-sem-prazo-sem-meta",
+						url: "https://checkout.5pi.com.br/pay/book-50k-sem-prazo",
 					},
 					{
 						key: "D10-P60",
@@ -1175,6 +738,7 @@ const plansData = {
 						values: {
 							margemReal: "50.000",
 							margemDePerda: "50.000",
+							contratos: "385",
 							repasse: "90%",
 							cashback: "R$ 250",
 							proftOneGratis: "Sim",
@@ -1186,56 +750,10 @@ const plansData = {
 						},
 						pricing: {
 							oldPrice: "R$ 17.000",
-							price: "R$ 13.000",
-							couponCode: "NEW500D",
+							price: "R$ 10.999",
+							couponCode: "BOOK50K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-500-duo-10-dias-prazo-60-dias",
-					},
-					{
-						key: "D5-SP",
-						baseDays: 5,
-						minDaysApproval: 0,
-						values: {
-							margemReal: "50.000",
-							margemDePerda: "50.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 17.000",
-							price: "R$ 16.150",
-							couponCode: "NEW5CINCOSP",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-500-duo-5-dias-sem-prazo-sem-meta",
-					},
-					{
-						key: "D5-P60",
-						baseDays: 5,
-						minDaysApproval: 60,
-						values: {
-							margemReal: "50.000",
-							margemDePerda: "50.000",
-							repasse: "90%",
-							cashback: "R$ 250",
-							proftOneGratis: "Sim",
-							plataformaGratuitaReal: "Sim",
-							educacionalEspecialistas: "50",
-							salasAoVivoComMentores: "Diária",
-							gerenciamentoDeRisco: "Sim",
-							acessoriaEspecializada: "Sim",
-						},
-						pricing: {
-							oldPrice: "R$ 17.000",
-							price: "R$ 15.300",
-							couponCode: "NEW10CINCOD",
-						},
-						url: "https://checkout.5pi.com.br/pay/book-500-duo-5-dias-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-50k-60-dias",
 					},
 				],
 			},
@@ -1261,7 +779,7 @@ const buildOffersViewModel = () => {
 	const cards = (plan.cards || []).map((card) => {
 		const variants = card.variants || [];
 		const desiredKey = `D10-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
-		let selected =
+		const selected =
 			variants.find((v) => v.key === desiredKey) ||
 			variants.find(
 				(v) =>
@@ -1270,14 +788,6 @@ const buildOffersViewModel = () => {
 			) ||
 			variants[0] ||
 			{};
-
-		// Apply config overrides
-		selected = applyOverridesToVariant(
-			planKey,
-			card.key,
-			selected.key,
-			selected,
-		);
 
 		const approvalOptions = [
 			{ minDaysApproval: 60, isSelected: appState.selectedMinDays === 60 },
@@ -1299,6 +809,7 @@ const buildOffersViewModel = () => {
 				labels: {
 					margemReal: L.margemReal,
 					margemDePerda: L.margemDePerda,
+					contratos: L.contratos,
 					meta: L.meta,
 					repasse: L.repasse,
 					cashback: L.cashback,
@@ -1313,6 +824,7 @@ const buildOffersViewModel = () => {
 			attributes: {
 				margemReal: stripCurrency(V.margemReal ?? ""),
 				margemDePerda: stripCurrency(V.margemDePerda ?? ""),
+				contratos: V.contratos ?? "",
 				repasse: V.repasse ?? "",
 				cashback: V.cashback ?? "",
 				proftOneGratis: V.proftOneGratis ?? "",
