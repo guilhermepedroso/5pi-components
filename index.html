@@ -1,109 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite App</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-  <!-- <link
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <!-- <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     /> -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet" />
-  <style>
-    :root {
-      font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                font-family:
+                    "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+                font-synthesis: none;
+                text-rendering: optimizeLegibility;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      overflow-x: hidden;
-    }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                overflow-x: hidden;
+            }
 
-    body {
-      /* padding: 16px; */
+            body {
+                /* padding: 16px; */
+            }
+        </style>
+        <link href="/src/style.css" rel="stylesheet" />
+    </head>
 
-    }
-  </style>
-  <link href="/src/style.css" rel="stylesheet" />
-</head>
-
-<body class="bg-black">
-  <!-- DONT REMOVE THIS -->
-  <div id="video-modal-container"></div>
-  <script type="text/x-handlebars-template" id="video-modal-template">
-      <div
-        class="video-modal-overlay fixed inset-0 bg-black/50 bg-opacity-75 flex flex-col items-center justify-center z-50 p-4"
-      >
-      <button
-            class="video-modal-close mb-4 cursor-pointer !rounded-full bg-white w-[32px] h-[32px] flex items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              class-"size-4"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-x-icon lucide-x"
-            ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-          </button>
-        <div
-          class="video-modal-content bg-transparent rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] relative"
-        >
-
-          <div class="video-modal-body bg-black p-0">
-            <div class="video-wrapper relative pb-[56.25%] h-0 overflow-hidden">
-              <iframe
-                class="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/{{videoId}}?autoplay=1&rel=0"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
+    <body class="bg-black">
+        <!-- DONT REMOVE THIS -->
+        <div id="video-modal-container"></div>
+        <script type="text/x-handlebars-template" id="video-modal-template">
+            <div
+              class="video-modal-overlay fixed inset-0 bg-black/50 bg-opacity-75 flex flex-col items-center justify-center z-50 p-4"
+            >
+            <button
+                  class="video-modal-close mb-4 cursor-pointer !rounded-full bg-white w-[32px] h-[32px] flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    class-"size-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-x-icon lucide-x"
+                  ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                </button>
+              <div
+                class="video-modal-content bg-transparent rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] relative"
               >
-              </iframe>
+
+                <div class="video-modal-body bg-black p-0">
+                  <div class="video-wrapper relative pb-[56.25%] h-0 overflow-hidden">
+                    <iframe
+                      class="absolute top-0 left-0 w-full h-full"
+                      src="https://www.youtube.com/embed/{{videoId}}?autoplay=1&rel=0"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    >
+                    </iframe>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </script>
+        </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/range-slider-element@2/+esm"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/toastify-js"
+        ></script>
+        <script
+            type="module"
+            src="https://cdn.jsdelivr.net/npm/range-slider-element@2/+esm"
+        ></script>
 
-
-  <script type="module" src="/src/main.js"></script>
-  <script type="module" src="/src/components/header/header.js"></script>
-  <script type="module" src="/src/components/plan-selector/plan-selector.js"></script>
-  <script type="module" src="/src/components/rfq/rfq.js"></script>
-  <script type="module" src="/src/components/day-trade/day-trade.js"></script>
-  <script type="module" src="/src/components/clients/clients.js"></script>
-  <script type="module" src="/src/components/hero/hero.js"></script>
-  <script type="module" src="/src/components/testimonials/testimonials.js"></script>
-  <script type="module" src="/src/components/faq/faq.js"></script>
-  <script type="module" src="/src/components/floating-cta/floating-cta.js"></script>
-</body>
-
+        <script type="module" src="/src/main.js"></script>
+        <script type="module" src="/src/components/header/header.js"></script>
+        <script
+            type="module"
+            src="/src/components/plan-selector/plan-selector.js"
+        ></script>
+        <script type="module" src="/src/components/rfq/rfq.js"></script>
+        <script
+            type="module"
+            src="/src/components/day-trade/day-trade.js"
+        ></script>
+        <script type="module" src="/src/components/clients/clients.js"></script>
+        <script type="module" src="/src/components/hero/hero.js"></script>
+        <script
+            type="module"
+            src="/src/components/testimonials/testimonials.js"
+        ></script>
+        <script type="module" src="/src/components/faq/faq.js"></script>
+        <script
+            type="module"
+            src="/src/components/floating-cta/floating-cta.js"
+        ></script>
+    </body>
 </html>

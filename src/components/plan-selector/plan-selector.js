@@ -571,8 +571,9 @@ const plansData = {
 					assessoria: "Assessoria especializada:",
 				},
 				variants: [
+					/* Com Stop Diário */
 					{
-						key: "D10-SP",
+						key: "D10-SP-CS",
 						baseDays: 10,
 						minDaysApproval: 0,
 						values: {
@@ -593,10 +594,10 @@ const plansData = {
 							price: "R$ 6.099",
 							couponCode: "BOOK25KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-25k-sem-prazo",
+						url: "https://checkout.5pi.com.br/pay/book-25k-sem-prazo-com-stop-diario",
 					},
 					{
-						key: "D10-P60",
+						key: "D10-P60-CS",
 						baseDays: 10,
 						minDaysApproval: 60,
 						values: {
@@ -617,7 +618,56 @@ const plansData = {
 							price: "R$ 4.999",
 							couponCode: "BOOK25K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-25k-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-25k-prazo-60-dias-com-stop-diario",
+					},
+					/* Sem Stop Diário */
+					{
+						key: "D10-SP-SS",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "25.000",
+							margemDePerda: "25.000",
+							contratos: "190",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 9.090",
+							price: "R$ 7.362,90",
+							couponCode: "B25KSTSP",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-25k-sem-prazo-sem-stop-diario",
+					},
+					{
+						key: "D10-P60-SS",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "25.000",
+							margemDePerda: "25.000",
+							contratos: "190",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 9.090",
+							price: "R$ 5.999,40",
+							couponCode: "B25KST",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-25k-prazo-60-dias-sem-stop-diario",
 					},
 				],
 			},
@@ -639,8 +689,9 @@ const plansData = {
 					assessoria: "Assessoria especializada:",
 				},
 				variants: [
+					/* Com Stop Diário */
 					{
-						key: "D10-SP",
+						key: "D10-SP-CS",
 						baseDays: 10,
 						minDaysApproval: 0,
 						values: {
@@ -661,10 +712,10 @@ const plansData = {
 							price: "R$ 7.319",
 							couponCode: "BOOK30KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-30k-sem-prazo",
+						url: "https://checkout.5pi.com.br/pay/book-30k-sem-prazo-com-stop-diario",
 					},
 					{
-						key: "D10-P60",
+						key: "D10-P60-CS",
 						baseDays: 10,
 						minDaysApproval: 60,
 						values: {
@@ -685,7 +736,56 @@ const plansData = {
 							price: "R$ 5.999",
 							couponCode: "BOOK30K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-30k-prazo-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-30k-prazo-60-dias-com-stop-diario",
+					},
+					/* Sem Stop Diário */
+					{
+						key: "D10-SP-SS",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "30.000",
+							margemDePerda: "30.000",
+							contratos: "230",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 11.880",
+							price: "R$ 8.791,20",
+							couponCode: "B30KSTSP",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-30k-sem-prazo-sem-stop-diario",
+					},
+					{
+						key: "D10-P60-SS",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "30.000",
+							margemDePerda: "30.000",
+							contratos: "230",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 11.880",
+							price: "R$ 7.246,80",
+							couponCode: "B30KST",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-30k-prazo-60-dias-sem-stop-diario",
 					},
 				],
 			},
@@ -707,8 +807,9 @@ const plansData = {
 					assessoria: "Assessoria especializada:",
 				},
 				variants: [
+					/* Com Stop Diário */
 					{
-						key: "D10-SP",
+						key: "D10-SP-CS",
 						baseDays: 10,
 						minDaysApproval: 0,
 						values: {
@@ -729,10 +830,10 @@ const plansData = {
 							price: "R$ 13.419",
 							couponCode: "BOOK50KSP",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-50k-sem-prazo",
+						url: "https://checkout.5pi.com.br/pay/book-50k-sem-prazo-com-stop-diario",
 					},
 					{
-						key: "D10-P60",
+						key: "D10-P60-CS",
 						baseDays: 10,
 						minDaysApproval: 60,
 						values: {
@@ -753,7 +854,56 @@ const plansData = {
 							price: "R$ 10.999",
 							couponCode: "BOOK50K",
 						},
-						url: "https://checkout.5pi.com.br/pay/book-50k-60-dias",
+						url: "https://checkout.5pi.com.br/pay/book-50k-prazo-60-dias-com-stop-diario",
+					},
+					/* Sem Stop Diário */
+					{
+						key: "D10-SP-SS",
+						baseDays: 10,
+						minDaysApproval: 0,
+						values: {
+							margemReal: "50.000",
+							margemDePerda: "50.000",
+							contratos: "385",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 20.400",
+							price: "R$ 16.116",
+							couponCode: "B50KSTSP",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-50k-sem-prazo-sem-stop-diario",
+					},
+					{
+						key: "D10-P60-SS",
+						baseDays: 10,
+						minDaysApproval: 60,
+						values: {
+							margemReal: "50.000",
+							margemDePerda: "50.000",
+							contratos: "385",
+							repasse: "90%",
+							cashback: "R$ 250",
+							proftOneGratis: "Sim",
+							plataformaGratuitaReal: "Sim",
+							educacionalEspecialistas: "50",
+							salasAoVivoComMentores: "Diária",
+							gerenciamentoDeRisco: "Sim",
+							acessoriaEspecializada: "Sim",
+						},
+						pricing: {
+							oldPrice: "R$ 20.400",
+							price: "R$ 13.260",
+							couponCode: "B50KST",
+						},
+						url: "https://checkout.5pi.com.br/pay/book-50k-prazo-60-dias-sem-stop-diario",
 					},
 				],
 			},
@@ -764,9 +914,16 @@ const plansData = {
 /* ===== Estado ===== */
 const appState = {
 	currentPlan: "plus",
-	selectedMinDays: 60, // 60 primeiro
+	/* REVERT: para voltar ao comportamento global, descomente as 2 linhas abaixo
+	   e remova selectedMinDaysPerCard/selectedStopPerCard + getCardMinDays/getCardStop */
+	// selectedMinDays: 60,
+	// selectedStop: "sem-stop",
+	selectedMinDaysPerCard: {}, // ex: { "book-25k": 0 } — default 60
+	selectedStopPerCard: {},    // ex: { "book-25k": "com-stop" } — default "sem-stop"
 	isExpanded: false,
 };
+const getCardMinDays = (cardKey) => appState.selectedMinDaysPerCard[cardKey] ?? 60;
+const getCardStop = (cardKey) => appState.selectedStopPerCard[cardKey] ?? "com-stop";
 /* ===== VM ===== */
 const buildOffersViewModel = () => {
 	const planKey = appState.currentPlan;
@@ -778,20 +935,21 @@ const buildOffersViewModel = () => {
 	}));
 	const cards = (plan.cards || []).map((card) => {
 		const variants = card.variants || [];
-		const desiredKey = `D10-${appState.selectedMinDays === 0 ? "SP" : "P60"}`;
+		const cardMinDays = getCardMinDays(card.key);
+		const cardStop = getCardStop(card.key);
+		const prazoKey = cardMinDays === 0 ? "SP" : "P60";
+		const stopKey = cardStop === "com-stop" ? "CS" : "SS";
+		const desiredKeyFull = `D10-${prazoKey}-${stopKey}`;
+		const desiredKeyShort = `D10-${prazoKey}`;
 		const selected =
-			variants.find((v) => v.key === desiredKey) ||
-			variants.find(
-				(v) =>
-					v.baseDays === 10 &&
-					v.minDaysApproval === appState.selectedMinDays,
-			) ||
+			variants.find((v) => v.key === desiredKeyFull) ||
+			variants.find((v) => v.key === desiredKeyShort) ||
 			variants[0] ||
 			{};
 
 		const approvalOptions = [
-			{ minDaysApproval: 60, isSelected: appState.selectedMinDays === 60 },
-			{ minDaysApproval: 0, isSelected: appState.selectedMinDays === 0 },
+			{ minDaysApproval: 60, isSelected: cardMinDays === 60 },
+			{ minDaysApproval: 0, isSelected: cardMinDays === 0 },
 		];
 		const L = card.labels || {};
 		const V = selected.values || {};
@@ -799,12 +957,18 @@ const buildOffersViewModel = () => {
 		const margemRealFmt = formatBRInt(V.margemReal);
 		const margemDePerdaFmt = formatBRInt(V.margemDePerda);
 		const metaParaAprovacaoText =
-			appState.selectedMinDays === 60 ? `R$ ${margemRealFmt}` : "Sem meta";
+			cardMinDays === 60 ? `R$ ${margemRealFmt}` : "Sem meta";
 		const couponExists = hasRealCoupon(P.couponCode);
 		const couponClean = couponExists ? normalizeCoupon(P.couponCode) : null;
+		const stopOptions = [
+			{ value: "sem-stop", label: "Sem stop diário na avaliação", isSelected: cardStop === "sem-stop" },
+			{ value: "com-stop", label: "20% de stop diário na avaliação", isSelected: cardStop === "com-stop" },
+		];
 		return {
+			cardKey: card.key,
 			name: card.name,
 			approvalOptions,
+			stopOptions,
 			fields: {
 				labels: {
 					margemReal: L.margemReal,
@@ -850,7 +1014,7 @@ const buildOffersViewModel = () => {
 			})(),
 		};
 	});
-	return { tabs, cards, isExpanded: appState.isExpanded };
+	return { tabs, cards, isExpanded: appState.isExpanded, isPrivate: planKey === "private" };
 };
 /* ===== Render + Listeners ===== */
 let offers = buildOffersViewModel();
@@ -957,7 +1121,21 @@ function attachInteractiveHandlers() {
 		});
 	document.querySelectorAll(".approval-combobox").forEach((sel) => {
 		sel.addEventListener("change", (e) => {
-			appState.selectedMinDays = parseInt(e.target.value, 10) || 0;
+			const cardKey = e.target.closest(".offers-card")?.getAttribute("data-card-key");
+			if (cardKey) {
+				appState.selectedMinDaysPerCard[cardKey] = parseInt(e.target.value, 10) || 0;
+			}
+			/* REVERT: appState.selectedMinDays = parseInt(e.target.value, 10) || 0; */
+			reRenderOffers();
+		});
+	});
+	document.querySelectorAll(".stop-combobox").forEach((sel) => {
+		sel.addEventListener("change", (e) => {
+			const cardKey = e.target.closest(".offers-card")?.getAttribute("data-card-key");
+			if (cardKey) {
+				appState.selectedStopPerCard[cardKey] = e.target.value;
+			}
+			/* REVERT: appState.selectedStop = e.target.value; */
 			reRenderOffers();
 		});
 	});
