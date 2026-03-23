@@ -13,45 +13,45 @@
 @import "./styles/slider.css";
 
 .custom-container {
-  position: relative;
-  max-width: 1300px;
+	position: relative;
+	max-width: 1300px;
 
-  margin: 0 auto;
+	margin: 0 auto;
 }
 
 .button-primary {
-  background: #2a7b9b;
-  background: linear-gradient(
-    90deg,
-    rgba(42, 123, 155, 1) 0%,
-    rgba(85, 196, 134, 1) 0%,
-    rgba(237, 144, 63, 1) 0%,
-    rgba(255, 85, 0, 1) 100%
-  );
-  @apply h-12 text-lg text-white cursor-pointer rounded-full flex items-center justify-center font-semibold transition-all duration-200;
+	background: #2a7b9b;
+	background: linear-gradient(
+		90deg,
+		rgba(42, 123, 155, 1) 0%,
+		rgba(85, 196, 134, 1) 0%,
+		rgba(237, 144, 63, 1) 0%,
+		rgba(255, 85, 0, 1) 100%
+	);
+	@apply h-12 text-lg text-white cursor-pointer rounded-full flex items-center justify-center font-semibold transition-all duration-200;
 
-  &:hover {
-    @apply scale-105;
-  }
+	&:hover {
+		@apply scale-105;
+	}
 }
 
 .text-colours {
-  background: var(
-    --Linear,
-    linear-gradient(
-      90deg,
-      #1e61bd 0%,
-      #973abf 19.23%,
-      #bc1d67 55.29%,
-      #cb1633 80.29%,
-      #b84100 100%
-    )
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+	background: var(
+		--Linear,
+		linear-gradient(
+			90deg,
+			#1e61bd 0%,
+			#973abf 19.23%,
+			#bc1d67 55.29%,
+			#cb1633 80.29%,
+			#b84100 100%
+		)
+	);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .swiper-day-trade .swiper-wrapper {
-  transition-timing-function: linear !important;
+	transition-timing-function: linear !important;
 }

@@ -1,3 +1,112 @@
+/* ===== CONFIG OVERRIDES ===== */
+/**
+ * Sistema de overrides por parceiro.
+ * Chave: path da URL (ex: "parceiros/projeto-monteiro")
+ *
+ * Seletores disponíveis ("*" = todos):
+ *
+ * PLANS:
+ *   - "plus"     → Planos Plus (Book 90, 140, 200)
+ *   - "starter"  → Planos Starter (Book 15, 30, 40)
+ *   - "private"  → Planos Private (Book 250, 500)
+ *
+ * CARDS:
+ *   Plus:    "book-90", "book-140", "book-200"
+ *   Starter: "book-15", "book-30", "book-40"
+ *   Private: "book-250", "book-500"
+ *
+ * VARIANTS:
+ *   - "D10-SP"  → 10 dias operados, Sem Prazo
+ *   - "D10-P60" → 10 dias operados, Prazo 60 dias
+ *   - "D5-SP"   → 5 dias operados, Sem Prazo
+ *   - "D5-P60"  → 5 dias operados, Prazo 60 dias
+ *
+ * PATCH - campos alteráveis:
+ *   values: { margemReal, margemDePerda, repasse, cashback, ... }
+ *   pricing: { oldPrice, price, couponCode }
+ *   url: string
+ *
+ * EXEMPLOS:
+ *
+ * // Alterar repasse de TODOS os planos/cards/variants:
+ * { plan: "*", card: "*", variant: "*", patch: { values: { repasse: "80%" } } }
+ *
+ * // Alterar cupom de um card específico em todas as variants:
+ * { plan: "plus", card: "book-90", variant: "*", patch: { pricing: { couponCode: "CUPOM10" } } }
+ *
+ *  Alterar preço e URL de uma variant específica:
+ * {
+ * 	plan: "*",
+ * 	card: "*",
+ * 	variant: "*",
+ * 	patch: {
+ * 		pricing: { price: "R$ 2.500" },
+ * 		url: "https://checkout.5pi.com.br/custom"
+ * 	}
+ * }}
+ */
+
+const configOverrides = {
+	"parceiros/somos": [
+		{
+			plan: "plus",
+			card: "book-10k",
+			variant: "*",
+			patch: { name: "Educacional + Book 10k" },
+		},
+		{
+			plan: "plus",
+			card: "book-15k",
+			variant: "*",
+			patch: { name: "Educacional + Book 15k" },
+		},
+		{
+			plan: "plus",
+			card: "book-18k",
+			variant: "*",
+			patch: { name: "Educacional + Book 18k" },
+		},
+		{
+			plan: "starter",
+			card: "book-2k",
+			variant: "*",
+			patch: { name: "Educacional + Book 2k" },
+		},
+		{
+			plan: "starter",
+			card: "book-4k",
+			variant: "*",
+			patch: { name: "Educacional + Book 4k" },
+		},
+		{
+			plan: "starter",
+			card: "book-6k",
+			variant: "*",
+			patch: { name: "Educacional + Book 6k" },
+		},
+		{
+			plan: "private",
+			card: "book-25k",
+			variant: "*",
+			patch: { name: "Educacional + Book 25k" },
+		},
+		{
+			plan: "private",
+			card: "book-30k",
+			variant: "*",
+			patch: { name: "Educacional + Book 30k" },
+		},
+		{
+			plan: "private",
+			card: "book-50k",
+			variant: "*",
+			patch: { name: "Educacional + Book 50k" },
+		},
+	],
+};
+
+/* ===== ******************** ===== */
+
 function parseBRAmount(x) {
 	if (x == null) return NaN;
 	let s = String(x)
@@ -63,7 +172,7 @@ function formatBRMoney(value) {
 /* ===== UTM Helpers ===== */
 function getPartnerUtmSource() {
 	const path = window.location.pathname;
-	const parceirosMatch = path.match(/^\/parceiros\/([^\/]+)/);
+	const parceirosMatch = path.match(/^\/parceiros\/([^/]+)/);
 	if (!parceirosMatch) return null;
 	const partnerName = parceirosMatch[1];
 	// Transforma hífens em underscores e adiciona _5p no final
@@ -919,11 +1028,71 @@ const appState = {
 	// selectedMinDays: 60,
 	// selectedStop: "sem-stop",
 	selectedMinDaysPerCard: {}, // ex: { "book-25k": 0 } — default 60
-	selectedStopPerCard: {},    // ex: { "book-25k": "com-stop" } — default "sem-stop"
+	selectedStopPerCard: {}, // ex: { "book-25k": "com-stop" } — default "sem-stop"
 	isExpanded: false,
 };
-const getCardMinDays = (cardKey) => appState.selectedMinDaysPerCard[cardKey] ?? 60;
-const getCardStop = (cardKey) => appState.selectedStopPerCard[cardKey] ?? "com-stop";
+const getCardMinDays = (cardKey) =>
+	appState.selectedMinDaysPerCard[cardKey] ?? 60;
+const getCardStop = (cardKey) =>
+	appState.selectedStopPerCard[cardKey] ?? "com-stop";
+/* ===== HELPERS: Apply Overrides ===== */
+function getOverridesForPath() {
+	const path = window.location.pathname;
+	for (const [key, overrides] of Object.entries(configOverrides)) {
+		if (path.includes(key)) {
+			return overrides;
+		}
+	}
+	return [];
+}
+
+function matchesSelector(selector, value) {
+	return selector === "*" || selector === value;
+}
+
+function applyPatch(target, patch) {
+	const result = { ...target };
+	for (const [key, value] of Object.entries(patch)) {
+		if (value && typeof value === "object" && !Array.isArray(value)) {
+			result[key] = applyPatch(result[key] || {}, value);
+		} else {
+			result[key] = value;
+		}
+	}
+	return result;
+}
+
+function applyOverridesToVariant(planKey, cardKey, variantKey, variant) {
+	const overrides = getOverridesForPath();
+	const result = { ...variant };
+
+	for (const override of overrides) {
+		const { plan, card, variant: variantSelector, patch } = override;
+		if (
+			matchesSelector(plan, planKey) &&
+			matchesSelector(card, cardKey) &&
+			matchesSelector(variantSelector, variantKey)
+		) {
+			if (patch.values) {
+				result.values = applyPatch(result.values || {}, patch.values);
+			}
+			if (patch.pricing) {
+				result.pricing = applyPatch(result.pricing || {}, patch.pricing);
+			}
+			if (patch.url !== undefined) {
+				result.url = patch.url;
+			}
+			for (const [key, value] of Object.entries(patch)) {
+				if (!["values", "pricing", "url"].includes(key)) {
+					result[key] = value;
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
 /* ===== VM ===== */
 const buildOffersViewModel = () => {
 	const planKey = appState.currentPlan;
@@ -941,11 +1110,19 @@ const buildOffersViewModel = () => {
 		const stopKey = cardStop === "com-stop" ? "CS" : "SS";
 		const desiredKeyFull = `D10-${prazoKey}-${stopKey}`;
 		const desiredKeyShort = `D10-${prazoKey}`;
-		const selected =
+		let selected =
 			variants.find((v) => v.key === desiredKeyFull) ||
 			variants.find((v) => v.key === desiredKeyShort) ||
 			variants[0] ||
 			{};
+
+		// Apply config overrides
+		selected = applyOverridesToVariant(
+			planKey,
+			card.key,
+			selected.key,
+			selected,
+		);
 
 		const approvalOptions = [
 			{ minDaysApproval: 60, isSelected: cardMinDays === 60 },
@@ -961,12 +1138,20 @@ const buildOffersViewModel = () => {
 		const couponExists = hasRealCoupon(P.couponCode);
 		const couponClean = couponExists ? normalizeCoupon(P.couponCode) : null;
 		const stopOptions = [
-			{ value: "sem-stop", label: "Sem stop diário na avaliação", isSelected: cardStop === "sem-stop" },
-			{ value: "com-stop", label: "20% de stop diário na avaliação", isSelected: cardStop === "com-stop" },
+			{
+				value: "sem-stop",
+				label: "Sem stop diário na avaliação",
+				isSelected: cardStop === "sem-stop",
+			},
+			{
+				value: "com-stop",
+				label: "20% de stop diário na avaliação",
+				isSelected: cardStop === "com-stop",
+			},
 		];
 		return {
 			cardKey: card.key,
-			name: card.name,
+			name: selected.name || card.name,
 			approvalOptions,
 			stopOptions,
 			fields: {
@@ -1014,7 +1199,13 @@ const buildOffersViewModel = () => {
 			})(),
 		};
 	});
-	return { tabs, cards, isExpanded: appState.isExpanded, isPrivate: planKey === "private" };
+	return {
+		tabs,
+		cards,
+		isExpanded: appState.isExpanded,
+		isPrivate: planKey === "private",
+		isPartnerSomos: window.location.pathname.includes("parceiros/somos"),
+	};
 };
 /* ===== Render + Listeners ===== */
 let offers = buildOffersViewModel();
@@ -1121,9 +1312,12 @@ function attachInteractiveHandlers() {
 		});
 	document.querySelectorAll(".approval-combobox").forEach((sel) => {
 		sel.addEventListener("change", (e) => {
-			const cardKey = e.target.closest(".offers-card")?.getAttribute("data-card-key");
+			const cardKey = e.target
+				.closest(".offers-card")
+				?.getAttribute("data-card-key");
 			if (cardKey) {
-				appState.selectedMinDaysPerCard[cardKey] = parseInt(e.target.value, 10) || 0;
+				appState.selectedMinDaysPerCard[cardKey] =
+					parseInt(e.target.value, 10) || 0;
 			}
 			/* REVERT: appState.selectedMinDays = parseInt(e.target.value, 10) || 0; */
 			reRenderOffers();
@@ -1131,7 +1325,9 @@ function attachInteractiveHandlers() {
 	});
 	document.querySelectorAll(".stop-combobox").forEach((sel) => {
 		sel.addEventListener("change", (e) => {
-			const cardKey = e.target.closest(".offers-card")?.getAttribute("data-card-key");
+			const cardKey = e.target
+				.closest(".offers-card")
+				?.getAttribute("data-card-key");
 			if (cardKey) {
 				appState.selectedStopPerCard[cardKey] = e.target.value;
 			}

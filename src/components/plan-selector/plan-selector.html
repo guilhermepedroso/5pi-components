@@ -24,6 +24,19 @@
                 </svg>
               </div>
             </a>
+            {{#if offers.isPartnerSomos}}
+            <a href="/" class="offers-header--button custom {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+              <div class="sup">Mentoria Trader</div>
+              <div class="flex items-center gap-2">
+                Contratar
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M11.9534 0.00391277C12.5057 0.004204 12.9532 0.452155 12.9529 1.00444L12.9481 10.0044C12.9478 10.5567 12.4999 11.0042 11.9476 11.0039C11.3953 11.0036 10.9478 10.5557 10.9481 10.0034L10.9523 2.00339L2.95235 1.99917C2.40006 1.99888 1.95258 1.55093 1.95287 0.998649C1.95316 0.446364 2.40111 -0.00111547 2.9534 -0.000824914L11.9534 0.00391277ZM0.706728 12.2382L-6.90224e-06 11.5307L11.2461 0.296434L11.9529 1.00391L12.6596 1.71139L1.41346 12.9457L0.706728 12.2382Z"
+                    fill="currentColor" />
+                </svg>
+              </div>
+            </a>
+            {{/if}}
           </div>
         </div>
         <div class="offers-header-small bg-[#000000] px-4 py-2 whitespace-nowrap flex overflow-x-auto">
@@ -50,7 +63,7 @@
             {{#each offers.cards}}
             <div class="swiper-slide w-full flex-shrink-0 offers-card bg-white rounded-[12px] p-4 lg:p-8"
               data-card-index="{{@index}}" data-card-key="{{cardKey}}">
-              <div class="font-bold text-2xl mb-3">
+              <div class="font-bold inline-flex items-center gap-1 {{#if ../offers.isPartnerSomos}}text-xl{{else}}text-2xl{{/if}} mb-3">
                 {{name}} <div
                   class="inline-flex ml-1 bg-[#EDDEBE] text-sm rounded-[20px] items-center gap-1 pr-1 font-semibold">
                   <img src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg" /> WIN E WDO

@@ -13,9 +13,11 @@
 		"indentStyle": "tab"
 	},
 	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true
+		"enabled": false
+	},
+	"css": {
+		"formatter": {
+			"enabled": true
 		}
 	},
 	"javascript": {
@@ -24,11 +26,6 @@
 		}
 	},
 	"assist": {
-		"enabled": true,
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
+		"enabled": false
 	}
 }

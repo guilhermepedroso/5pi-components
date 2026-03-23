@@ -156,7 +156,9 @@ window.addEventListener("DOMContentLoaded", () => {
 			sessionStorage.setItem(PARTNER_STORAGE_KEY, partnerPath);
 			return partnerPath;
 		}
-		const utmSource = new URLSearchParams(window.location.search).get("utm_source");
+		const utmSource = new URLSearchParams(window.location.search).get(
+			"utm_source",
+		);
 		if (utmSource) {
 			const slug = utmSource.replace(/_5pi?$/, "").replace(/_/g, "-");
 			const partnerPath = `/parceiros/${slug}`;
@@ -175,7 +177,10 @@ window.addEventListener("DOMContentLoaded", () => {
 	savePartnerFromCurrentUrl();
 
 	// Se estiver na home sem utm_source, remove o parceiro salvo para navegação normal
-	if (window.location.pathname === "/" && !new URLSearchParams(window.location.search).get("utm_source")) {
+	if (
+		window.location.pathname === "/" &&
+		!new URLSearchParams(window.location.search).get("utm_source")
+	) {
 		sessionStorage.removeItem(PARTNER_STORAGE_KEY);
 	}
 

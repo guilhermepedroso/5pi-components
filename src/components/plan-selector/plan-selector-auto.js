@@ -1023,7 +1023,7 @@ const appState = {
 /* ===== UTM Helpers ===== */
 function getPartnerUtmSource() {
 	const path = window.location.pathname;
-	const parceirosMatch = path.match(/^\/parceiros\/([^\/]+)/);
+	const parceirosMatch = path.match(/^\/parceiros\/([^/]+)/);
 	if (!parceirosMatch) return null;
 	const partnerName = parceirosMatch[1];
 	// Transforma hífens em underscores e adiciona _5p no final

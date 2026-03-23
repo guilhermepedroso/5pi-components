@@ -1,17 +1,17 @@
 .clients .client-group-overlay {
-  @apply opacity-60 md:opacity-0;
+	@apply opacity-60 md:opacity-0;
 }
 
 .clients .client-group-button {
-  @apply opacity-100 md:opacity-0;
+	@apply opacity-100 md:opacity-0;
 }
 
 .clients .card--hover .client-group-overlay {
-  @apply lg:opacity-100;
+	@apply lg:opacity-100;
 }
 
 .clients .card--hover .client-group-button {
-  @apply lg:opacity-100 z-50;
+	@apply lg:opacity-100 z-50;
 }
 
 /* 
