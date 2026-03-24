@@ -13,7 +13,7 @@
               {{title.text}}
             </button>
             {{/each}}
-            <a href="/" class="offers-header--button custom {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+            <a href="/monte-seu-plano" class="offers-header--button custom {{#if isActive}}active{{/if}}" data-plan="{{key}}">
               <div class="sup">Monte seu plano</div>
               <div class="flex items-center gap-2">
                 Personalizar
@@ -24,9 +24,9 @@
                 </svg>
               </div>
             </a>
-            {{#if offers.isPartnerSomos}}
-            <a href="/" class="offers-header--button custom {{#if isActive}}active{{/if}}" data-plan="{{key}}">
-              <div class="sup">Mentoria Trader</div>
+            {{#if offers.mentoria}}
+            <a href="{{offers.mentoria.url}}" target="_blank" class="offers-header--button custom {{#if isActive}}active{{/if}}" data-plan="{{key}}">
+              <div class="sup">{{offers.mentoria.label}}</div>
               <div class="flex items-center gap-2">
                 Contratar
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,7 @@
             {{#each offers.cards}}
             <div class="swiper-slide w-full flex-shrink-0 offers-card bg-white rounded-[12px] p-4 lg:p-8"
               data-card-index="{{@index}}" data-card-key="{{cardKey}}">
-              <div class="font-bold inline-flex items-center gap-1 {{#if ../offers.isPartnerSomos}}text-xl{{else}}text-2xl{{/if}} mb-3">
+              <div class="font-bold inline-flex items-center gap-1 {{#if ../offers.isPartner}}text-xl{{else}}text-2xl{{/if}} mb-3">
                 {{name}} <div
                   class="inline-flex ml-1 bg-[#EDDEBE] text-sm rounded-[20px] items-center gap-1 pr-1 font-semibold">
                   <img src="https://irp.cdn-website.com/a02461d5/icon/BR+-+EUA+2.svg" /> WIN E WDO
