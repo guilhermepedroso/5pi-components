@@ -146,6 +146,12 @@ window.addEventListener("DOMContentLoaded", () => {
 // PARCEIROS PERSISTENCE
 window.addEventListener("DOMContentLoaded", () => {
 	const PARTNER_STORAGE_KEY = "partnerUrl";
+	const IGNORED_UTM_SOURCES = new Set(["google", "facebook", "instagram"]);
+
+	const isIgnoredAdUtmSource = (raw) => {
+		if (raw == null || raw === "") return false;
+		return IGNORED_UTM_SOURCES.has(raw.trim().toLowerCase());
+	};
 
 	// Detecta se estamos em uma página de parceiro ou com utm_source e salva no sessionStorage
 	const savePartnerFromCurrentUrl = () => {
@@ -159,7 +165,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		const utmSource = new URLSearchParams(window.location.search).get(
 			"utm_source",
 		);
-		if (utmSource) {
+		if (utmSource && !isIgnoredAdUtmSource(utmSource)) {
 			const slug = utmSource.replace(/_5pi?$/, "").replace(/_/g, "-");
 			const partnerPath = `/parceiros/${slug}`;
 			sessionStorage.setItem(PARTNER_STORAGE_KEY, partnerPath);
@@ -176,10 +182,12 @@ window.addEventListener("DOMContentLoaded", () => {
 	// Salva o parceiro da URL atual, se houver
 	savePartnerFromCurrentUrl();
 
-	// Se estiver na home sem utm_source, remove o parceiro salvo para navegação normal
+	// Na home: sem utm_source ou com utm de anúncio (google/facebook/instagram), remove parceiro salvo
+	const homeSearch = new URLSearchParams(window.location.search);
+	const homeUtmSource = homeSearch.get("utm_source");
 	if (
 		window.location.pathname === "/" &&
-		!new URLSearchParams(window.location.search).get("utm_source")
+		(!homeUtmSource || isIgnoredAdUtmSource(homeUtmSource))
 	) {
 		sessionStorage.removeItem(PARTNER_STORAGE_KEY);
 	}
