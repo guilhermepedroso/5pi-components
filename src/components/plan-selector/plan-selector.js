@@ -103,7 +103,236 @@ const educacionalOverrides = [
   },
 ];
 
+/** Preços e checkout Stagliano (planilha Planos com Automação). Book 8k não existe em plansData. */
+const fabricioStaglianoMoney = (n) =>
+  `R$ ${Number(n).toLocaleString("pt-BR")}`;
+
+const fabricioStaglianoOverrides = [
+  /* starter */
+  {
+    plan: "starter",
+    card: "book-2k",
+    variant: "D10-SP",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(650) },
+      url: "https://checkout.5pi.com.br/pay/book-2k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "starter",
+    card: "book-2k",
+    variant: "D10-P60",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(650) },
+      url: "https://checkout.5pi.com.br/pay/book-2k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "starter",
+    card: "book-4k",
+    variant: "D10-SP",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(1140) },
+      url: "https://checkout.5pi.com.br/pay/book-4k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "starter",
+    card: "book-4k",
+    variant: "D10-P60",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(1140) },
+      url: "https://checkout.5pi.com.br/pay/book-4k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "starter",
+    card: "book-6k",
+    variant: "D10-SP",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(2150) },
+      url: "https://checkout.5pi.com.br/pay/book-6k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "starter",
+    card: "book-6k",
+    variant: "D10-P60",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(2150) },
+      url: "https://checkout.5pi.com.br/pay/book-6k-prazo-60-dias-stagliano",
+    },
+  },
+  /* plus */
+  {
+    plan: "plus",
+    card: "book-10k",
+    variant: "D10-SP",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(3500) },
+      url: "https://checkout.5pi.com.br/pay/book-10k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "plus",
+    card: "book-10k",
+    variant: "D10-P60",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(3500) },
+      url: "https://checkout.5pi.com.br/pay/book-10k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "plus",
+    card: "book-15k",
+    variant: "D10-SP",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(4750) },
+      url: "https://checkout.5pi.com.br/pay/book-15k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "plus",
+    card: "book-15k",
+    variant: "D10-P60",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(4750) },
+      url: "https://checkout.5pi.com.br/pay/book-15k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "plus",
+    card: "book-18k",
+    variant: "D10-SP",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(5430) },
+      url: "https://checkout.5pi.com.br/pay/book-18k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "plus",
+    card: "book-18k",
+    variant: "D10-P60",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(5430) },
+      url: "https://checkout.5pi.com.br/pay/book-18k-prazo-60-dias-stagliano",
+    },
+  },
+  /* private (variantes com sufixo -CS / -SS) */
+  {
+    plan: "private",
+    card: "book-25k",
+    variant: "D10-SP-CS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(7575) },
+      url: "https://checkout.5pi.com.br/pay/book-25k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-25k",
+    variant: "D10-SP-SS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(7575) },
+      url: "https://checkout.5pi.com.br/pay/book-25k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-25k",
+    variant: "D10-P60-CS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(7575) },
+      url: "https://checkout.5pi.com.br/pay/book-25k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-25k",
+    variant: "D10-P60-SS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(7575) },
+      url: "https://checkout.5pi.com.br/pay/book-25k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-30k",
+    variant: "D10-SP-CS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(9900) },
+      url: "https://checkout.5pi.com.br/pay/book-30k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-30k",
+    variant: "D10-SP-SS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(9900) },
+      url: "https://checkout.5pi.com.br/pay/book-30k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-30k",
+    variant: "D10-P60-CS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(9900) },
+      url: "https://checkout.5pi.com.br/pay/book-30k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-30k",
+    variant: "D10-P60-SS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(9900) },
+      url: "https://checkout.5pi.com.br/pay/book-30k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-50k",
+    variant: "D10-SP-CS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(17000) },
+      url: "https://checkout.5pi.com.br/pay/book-50k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-50k",
+    variant: "D10-SP-SS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(17000) },
+      url: "https://checkout.5pi.com.br/pay/book-50k-sem-prazo-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-50k",
+    variant: "D10-P60-CS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(17000) },
+      url: "https://checkout.5pi.com.br/pay/book-50k-prazo-60-dias-stagliano",
+    },
+  },
+  {
+    plan: "private",
+    card: "book-50k",
+    variant: "D10-P60-SS",
+    patch: {
+      pricing: { price: fabricioStaglianoMoney(17000) },
+      url: "https://checkout.5pi.com.br/pay/book-50k-prazo-60-dias-stagliano",
+    },
+  },
+];
+
 const partnerConfig = {
+  "parceiros/fabricio-stagliano": {
+    overrides: fabricioStaglianoOverrides,
+  },
   "parceiros/somos": {
     overrides: educacionalOverrides,
     mentoria: {
